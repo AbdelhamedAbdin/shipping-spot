@@ -1,0 +1,26 @@
+<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+  <!-- Navbar -->
+  <app-navbar [user_request]="userRequest()" [navbar_icons]="svg_icon"></app-navbar>
+  <!-- Sidebar -->
+  <div *ngIf="userRequest().is_authenticated">
+    <app-sidebar [user_request]="userRequest()" [sidebar_icon]="svg_icon"></app-sidebar>
+  </div>
+
+  <!-- Page-Wrapper -->
+  <div class="page-wrapper">
+    <!-- Breadcrumb -->
+    <div *ngIf="(userRequest().is_authenticated) && (hasRoute('/profile'))">
+      <app-breadcrumb [user_request]="userRequest()" [breadcrumb_icon]="svg_icon"></app-breadcrumb>
+    </div>
+      <div *ngIf="(userRequest().is_authenticated) && (hasRoute('/profile'))">
+        <app-profile [user_request]="userRequest()"></app-profile>
+      </div>
+  </div>
+
+</div>
+
+<!-- Login page: Start Page Out of main-wrapper -->
+<div *ngIf="userRequest().is_authenticated === false">
+  <app-login *ngIf="hasRoute('/')"></app-login>
+  <app-register *ngIf="hasRoute('/signup')"></app-register>
+</div>

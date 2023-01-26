@@ -1,0 +1,47 @@
+<div class="client mt-3">
+  <div class="container-fluid">
+      <!-- RFQ Groups Section -->
+      <div class="row">
+          <!-- RFQ Group -->
+          <div (click)="RFQDetails($event)" [class.col-lg-12]="related_rfqs.length === 0" class="col-md-12 col-lg-8 col-sm-12">
+              <div class="card white-box p-0">
+                  <div class="card-body">
+                      <h3 class="box-title mb-0">RFQ Groups</h3>
+                  </div>
+                  <div class="comment-widgets">
+                      <!-- Comment Row -->
+                      <div *ngFor="let group of rfq_group" class="d-flex flex-row comment-row p-3 mt-0">
+                          <div class="comment-text ps-2 ps-md-3 w-100">
+                              <h5 class="font-medium">{{ group.title }}</h5>
+                              <div class="comment-footer d-md-flex align-items-center">
+                                   <span class="badge bg-primary rounded">Pending</span>
+                                   <div class="group-id d-none" [attr.data-pk]="group.id"></div>
+                                  <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- RFQ List -->
+          <div *ngIf="related_rfqs.length !== 0" class="col-lg-4 col-md-12 col-sm-12">
+              <div class="card white-box p-0">
+                  <div (click)="resetRFQDetails()" id="close-rfq">X</div>
+                  <div class="card-heading">
+                      <h3 class="box-title mb-0">RFQ List</h3>
+                  </div>
+                  <div class="card-body">
+                      <ul class="chatonline">
+                          <li *ngFor="let rfq of related_rfqs">
+                            <div class="ms-2">
+                                <h4 class="text-dark">{{ rfq.service_type }}</h4>
+                                <span class="text-dark">{{ rfq.request_title }}</span>
+                            </div>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

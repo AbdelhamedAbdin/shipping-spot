@@ -1,0 +1,16 @@
+.navbar-header {
+    background-color: #2F323E !important;
+}
+.navbar-dark .nav-toggler {
+    position: absolute;
+    right: 0;
+    padding: 20px;
+    z-index: 99;
+    color: #fff !important;
+}
+@media (max-width: 767px) {
+  .topbar .top-navbar .navbar-nav {
+    flex-direction: row-reverse !important;
+    margin: -55px 0 !important;
+  }
+}

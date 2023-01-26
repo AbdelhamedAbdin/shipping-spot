@@ -1,0 +1,10 @@
+<!-- Global Profile Data -->
+<div *ngIf="this.user_request.user_data.UserType === 'provider'">
+  <!-- TODO: app-provider -->
+  <div>Provider Profile</div>
+</div>
+
+<div *ngIf="this.user_request.user_data.UserType === 'client'">
+  <!-- TODO: app-client -->
+  <app-client></app-client>
+</div>

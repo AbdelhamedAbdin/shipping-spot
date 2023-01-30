@@ -2,8 +2,10 @@
 import { AuthService } from '../../../services/auth.service';
 // Built-in Angular Apps
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { DataStorageName } from '../../app.component'
+import {NavigationEnd, Router} from "@angular/router";
+import { DataStorageName, AppComponent } from '../../app.component'
+import { OutletReader } from "../../../utils";
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -15,10 +17,21 @@ import { DataStorageName } from '../../app.component'
 export class LoginComponent implements OnInit{
   error_login: boolean = false;
   invalid_login: string = "";
+  resolver: any;
+  app_component: any;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private location: Location) {
+    this.resolver = new OutletReader(this.router);
+    this.app_component = new AppComponent(this.router, this.authService);
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.resolver.navigateTo("login", this.location.path(),this.app_component.is_authenticated, "profile");
+  }
+
+  // getUrl(path: string) {
+  //   return new OutletReader(this.router).ResolverURL(path);
+  // }
 
   login(login: {username: string, password: string})
   {
@@ -50,7 +63,8 @@ export class LoginComponent implements OnInit{
         this.invalid_login = "Username or Password are invalid"
         return;
       }
-      this.router.navigate(['/profile']);
+      // this.router.navigate([this.getUrl('profile')]);
+      this.router.navigateByUrl(this.resolver.ResolverURL("profile", false));
     });
   }
 }

@@ -10,12 +10,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from "./Auth/register/register.component";
 import { ProfileComponent } from './Account/profile.component';
-import { TestComponent } from "./DataCompTest/data.component";
 import { NavbarComponent } from './Base/navbar/navbar.component';
 import { SidebarComponent } from "./Base/sidebar/sidebar.component";
 import { BreadcrumbComponent } from "./Base/breadcrumb/breadcrumb.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {ClientComponent} from "./Client/client.component";
+import { ClientComponent } from "./Client/client.component";
 
 
 @NgModule({
@@ -26,8 +25,6 @@ import {ClientComponent} from "./Client/client.component";
     RegisterComponent,
     // Account Component
     ProfileComponent,
-    // Test View
-    TestComponent,
     // Base Component
     NavbarComponent,
     SidebarComponent,

@@ -1,7 +1,9 @@
 // ShippingSpot Services
 import { AuthService } from "../services/auth.service";
+// ShippingSpot Other Files
+import { OutletReader, pathName } from '../utils';
 // Built-in Angular Apps
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import * as svg_icons from "@fortawesome/free-solid-svg-icons";
 import { filter } from 'rxjs/operators';
@@ -22,14 +24,14 @@ export class AppComponent implements OnInit {
   originData: any = {};
   svg_icon: any;
   currentRouter: any;
+  get_url_name: any;
 
-  constructor(private router: Router,
-              public authService: AuthService,
-              private elementRef: ElementRef)
+  constructor(private router: Router, public authService: AuthService)
   {
     this.authService.$isLoggedIn.subscribe(auth => {this.is_authenticated = auth});
     this.token = localStorage.getItem(DataStorageName);
     this.svg_icon = svg_icons;
+    this.get_url_name = new OutletReader(router);
   }
 
   ngOnInit(): void {
@@ -63,11 +65,13 @@ export class AppComponent implements OnInit {
     })
   }
 
-  hasRoute(router: string): boolean {
-    return this.currentRouter === router;
+  routeName(name: string): any {
+    let path_name = new pathName(this.router).resolve(this.currentRouter, name);
+    return path_name;
   }
 
-  userRequest() {
+  userRequest()
+  {
     return {
       is_authenticated: this.is_authenticated,
       user_data: this.originData

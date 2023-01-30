@@ -3,24 +3,19 @@
   <app-navbar [user_request]="userRequest()" [navbar_icons]="svg_icon"></app-navbar>
   <!-- Sidebar -->
   <div *ngIf="userRequest().is_authenticated">
-    <app-sidebar [user_request]="userRequest()" [sidebar_icon]="svg_icon"></app-sidebar>
+    <app-sidebar *ngIf="is_authenticated === true" [user_request]="userRequest()" [sidebar_icon]="svg_icon"></app-sidebar>
   </div>
 
   <!-- Page-Wrapper -->
   <div class="page-wrapper">
     <!-- Breadcrumb -->
-    <div *ngIf="(userRequest().is_authenticated) && (hasRoute('/profile'))">
-      <app-breadcrumb [user_request]="userRequest()" [breadcrumb_icon]="svg_icon"></app-breadcrumb>
-    </div>
-      <div *ngIf="(userRequest().is_authenticated) && (hasRoute('/profile'))">
-        <app-profile [user_request]="userRequest()"></app-profile>
-      </div>
+    <app-breadcrumb *ngIf="is_authenticated === true" [user_request]="userRequest()" [breadcrumb_icon]="svg_icon"></app-breadcrumb>
+    <router-outlet  *ngIf="routeName('profile')"></router-outlet>
   </div>
-
 </div>
 
 <!-- Login page: Start Page Out of main-wrapper -->
-<div *ngIf="userRequest().is_authenticated === false">
-  <app-login *ngIf="hasRoute('/')"></app-login>
-  <app-register *ngIf="hasRoute('/signup')"></app-register>
+<div>
+  <router-outlet *ngIf="routeName('login')" name="login"></router-outlet>
+  <router-outlet *ngIf="routeName('register')" name="register"></router-outlet>
 </div>

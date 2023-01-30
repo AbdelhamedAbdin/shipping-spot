@@ -33,7 +33,7 @@ export class CRMRecordsService extends CRMBridgeService{
     this.crmMethod = "GET";
     this.crmBody = "";
     this.UpdatePostData();
-    this.DataSync();
+    return this.DataSync();
   }
   NewRecord(data:any)
   {
@@ -99,10 +99,9 @@ export class CRMRecordsService extends CRMBridgeService{
     {
       res = this.httpClientRecords.delete(this.URL);
     }
-    // change: add return
-    res.subscribe((response:any)=>{
-      // change: add return
-      this.Data.next(response["data"]);
-    })
+    return res;
+    // res.subscribe((response:any)=>{
+    //   this.Data.next(response["data"]);
+    // })
   }
 }

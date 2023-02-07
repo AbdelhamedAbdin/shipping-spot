@@ -1,0 +1,58 @@
+[debug] [2023-02-03T13:56:16.234Z] : 
+[debug] [2023-02-03T13:56:16.236Z] : ----------------------------------------------------------------------
+[debug] [2023-02-03T13:56:16.237Z] : Command:      /home/medoabdin/.nvm/versions/node/v18.12.1/bin/node /usr/bin/catalyst serve
+[debug] [2023-02-03T13:56:16.238Z] : CLI Version:  1.13.3
+[debug] [2023-02-03T13:56:16.238Z] : Platform:     linux
+[debug] [2023-02-03T13:56:16.239Z] : Node Version: v18.12.1
+[debug] [2023-02-03T13:56:16.240Z] : Time:         Fri Feb 03 2023 15:56:16 GMT+0200 (Eastern European Standard Time)
+[debug] [2023-02-03T13:56:16.240Z] : ----------------------------------------------------------------------
+[debug] [2023-02-03T13:56:16.241Z] : 
+[debug] [2023-02-03T13:56:17.008Z] : > authorizing via signed-in user option
+[debug] [2023-02-03T13:56:17.009Z] : > command requires scopes: ["ZohoCatalyst.projects.ALL","ZohoCatalyst.functions.ALL","ZohoCatalyst.functions.EXECUTE","ZohoCatalyst.webapp.ALL"]
+[debug] [2023-02-03T13:56:17.039Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.com/baas/v1/project/13095000000003013 
+
+[debug] [2023-02-03T13:56:17.941Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Fri, 03 Feb 2023 13:56:18 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"close","set-cookie":["46512fd555=ba2a1b22f2a5e14b0d2647f7e38884fc; Path=/","ZD_CSRF_TOKEN=375405ac-8e14-4850-9123-00a928a3a725;path=/;SameSite=None;Secure;priority=high","_zcsr_tmp=375405ac-8e14-4850-9123-00a928a3a725;path=/;SameSite=Strict;Secure;priority=high"],"x-content-type-options":"nosniff","x-xss-protection":"1","pragma":"no-cache","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=63072000"}
+
+[debug] [2023-02-03T13:56:17.947Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.com/baas/v1/project/13095000000003013/environment 
+
+[debug] [2023-02-03T13:56:18.793Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Fri, 03 Feb 2023 13:56:19 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"close","set-cookie":["46512fd555=04d9a2d1e2e86744f9516a3e9f805f56; Path=/","ZD_CSRF_TOKEN=447edd31-9b6f-454b-ae1c-4a15cd533990;path=/;SameSite=None;Secure;priority=high","_zcsr_tmp=447edd31-9b6f-454b-ae1c-4a15cd533990;path=/;SameSite=Strict;Secure;priority=high"],"x-content-type-options":"nosniff","x-xss-protection":"1","pragma":"no-cache","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=63072000"}
+
+[info] [2023-02-03T13:56:20.436Z] : ℹ client[shipping-portal]: Plugin : "zcatalyst-cli-plugin-angular" is used for client serve
+[debug] [2023-02-03T13:56:20.695Z] : No basic functions to add
+[info] [2023-02-03T13:56:26.939Z] : [Angular-plugin]: NOTICE: Hot Module Replacement (HMR) is enabled for the dev server.
+[Angular-plugin]: See https://webpack.js.org/guides/hot-module-replacement for information on working with HMR for Webpack.
+[info] [2023-02-03T13:56:30.298Z] : [Angular-plugin]:     TypeScript compiler options "target" and "useDefineForClassFields" are set to "ES2022" and "false" respectively by the Angular CLI. To control ECMA version and features use the Browerslist configuration. For more information, see https://angular.io/guide/build#configuring-browser-compatibility
+[info] [2023-02-03T13:56:43.643Z] : [Angular-plugin]: 
+[Angular-plugin]: Initial Chunk Files   | Names         |  Raw Size
+[Angular-plugin]: vendor.js             | vendor        |   3.96 MB | 
+[Angular-plugin]: polyfills.js          | polyfills     | 321.04 kB | 
+[Angular-plugin]: styles.css, styles.js | styles        | 220.08 kB | 
+[Angular-plugin]: main.js               | main          | 108.85 kB | 
+[Angular-plugin]: runtime.js            | runtime       |  48.11 kB | 
+[Angular-plugin]: 
+[Angular-plugin]:                       | Initial Total |   4.64 MB
+[Angular-plugin]: 
+[Angular-plugin]: Build at: 2023-02-03T13:56:43.559Z - Hash: 417f60bf3b6856cd - Time: 11907ms
+[info] [2023-02-03T13:56:43.645Z] : [Angular-plugin]: 
+[Angular-plugin]: ** Angular Live Development Server is listening on localhost:3030, open your browser on http://localhost:3030/app **
+[Angular-plugin]: 
+[info] [2023-02-03T13:56:43.646Z] : [Angular-plugin]: 
+[Angular-plugin]: ✔ Compiled successfully.
+[info] [2023-02-03T13:56:43.780Z] : [Angular-plugin]: Please visit this url to access shipping-portal: http://localhost:3000/app/
+[debug] [2023-02-03T13:56:45.649Z] : proxy closed
+[info] [2023-02-03T14:01:01.801Z] : Shutting down server
+[debug] [2023-02-03T14:01:01.804Z] : proxy closed
+[debug] [2023-02-03T14:01:01.805Z] : proxy closed
+[info] [2023-02-03T14:01:01.806Z] : 
+[info] [2023-02-03T14:01:01.806Z] : ✔ Shutdown complete
+[debug] [2023-02-03T14:01:01.807Z] : NO ERRORS REGISTERED
+[debug] [2023-02-03T14:01:01.808Z] : EXEC ENDED with event: serve, message: success
+[debug] [2023-02-03T14:01:01.808Z] : TOTAL DURATION OF COMMAND EXEC : 284830
+[debug] [2023-02-03T14:01:01.824Z] : >>>> HTTP REQUEST : POST https://api.catalyst.zoho.com/baas/v1/cli/logs 
+<request body omitted>
+
+[debug] [2023-02-03T14:01:02.737Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Fri, 03 Feb 2023 14:01:03 GMT","content-length":"0","connection":"close","set-cookie":["46512fd555=bbdfb771565421abbe10f7a180903d28; Path=/","ZD_CSRF_TOKEN=0c2e2fc4-520f-4875-8965-87679f6a7afa;path=/;SameSite=None;Secure;priority=high","_zcsr_tmp=0c2e2fc4-520f-4875-8965-87679f6a7afa;path=/;SameSite=Strict;Secure;priority=high"],"x-content-type-options":"nosniff","x-xss-protection":"1","pragma":"no-cache","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=63072000"}
+

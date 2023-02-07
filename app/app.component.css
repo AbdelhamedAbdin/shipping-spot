@@ -1,0 +1,21 @@
+.app-header__logo {
+  overflow: hidden;
+}
+.caret-left {
+  text-align: center;
+  width: 34px;
+  height: 34px;
+  line-height: 36px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -17px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  opacity: 0.7;
+  transition: all .3s ease-in-out;
+  rotate: 0deg;
+}
+.transform-caret-left {
+  rotate: 90deg;
+}

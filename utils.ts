@@ -4,6 +4,7 @@ import {routes} from "./app/app-routing.module";
 export class OutletReader {
   constructor(private router: Router) {}
 
+  // Update Routes config to a name property
   UpdateOutletConfig(base: boolean = true) {
     let Routes = routes;
 
@@ -36,7 +37,8 @@ export class OutletReader {
   }
 
   // Get full pathName by outlet-name or raise an error
-  ResolverURL(name: any, base: boolean = true) {
+  ResolverURL(name: any, base: boolean = true)
+  {
     let currentRoutes = this.UpdateOutletConfig(base);
     let route_name = null;
 
@@ -55,25 +57,29 @@ export class OutletReader {
     }
   }
 
+  // Show the view or Eliminated it
   hasRoute(currentRouter: string, name: string): boolean
   {
     return "/app" + currentRouter === this.ResolverURL(name);
   }
 
-  navigateTo(resolver_path: string, location: string, is_auth: boolean, nav_to: string) {
-      const resolver = this.ResolverURL(resolver_path); // path
-      const current_location = location; // current location
+  // Eliminate the user from resolver_path to nav_to if is_auth
+  navigateTo(resolver_path: string, location: string, is_auth: boolean, nav_to: string)
+  {
+    const resolver = this.ResolverURL(resolver_path); // e.g path:login -> /app/(login:login)
+    const current_location = location; // current location e.g -> /
 
-      if (resolver === "/app" + current_location && is_auth) {
-        this.router.navigateByUrl(this.ResolverURL(nav_to, false));
-      }
+    if (resolver === "/app" + current_location && is_auth) {
+      this.router.navigateByUrl(this.ResolverURL(nav_to, false));
     }
+  }
 }
 
-export class pathName extends OutletReader {
+export class pathNameValidation extends OutletReader {
   constructor(private routers: Router) {
     super(routers);
   }
+
   // Apply the ResolverURL logic
   resolve(current_route: string, name: string) {
     return this.hasRoute(current_route, name);

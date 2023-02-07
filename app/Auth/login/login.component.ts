@@ -6,6 +6,7 @@ import {NavigationEnd, Router} from "@angular/router";
 import { DataStorageName, AppComponent } from '../../app.component'
 import { OutletReader } from "../../../utils";
 import { Location } from '@angular/common';
+import {ContactsService} from "../../../services/CRMModules/Contacts";
 
 
 @Component({
@@ -19,19 +20,25 @@ export class LoginComponent implements OnInit{
   invalid_login: string = "";
   resolver: any;
   app_component: any;
+  user_payloads: any;
 
-  constructor(private authService: AuthService, private router: Router, private location: Location) {
+  constructor(private authService: AuthService, private router: Router,
+              private location: Location, private contactsService: ContactsService)
+  {
     this.resolver = new OutletReader(this.router);
-    this.app_component = new AppComponent(this.router, this.authService);
+    // @ts-ignore
+    this.app_component = new AppComponent(this.router, this.authService, this.contactsService);
   }
 
   ngOnInit() {
-    this.resolver.navigateTo("login", this.location.path(),this.app_component.is_authenticated, "profile");
+    this.resolver.navigateTo(
+      "login",
+      this.location.path(),
+      this.app_component.is_authenticated,
+      "profile"
+    );
+    console.log("this is loggin path");
   }
-
-  // getUrl(path: string) {
-  //   return new OutletReader(this.router).ResolverURL(path);
-  // }
 
   login(login: {username: string, password: string})
   {
@@ -44,7 +51,6 @@ export class LoginComponent implements OnInit{
       if (res.accessToken)
       {
         // store data token
-        console.log(Object.keys(res.accessToken).length === 0);
         if (Object.keys(res.accessToken).length === 0)
         {
           this.error_login = true;
@@ -53,6 +59,8 @@ export class LoginComponent implements OnInit{
         {
           this.authService.isLoggedInAuth(true);
           localStorage.setItem(DataStorageName, res.accessToken);
+          localStorage.setItem("user_payloads", JSON.stringify(res.user));
+          this.user_payloads = res.user;
         }
       }
     }, error => {
@@ -63,8 +71,7 @@ export class LoginComponent implements OnInit{
         this.invalid_login = "Username or Password are invalid"
         return;
       }
-      // this.router.navigate([this.getUrl('profile')]);
-      this.router.navigateByUrl(this.resolver.ResolverURL("profile", false));
+      this.router.navigateByUrl(this.resolver.ResolverURL(this.user_payloads.UserType, false));
     });
   }
 }

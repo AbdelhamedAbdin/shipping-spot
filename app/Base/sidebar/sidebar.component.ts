@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
+import {OutletReader} from "../../../utils";
 
 @Component({
   selector: 'app-sidebar',
@@ -13,19 +14,20 @@ export class SidebarComponent implements OnInit {
   @Input() hasRoute: any;
   @Input() sidebar_icon: any;
   router: any;
+  resolver: any;
 
 
   constructor(private elementRef: ElementRef,
               private authService: AuthService) {
     this.router = new Router();
+    this.resolver = new OutletReader(this.router);
   }
 
   logout()
   {
     localStorage.clear()
-    console.log("logged out");
     this.authService.isLoggedInAuth(false);
-    this.router.navigate(["/"]);
+    this.router.navigateByUrl(this.resolver.ResolverURL("login", false));
   }
 
   toggleNavbar() {

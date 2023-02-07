@@ -4,142 +4,74 @@
   </div>
 </div>
 
-<!--<form #registerForm="ngForm" class="p-4" (ngSubmit)="register(registerForm.value)">-->
-<!--  <div class="form-group">-->
-<!--    <label for="register-email">Email Address</label>-->
-<!--    <input #email="ngModel" [class.is-invalid]="email.invalid && email.touched" required autocomplete="off" type="email" class="form-control" id="register-email" placeholder="email@example.com" name="Email" ngModel>-->
-<!--    <div *ngIf="email.errors">-->
-<!--      <small class="d-none text-danger" [class.d-block]="email.errors.required && email.touched">Email is required</small>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="form-group">-->
-<!--    <label for="register-password">Password</label>-->
-<!--    <input #password="ngModel" required autocomplete="off" [class.is-invalid]="password.invalid && password.touched" type="password" class="form-control" id="register-password" placeholder="Password" name="Password" ngModel>-->
-<!--    <div *ngIf="password.errors">-->
-<!--      <small class="d-none text-danger" [class.d-block]="password.errors.required && password.touched">Password is required</small>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="form-group">-->
-<!--    <label for="register-first-name">First Name</label>-->
-<!--    <input #f_name="ngModel" required autocomplete="off" [class.is-invalid]="f_name.invalid && f_name.touched" type="text" class="form-control" id="register-first-name" placeholder="First name" name="First_Name" ngModel>-->
-<!--    <div *ngIf="f_name.errors">-->
-<!--      <small class="d-none text-danger" [class.d-block]="f_name.errors.required && f_name.touched">First Name is required</small>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="form-group">-->
-<!--    <label for="register-full-name">Middle Name</label>-->
-<!--    <input required #mid_name="ngModel" autocomplete="off" [class.is-invalid]="mid_name.invalid && mid_name.touched" type="text" class="form-control" id="register-full-name" placeholder="Middle name" name="Full_Name" ngModel>-->
-<!--    <div *ngIf="mid_name.errors">-->
-<!--      <small class="d-none text-danger" [class.d-block]="mid_name.errors.required && mid_name.touched">First Name is required</small>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="form-group">-->
-<!--    <label for="register-last-name">Last Name</label>-->
-<!--    <input #l_name="ngModel" required autocomplete="off" [class.is-invalid]="l_name.invalid && l_name.touched" type="text" class="form-control" id="register-last-name" placeholder="Last name" name="Last_Name" ngModel>-->
-<!--    <div *ngIf="l_name.errors">-->
-<!--      <small class="d-none text-danger" [class.d-block]="l_name.errors.required && l_name.touched">Last Name is required</small>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="form-group">-->
-<!--    <label for="register-phone">Phone Number</label>-->
-<!--    <input autocomplete="off" type="tel" class="form-control" id="register-phone" placeholder="Phone number" name="Phone" ngModel>-->
-<!--  </div>-->
-<!--  <div class="form-group">-->
-<!--    <label for="register-account">Account Name</label>-->
-<!--    <input #acc="ngModel" required autocomplete="off" [class.is-invalid]="acc.invalid && acc.touched" type="text" class="form-control" id="register-account" placeholder="Account name" name="Account_Name" ngModel>-->
-<!--    <div *ngIf="acc.errors">-->
-<!--      <small class="d-none text-danger" [class.d-block]="acc.errors.required && acc.touched">Account Name is required</small>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="form-group">-->
-<!--    <label for="register-userRole">User Role:</label>-->
-<!--    <select [(ngModel)]="this.selectedRole" name="userType" id="register-userRole" class="form-control" ngModel>-->
-<!--      <option [ngValue]="role.option" *ngFor="let role of roles">{{ role.option }}</option>-->
-<!--    </select>-->
-<!--  </div>-->
-<!--  <button type="submit" class="btn btn-primary">Create Account!</button>-->
-<!--</form>-->
-
-
-<div class="form_wrapper">
-  <div class="form_container">
-    <div class="title_container">
-      <h2>Create an Account</h2>
+<div class="register">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="greeting mt-4 mb-2 ml-4">
+        <h3>Create a new account</h3>
+      </div>
+      <form #registerForm="ngForm" class="p-4" (ngSubmit)="register(registerForm.value)">
+        <div class="form-group">
+          <input #email="ngModel" [class.is-invalid]="email.invalid && email.touched" required autocomplete="off" type="email" class="form-control" id="register-email" placeholder="email@example.com" name="Email" ngModel>
+          <div *ngIf="email.errors">
+            <small class="d-none text-danger err-msg" [class.d-block]="email.errors.required && email.touched">Email is required</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <input #password="ngModel" required autocomplete="off" [class.is-invalid]="password.invalid && password.touched" type="password" class="form-control" id="register-password" placeholder="Password" name="Password" ngModel>
+          <div *ngIf="password.errors">
+            <small class="d-none text-danger err-msg" [class.d-block]="password.errors.required && password.touched">Password is required</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <input #f_name="ngModel" required autocomplete="off" [class.is-invalid]="f_name.invalid && f_name.touched" type="text" class="form-control" id="register-first-name" placeholder="First name" name="First_Name" ngModel>
+          <div *ngIf="f_name.errors">
+            <small class="d-none text-danger err-msg" [class.d-block]="f_name.errors.required && f_name.touched">First Name is required</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <input required #mid_name="ngModel" autocomplete="off" [class.is-invalid]="mid_name.invalid && mid_name.touched" type="text" class="form-control" id="register-full-name" placeholder="Middle name" name="Full_Name" ngModel>
+          <div *ngIf="mid_name.errors">
+            <small class="d-none text-danger err-msg" [class.d-block]="mid_name.errors.required && mid_name.touched">First Name is required</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <input #l_name="ngModel" required autocomplete="off" [class.is-invalid]="l_name.invalid && l_name.touched" type="text" class="form-control" id="register-last-name" placeholder="Last name" name="Last_Name" ngModel>
+          <div *ngIf="l_name.errors">
+            <small class="d-none text-danger err-msg" [class.d-block]="l_name.errors.required && l_name.touched">Last Name is required</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <input autocomplete="off" type="tel" class="form-control" id="register-phone" placeholder="Phone number" name="Phone" ngModel>
+        </div>
+        <div class="form-group">
+          <input #acc="ngModel" required autocomplete="off" [class.is-invalid]="acc.invalid && acc.touched" type="text" class="form-control" id="register-account" placeholder="Account name" name="Account_Name" ngModel>
+          <div *ngIf="acc.errors">
+            <small class="d-none text-danger err-msg" [class.d-block]="acc.errors.required && acc.touched">Account Name is required</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="register-userRole">User Role</label>
+          <select [(ngModel)]="this.selectedRole" name="userType" id="register-userRole" class="form-control" ngModel>
+            <option [ngValue]="role.option" *ngFor="let role of roles">{{ role.option }}</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Create Account!</button>
+      </form>
     </div>
-    <div class="row clearfix">
-      <div class="">
-        <form #registerForm="ngForm" class="p-4" (ngSubmit)="register(registerForm.value)">
-          <div class="input_field">
-            <span>
-              <i aria-hidden="true" class="fa fa-envelope"></i>
-            </span>
-            <input #email="ngModel" [class.is-invalid]="email.invalid && email.touched" required autocomplete="off" type="email" class="form-control" id="register-email" placeholder="email@example.com" name="Email" ngModel />
-            <!-- Email error -->
-            <div *ngIf="email.errors">
-              <small class="d-none text-danger" [class.d-block]="email.errors.required && email.touched">Email is required</small>
-            </div>
+    <div class="col-md-6">
+      <div class="register-image">
+        <div class="row">
+          <div class="col-12">
+            <a href="{{ this.resolver.ResolverURL('login') }}">
+              <img src="assets/images/shipping-spot2.png">
+            </a>
           </div>
-
-          <div class="input_field">
-            <span>
-              <i aria-hidden="true" class="fa fa-lock"></i>
-            </span>
-            <input #password="ngModel" required autocomplete="off" [class.is-invalid]="password.invalid && password.touched" type="password" class="form-control" id="register-password" placeholder="Password" name="Password" ngModel>
-            <!-- Password Error -->
-            <div *ngIf="password.errors">
-              <small class="d-none text-danger" [class.d-block]="password.errors.required && password.touched">Password is required</small>
-            </div>
+          <div class="col-12">
+            <img src="assets/images/start-your-bussines.svg">
           </div>
-
-          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-            <input #password="ngModel" required autocomplete="off" [class.is-invalid]="password.invalid && password.touched" type="password" class="form-control" id="confirm-password" placeholder="Password" name="Password" ngModel>
-          </div>
-
-          <div class="row clearfix">
-            <div class="col_half">
-              <div class="input_field">
-                <span>
-                  <i aria-hidden="true" class="fa fa-user"></i>
-                </span>
-                <input type="text" name="name" placeholder="First Name" />
-              </div>
-            </div>
-
-            <div class="col_half">
-              <div class="input_field">
-                <span>
-                  <i aria-hidden="true" class="fa fa-user"></i>
-                </span>
-                <input type="text" name="name" placeholder="Last Name" required />
-              </div>
-            </div>
-          </div>
-            	<div class="input_field radio_option">
-              <input type="radio" name="radiogroup1" id="rd1">
-              <label for="rd1">Male</label>
-              <input type="radio" name="radiogroup1" id="rd2">
-              <label for="rd2">Female</label>
-              </div>
-              <div class="input_field select_option">
-                <select>
-                  <option>Select a country</option>
-                  <option>Option 1</option>
-                  <option>Option 2</option>
-                </select>
-                <div class="select_arrow"></div>
-              </div>
-            <div class="input_field checkbox_option">
-            	<input type="checkbox" id="cb1">
-    			<label for="cb1">I agree with terms and conditions</label>
-            </div>
-            <div class="input_field checkbox_option">
-            	<input type="checkbox" id="cb2">
-    			<label for="cb2">I want to receive the newsletter</label>
-            </div>
-          <input class="button" type="submit" value="Register" />
-        </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
-

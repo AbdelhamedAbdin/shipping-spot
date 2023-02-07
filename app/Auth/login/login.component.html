@@ -7,20 +7,25 @@
     </div>
     <div class="row">
       <div class="col-lg-6 login-form">
+        <div class="shipping-logo mt-3 mb-3">
+          <div class="logo">
+            <a href="{{ this.resolver.ResolverURL('login') }}">
+              <img src="assets/images/shipping-spot-banner.png">
+            </a>
+          </div>
+        </div>
         <form #loginForm="ngForm" class="p-4" (ngSubmit)="login(loginForm.value)">
           <div class="form-group">
-            <label for="login-email">Email address</label>
             <input autocomplete="off" type="email" class="form-control" id="login-email" placeholder="email@example.com" name="username" ngModel>
           </div>
           <div class="form-group">
-            <label for="login-password">Password</label>
             <input autocomplete="off" type="password" class="form-control" id="login-password" placeholder="Password" name="password" ngModel>
           </div>
-          <div class="form-group logging-options">
-            <a class="forget-password" href="">Forget Password?</a>
-            <a class="register" href="{{ this.resolver.ResolverURL('register') }}">Create New Account</a>
-          </div>
           <button type="submit" class="btn btn-primary">Sign in</button>
+          <div class="form-group logging-options">
+            <a class="register" href="{{ this.resolver.ResolverURL('register') }}">Create an account</a>
+            <a class="forget-password" href="">Forget your password?</a>
+          </div>
         </form>
       </div>
     </div>

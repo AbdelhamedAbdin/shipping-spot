@@ -9,12 +9,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from "./Auth/register/register.component";
 import { ProfileComponent } from './Account/profile.component';
-import { NavbarComponent } from './Base/navbar/navbar.component';
-import { SidebarComponent } from "./Base/sidebar/sidebar.component";
-import { BreadcrumbComponent } from "./Base/breadcrumb/breadcrumb.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClientComponent } from "./Client/client.component";
-import { BaseComponent } from "./Base/base/base.component";
 
 
 @NgModule({
@@ -25,12 +21,7 @@ import { BaseComponent } from "./Base/base/base.component";
     RegisterComponent,
     // Account Component
     ProfileComponent,
-    ClientComponent,
-    // Base Component
-    NavbarComponent,
-    SidebarComponent,
-    BreadcrumbComponent,
-    BaseComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,

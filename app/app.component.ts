@@ -7,8 +7,8 @@ import {Component, ElementRef, Input, OnInit, Output} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import * as svg_icons from "@fortawesome/free-solid-svg-icons";
 import { filter } from 'rxjs/operators';
-import {ContactsService} from "../services/CRMModules/Contacts";
-import {HttpClient} from "@angular/common/http";
+import { ContactsService } from "../services/CRMModules/Contacts";
+import { HttpClient } from "@angular/common/http";
 
 
 const DataStorageName = "user_login";

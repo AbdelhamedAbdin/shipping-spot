@@ -5,16 +5,13 @@ import {RouterModule, Routes} from '@angular/router';
 import { LoginComponent } from "./Auth/login/login.component";
 import { RegisterComponent } from "./Auth/register/register.component";
 import { ProfileComponent } from "./Account/profile.component";
-import {BaseComponent} from "./Base/base/base.component";
-import {ClientComponent} from "./Client/client.component";
+import { ClientComponent } from "./Client/client.component";
 
 if (location.pathname === "/app/") {
-  // location.href = location.href + "(base:base)"
   location.href = location.href + "/(login:login)";
 }
 
 export const routes: Routes = [
-  // {path: 'base', component: BaseComponent, outlet: 'base'},
   {path: '', redirectTo: '/(login:login)', pathMatch: 'full'},
   {path: 'login', component: LoginComponent, outlet: "login"},
   {path: 'signup', component: RegisterComponent, outlet: "register"},

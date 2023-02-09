@@ -81,6 +81,12 @@
                             </i>Billing & Earnings
                         </a>
                     </li>
+                    <li>
+                        <a href="#">
+                            <i class="metismenu-icon">
+                            </i>RFQ
+                        </a>
+                    </li>
                 </ul>
             </li>
 
@@ -140,14 +146,14 @@
                 </div>
               </div>
               <div class="page-title-actions">
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Create RFQ</button>
+<!--                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Create RFQ</button>-->
+                <button class="btn btn-success"
+                [routerLink]="[{outlets: {rfq_group: ['profile', 'client', 'rfq_group']}}]">+ Create RFQ</button>
               </div>
             </div>
           </div>
           <router-outlet *ngIf="routeName('profile')" name="profile"></router-outlet>
           <router-outlet *ngIf="routeName('client')" name="client"></router-outlet>
-
-
         </div>
     </div>
   </div>
@@ -172,23 +178,24 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <form>
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">RFQ Group</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <input class="form-control" type="text" name="rfq_group" placeholder="RFQ Group...">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Create New Group</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
+<!--&lt;!&ndash; Modal &ndash;&gt;-->
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog">-->
+<!--    <form>-->
+<!--      <div class="modal-content">-->
+<!--        <div class="modal-header">-->
+<!--          <h5 class="modal-title" id="exampleModalLabel">RFQ Group</h5>-->
+<!--          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--            <input class="form-control" type="text" name="rfq_group" placeholder="RFQ Group...">-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--          <button type="submit" class="btn btn-primary">Create New Group</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
+

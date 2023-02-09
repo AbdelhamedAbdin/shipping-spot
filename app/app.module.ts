@@ -11,6 +11,7 @@ import { RegisterComponent } from "./Auth/register/register.component";
 import { ProfileComponent } from './Account/profile.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClientComponent } from "./Client/client.component";
+import {RfqgroupcompComponent} from "./Client/RFQGroupComp/rfqgroupcomp.component";
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ClientComponent } from "./Client/client.component";
     RegisterComponent,
     // Account Component
     ProfileComponent,
-    ClientComponent
+    ClientComponent,
+    RfqgroupcompComponent
   ],
   imports: [
     BrowserModule,

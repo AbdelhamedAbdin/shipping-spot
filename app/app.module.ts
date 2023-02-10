@@ -11,7 +11,8 @@ import { RegisterComponent } from "./Auth/register/register.component";
 import { ProfileComponent } from './Account/profile.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClientComponent } from "./Client/client.component";
-import {RfqgroupcompComponent} from "./Client/RFQGroupComp/rfqgroupcomp.component";
+import {ReportComponent} from "./Dashboard/Report/report.component";
+import {RFQComponent} from "./RFQ/RFQ.component";
 
 
 @NgModule({
@@ -23,7 +24,10 @@ import {RfqgroupcompComponent} from "./Client/RFQGroupComp/rfqgroupcomp.componen
     // Account Component
     ProfileComponent,
     ClientComponent,
-    RfqgroupcompComponent
+    // DashBoard
+    ReportComponent,
+    // RFQ
+    RFQComponent
   ],
   imports: [
     BrowserModule,

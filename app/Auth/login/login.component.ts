@@ -2,11 +2,11 @@
 import { AuthService } from '../../../services/auth.service';
 // Built-in Angular Apps
 import { Component, OnInit } from '@angular/core';
-import {NavigationEnd, Router} from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 import { DataStorageName, AppComponent } from '../../app.component'
-import { OutletReader } from "../../../utils";
+import { OutletReader, userLogged } from "../../../utils";
 import { Location } from '@angular/common';
-import {ContactsService} from "../../../services/CRMModules/Contacts";
+import { ContactsService } from "../../../services/CRMModules/Contacts";
 
 
 @Component({
@@ -21,23 +21,27 @@ export class LoginComponent implements OnInit{
   resolver: any;
   app_component: any;
   user_payloads: any;
+  user_role: any;
 
   constructor(private authService: AuthService, private router: Router,
               private location: Location, private contactsService: ContactsService)
   {
+    try {
+      this.user_role = new userLogged().parseStorage(localStorage).UserType;
+    }
+    catch (e) {
+      this.user_role = null;
+    }
+
     this.resolver = new OutletReader(this.router);
     // @ts-ignore
     this.app_component = new AppComponent(this.router, this.authService, this.contactsService);
   }
 
   ngOnInit() {
-    this.resolver.navigateTo(
-      "login",
-      this.location.path(),
-      this.app_component.is_authenticated,
-      "profile"
-    );
-    console.log("this is loggin path");
+    if (localStorage.getItem(DataStorageName)) {
+      this.router.navigateByUrl('profile/' + this.user_role);
+    }
   }
 
   login(login: {username: string, password: string})
@@ -68,10 +72,11 @@ export class LoginComponent implements OnInit{
     }, () => {
       if (this.error_login)
       {
-        this.invalid_login = "Username or Password are invalid"
+        this.invalid_login = "Username or Password are invalid";
         return;
       }
-      this.router.navigateByUrl(this.resolver.ResolverURL(this.user_payloads.UserType, false));
+      console.log("user_payloads: ", this.user_payloads);
+      this.router.navigateByUrl("profile/" + this.user_payloads.UserType);
     });
   }
 }

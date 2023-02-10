@@ -71,7 +71,7 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="#">
+                        <a [routerLink]="['/dashboard', 'report']">
                             Report
                         </a>
                     </li>
@@ -81,15 +81,8 @@
                             </i>Billing & Earnings
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
-                            <i class="metismenu-icon">
-                            </i>RFQ
-                        </a>
-                    </li>
                 </ul>
             </li>
-
             <li class="heading-content">
                 <a href="#" (click)="arrow_rotation($event);">
                     <fa-icon [icon]="svg_icon.faUser"></fa-icon>&nbsp;
@@ -98,7 +91,7 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="elements-buttons-standard.html">
+                        <a [routerLink]="['/profile', this.user_role]">
                             <i class="metismenu-icon"></i>
                             My Profile
                         </a>
@@ -126,6 +119,11 @@
                     </li>
                 </ul>
             </li>
+            <li>
+                <a [routerLink]="['/rfq']">
+                    <fa-icon [icon]="svg_icon.faCodePullRequest"></fa-icon>&nbsp; RFQ
+                </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -146,14 +144,11 @@
                 </div>
               </div>
               <div class="page-title-actions">
-<!--                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Create RFQ</button>-->
-                <button class="btn btn-success"
-                [routerLink]="[{outlets: {rfq_group: ['profile', 'client', 'rfq_group']}}]">+ Create RFQ</button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#rfqg">+ Create RFQ</button>
               </div>
             </div>
           </div>
-          <router-outlet *ngIf="routeName('profile')" name="profile"></router-outlet>
-          <router-outlet *ngIf="routeName('client')" name="client"></router-outlet>
+          <router-outlet></router-outlet>
         </div>
     </div>
   </div>
@@ -178,24 +173,24 @@
   </div>
 </div>
 
-<!--&lt;!&ndash; Modal &ndash;&gt;-->
-<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!--  <div class="modal-dialog">-->
-<!--    <form>-->
-<!--      <div class="modal-content">-->
-<!--        <div class="modal-header">-->
-<!--          <h5 class="modal-title" id="exampleModalLabel">RFQ Group</h5>-->
-<!--          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--        </div>-->
-<!--        <div class="modal-body">-->
-<!--            <input class="form-control" type="text" name="rfq_group" placeholder="RFQ Group...">-->
-<!--        </div>-->
-<!--        <div class="modal-footer">-->
-<!--          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--          <button type="submit" class="btn btn-primary">Create New Group</button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </form>-->
-<!--  </div>-->
-<!--</div>-->
+<!-- Modal -->
+<div class="modal fade" id="rfqg" tabindex="-1" aria-labelledby="rfq_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <form>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rfq_modal">RFQ Group</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input class="form-control" type="text" name="rfq_group" placeholder="RFQ Group...">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Create New Group</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 

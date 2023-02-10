@@ -85,3 +85,17 @@ export class pathNameValidation extends OutletReader {
     return this.hasRoute(current_route, name);
   }
 }
+
+export class userLogged
+{
+  parseStorage(localStorage: any) {
+    let user_role = null;
+    try {
+      user_role = JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem("user_payloads"))));
+    } catch (e) {
+      throw "there's no payloads";
+    } finally {
+      return user_role
+    }
+  }
+}

@@ -1,23 +1,23 @@
 // Built-in Angular Apps
-import { Component, Injectable, Input, Output } from '@angular/core';
-import { rfq_group, rfqs } from "../demo";
-import { ContactsService } from "../../../services/CRMModules/Contacts"
-import { RFQGroupService } from "../../../services/CRMModules/RFQGroup";
+import { Component, Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {rfqs} from "./demo";
+import {ContactsService} from "../../services/CRMModules/Contacts";
+import {RFQGroupService} from "../../services/CRMModules/RFQGroup";
+import { rfq_group } from "./demo";
 
 @Injectable({
   providedIn: 'root'
 })
 
 @Component({
-  selector: 'app-client',
-  templateUrl: './rfqgroupcomp.component.html',
-  styleUrls: ['./rfqgroupcomp.component.css']
+  selector: 'app-report',
+  templateUrl: './RFQ.component.html',
+  styleUrls: ['./RFQ.component.css']
 })
 
-export class RfqgroupcompComponent {
-  title = "Client";
-  @Input() user_request: any;
+export class RFQComponent {
+  title = "RFQ";
   contact_payloads: string = "";
 
   rfq_group = rfq_group;

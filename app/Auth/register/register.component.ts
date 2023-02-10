@@ -1,14 +1,14 @@
 // Built-in Angular Apps
-import {Component, Injectable, OnInit} from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 // ShippingSpot Apps
 import { Register } from "../../interface-models/register_interface";
 import { RegisterService } from "../../../services/register.service";
-import {OutletReader} from "../../../utils";
-import {AppComponent} from "../../app.component";
-import {Location} from "@angular/common";
-import {AuthService} from "../../../services/auth.service";
-import {ContactsService} from "../../../services/CRMModules/Contacts";
+import { OutletReader, userLogged } from "../../../utils";
+import { AppComponent, DataStorageName } from "../../app.component";
+import { Location } from "@angular/common";
+import { AuthService } from "../../../services/auth.service";
+import { ContactsService } from "../../../services/CRMModules/Contacts";
 
 
 @Component({
@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
   msgError: string = "";
   resolver: any;
   app_component: any;
+  user_role: any;
 
   roles = [
     {option: "Client"},
@@ -33,6 +34,12 @@ export class RegisterComponent implements OnInit {
               private router: Router,
               private location: Location, private authService: AuthService,
               private contactsService: ContactsService) {
+    try {
+      this.user_role = new userLogged().parseStorage(localStorage).UserType;
+    }
+    catch (e) {
+      this.user_role = null;
+    }
     this.selectedRole = this.roles[0].option;
     this.resolver = new OutletReader(this.router);
     // @ts-ignore
@@ -40,12 +47,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.resolver.navigateTo(
-      "register",
-      this.location.path(),
-      this.app_component.is_authenticated,
-      "profile"
-    );
+    if (localStorage.getItem(DataStorageName)) {
+      this.router.navigateByUrl('profile/' + this.user_role);
+    }
   }
 
   register(account_data: Register)

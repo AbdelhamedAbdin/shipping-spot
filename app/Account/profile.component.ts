@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     if (this.app_component.is_authenticated) {
-      this.router.navigateByUrl(this.resolver.ResolverURL(this.user_role, false));
+       this.router.navigateByUrl('profile/' + this.user_role);
     }
   }
 }

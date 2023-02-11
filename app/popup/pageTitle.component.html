@@ -1,0 +1,30 @@
+<!-- Modal -->
+<div class="modal fade" id="rfqg" tabindex="-1" aria-labelledby="rfq_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <form #rfqGroupForm="ngForm" (ngSubmit)="createRfqGroup(rfqGroupForm.value)">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rfq_modal">RFQ Group</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-8">
+                <select class="form-control mb-3">
+                  <option *ngFor="let group of rfq_group" value="{{ group.id }}">{{ group.Title }}</option>
+                </select>
+              </div>
+              <div class="col-lg-4">
+                <button type="submit" class="btn btn-primary form-control">Choose Group</button>
+              </div>
+            </div>
+            <input autocomplete="off" class="form-control" type="text" name="Title" placeholder="Create New Group" ngModel>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Create New Group</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

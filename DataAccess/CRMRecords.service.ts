@@ -41,7 +41,7 @@ export class CRMRecordsService extends CRMBridgeService{
     this.crmMethod="POST";
     this.crmBody=data;
     this.UpdatePostData();
-    this.DataSync();
+    return this.DataSync();
   }
   UpdateRecord(recordID:string,data:any)
   {

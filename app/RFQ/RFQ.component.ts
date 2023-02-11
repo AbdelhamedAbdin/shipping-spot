@@ -5,6 +5,9 @@ import {rfqs} from "./demo";
 import {ContactsService} from "../../services/CRMModules/Contacts";
 import {RFQGroupService} from "../../services/CRMModules/RFQGroup";
 import { rfq_group } from "./demo";
+import {userLogged} from "../../utils";
+import {filter, tap} from "rxjs/operators";
+import {NavigationEnd, NavigationStart, Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -18,34 +21,21 @@ import { rfq_group } from "./demo";
 
 export class RFQComponent {
   title = "RFQ";
-  contact_payloads: string = "";
 
   rfq_group = rfq_group;
   related_rfqs: any = [];
   RFQs = rfqs
+  account_id: any;
 
-  constructor(private contactsService: ContactsService, private RFQ_Group: RFQGroupService, private http: HttpClient) {
-    const user_payloads = JSON.parse(localStorage.user_payloads);
-    const userID = user_payloads.userID;
+  constructor(private RFQGroupService: RFQGroupService, private router: Router) {
+    this.account_id = new userLogged().parseStorage(localStorage).AccountID;
 
-    const contact_service = this.contactsService.GetRecordByID(userID);
-    contact_service.subscribe(res => {
-      this.contact_payloads = res["data"];
-    });
-
-    // const RFQG = this.RFQ_Group.GetRecordByID("search?criteria=(Account:equals:5031882000000559103)");
+    const RFQG = this.RFQGroupService.GetRecordByID("search?criteria=(Account:equals:" + this.account_id + ")");
+    RFQG.subscribe(res => {
+      this.rfq_group = res["data"];
+    })
   }
 
   // close RFQ Details section
   resetRFQDetails() {this.related_rfqs = []}
-
-  RFQDetails(e: any)
-  {
-    let rfq_group_id = e.target.closest(".comment-row").querySelector(".group-id").dataset['pk'];
-    rfq_group_id = parseInt(rfq_group_id);
-
-    this.related_rfqs = this.RFQs.filter(rfq => {
-      return rfq.rfq_group === rfq_group_id;
-    });
-  }
 }

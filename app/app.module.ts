@@ -11,8 +11,14 @@ import { RegisterComponent } from "./Auth/register/register.component";
 import { ProfileComponent } from './Account/profile.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClientComponent } from "./Client/client.component";
-import {ReportComponent} from "./Dashboard/Report/report.component";
-import {RFQComponent} from "./RFQ/RFQ.component";
+import { ReportComponent } from "./Dashboard/Report/report.component";
+import { RFQComponent } from "./RFQ/RFQ.component";
+import { PageTitleComponent } from "./popup/pageTitle.component";
+import {CreateRFQComponent} from "./RFQ/createRfq/CreateRFQ.component";
+import {RFQFormComponent} from "./RFQ_Components/RFQForm.component";
+import {MainFormComponent} from "./RFQ_Components/MainForm/MainForm.component";
+import {AirFreight} from "./RFQ_Components/Air_Freight/AirFreight";
+import {OceanFCL} from "./RFQ_Components/Ocean_FCL/OceanFCL";
 
 
 @NgModule({
@@ -27,7 +33,14 @@ import {RFQComponent} from "./RFQ/RFQ.component";
     // DashBoard
     ReportComponent,
     // RFQ
-    RFQComponent
+    RFQComponent,
+    CreateRFQComponent,
+    RFQFormComponent,
+    MainFormComponent,
+    AirFreight,
+    OceanFCL,
+    // popup
+    PageTitleComponent
   ],
   imports: [
     BrowserModule,

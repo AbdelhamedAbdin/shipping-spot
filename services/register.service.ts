@@ -10,7 +10,7 @@ import {Register} from "../app/interface-models/register_interface";
 })
 
 export class RegisterService implements OnInit {
-  private BASE_URL = "http://localhost:3000/server/";
+  private BASE_URL = "../server/";
   path = "auth/sign-up";
   fullPath = this.BASE_URL + this.path;
 

@@ -12,6 +12,7 @@ import { HttpClient } from "@angular/common/http";
 
 
 const DataStorageName = "user_login";
+let rfq_group_listener: any = ""
 
 @Component({
   selector: 'app-root',
@@ -129,4 +130,4 @@ export class AppComponent implements OnInit {
 }
 
 // @ts-ignore
-export { DataStorageName };
+export { DataStorageName, rfq_group_listener };

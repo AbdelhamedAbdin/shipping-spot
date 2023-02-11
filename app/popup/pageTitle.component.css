@@ -1,0 +1,49 @@
+.register .register-image img {
+  max-width: 100%;
+}
+.register .register-image img:first-of-type {
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transform: scale(1.2);
+}
+.register form input,
+.register form select,
+.register button[type="submit"] {
+  margin-bottom: 16px;
+  min-height: 52px;
+  border-color: #e9eaf3;
+  border-radius: 52px;
+  box-shadow: 0 2px 12px 0 rgb(11 22 44 / 5%);
+  transition: box-shadow 300ms ease, color 300ms ease, border-color 300ms ease;
+  font-size: 14px;
+  line-height: 1.143em;
+}
+.register button[type="submit"] {
+  width: 100%;
+  background-color: #1476ff;
+  font-weight: bold;
+  transition: all .3s ease-out;
+}
+.register button[type="submit"]:hover {
+  transform: scale(1.04);
+  background-color: #004cff;
+}
+.register form input:hover {
+  border-color: #989aad;
+  box-shadow: 0 2px 12px 0 rgb(11 22 44 / 10%);
+}
+.register form input:focus {
+  border-color: #1476ff
+}
+.register form select {
+  border-radius: 8px;
+}
+.register form option {
+  padding: 10px
+}
+.register form .err-msg {
+  margin-top: -10px;
+  margin-left: 10px;
+}

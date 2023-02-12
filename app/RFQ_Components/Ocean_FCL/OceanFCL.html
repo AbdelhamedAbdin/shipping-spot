@@ -1,3 +1,14 @@
-<div class="form-group">
-  <input type="text" placeholder="FCL - LCL..." class="form-control mb-3" name="FCL_LCL" ngModel>
-</div>
+<form #createRfq="ngForm" class="p-4">
+  <div class="form-group">
+<!--    <app-main-rfq-form></app-main-rfq-form>-->
+    <input name="Request_Title" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Title" ngModel>
+    <input name="Commodity" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Commodity" ngModel>
+    <div class="form-floating mb-2">
+      <textarea name="Note" class="form-control" placeholder="Leave a comment here" id="noteTextarea" ngModel></textarea>
+      <label for="noteTextarea">Note</label>
+    </div>
+
+    <input type="text" placeholder="FCL - LCL..." class="form-control mb-3" name="FCL_LCL" ngModel>
+    <input type="submit" class="btn btn-outline-primary">
+  </div>
+</form>

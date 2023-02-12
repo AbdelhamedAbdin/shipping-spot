@@ -1,21 +1,24 @@
 <div class="create-rfq">
   <div class="row">
     <div class="col-lg-12">
-      <form #createRfq="ngForm" class="p-4">
+      <!-- Fake form -->
+      <form class="p-4">
         <label>RFQ Group</label>
         <input type="text" [ngModel]="rfq_group_name" readonly name="RFQ_Group" class="form-control" ngModel>
         <div class="form-group">
           <label for="service-type">Service Type</label>
-          <select [(ngModel)]="this.default_service" #service_name (change)="displayFields(service_name.value); getServiceName(service_name.value)" name="Service_Type" id="service-type" class="form-control" ngModel>
+          <select [(ngModel)]="this.default_service" #service_name (change)="displayFields(service_name.value);"
+                  name="Service_Type" id="service-type" class="form-control"
+                   ngModel>
             <option>-- None --</option>
             <option *ngFor="let services of Type_Services" [ngValue]="services">{{ services }}</option>
           </select>
         </div>
-        <app-main-rfq-form [is_selected]="option_choiced"></app-main-rfq-form>
-        <router-outlet></router-outlet>
-        <router-outlet name="Air_Freight"></router-outlet>
-        <router-outlet name="Ocean_Freight_FCL"></router-outlet>
       </form>
+
+      <router-outlet></router-outlet>
+      <router-outlet name="Air_Freight"></router-outlet>
+      <router-outlet name="Ocean_Freight_FCL"></router-outlet>
     </div>
   </div>
 </div>

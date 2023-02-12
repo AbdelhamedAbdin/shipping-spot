@@ -1,5 +1,10 @@
 // Built-in Angular Apps
-import { Component, Injectable, Input, Inject } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
+import { selectServiceType } from "../run_event";
+// ShippingSpot Components
+import { Air_Freight } from "../../interface-models/rfq_type_services/air_freight";
+import { RFQsService } from "../../../services/CRMModules/RFQs";
+import { ActivatedRoute } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +17,34 @@ import { Component, Injectable, Input, Inject } from '@angular/core';
 })
 
 export class AirFreight {
-  is_select: boolean = false;
+  service_type_param: any = null;
 
-  constructor() {
-    let $this = this;
-    window.onchange = function (e) {
-      // @ts-ignore
-      const type_service = e.target.value, type_service_name = e.target.name;
+  constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
+    selectServiceType(this);
+    // Get real name of the service
+    this.currentRoute.queryParams.subscribe(res => {
+      this.service_type_param = res.service_type
+    })
+  }
 
-      if (type_service_name === "Service_Type") {
-        type_service !== "-- None --" ? $this.is_select = true : $this.is_select = false;
+  createRFQ(RFQForm: Air_Freight)
+  {
+    const rfq_group_id = this.currentRoute.parent?.snapshot.params.id;
+    const data = RFQForm;
+
+    let _body = {
+      Module: "RFQs",
+      data: {
+        Service_Type: this.service_type_param,
+        RFQ_Group: {
+          id: rfq_group_id
+        },
+        ...data
       }
     }
+
+    this.RFQService.NewRecord(_body).subscribe((res: any) => {
+      console.log(res);
+    });
   }
 }

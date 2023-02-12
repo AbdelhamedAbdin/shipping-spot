@@ -15,8 +15,7 @@ import { ReportComponent } from "./Dashboard/Report/report.component";
 import { RFQComponent } from "./RFQ/RFQ.component";
 import { PageTitleComponent } from "./popup/pageTitle.component";
 import {CreateRFQComponent} from "./RFQ/createRfq/CreateRFQ.component";
-import {RFQFormComponent} from "./RFQ_Components/RFQForm.component";
-import {MainFormComponent} from "./RFQ_Components/MainForm/MainForm.component";
+// import {MainFormComponent} from "./RFQ_Components/MainForm/MainForm.component";
 import {AirFreight} from "./RFQ_Components/Air_Freight/AirFreight";
 import {OceanFCL} from "./RFQ_Components/Ocean_FCL/OceanFCL";
 
@@ -35,11 +34,11 @@ import {OceanFCL} from "./RFQ_Components/Ocean_FCL/OceanFCL";
     // RFQ
     RFQComponent,
     CreateRFQComponent,
-    RFQFormComponent,
-    MainFormComponent,
+    // RFQ::Components
+    // MainFormComponent,
     AirFreight,
     OceanFCL,
-    // popup
+    // Popup
     PageTitleComponent
   ],
   imports: [

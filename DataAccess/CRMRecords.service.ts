@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class CRMRecordsService extends CRMBridgeService{
   Module = "";
   AllRecords: BehaviorSubject<any> = new BehaviorSubject(null);
-  private BaseURL="https://sandbox.zohoapis.com/crm/v3/";
+  BaseURL="https://sandbox.zohoapis.com/crm/v3/";
 
   constructor(private httpClientRecords:HttpClient) {
     super(httpClientRecords);
@@ -24,7 +24,6 @@ export class CRMRecordsService extends CRMBridgeService{
     this.crmURL = this.BaseURL;
     this.crmMethod = "GET";
     this.UpdatePostData();
-    console.log(this.PostData);
     this.DataSync();
   }
   GetRecordByID(recordID:string)

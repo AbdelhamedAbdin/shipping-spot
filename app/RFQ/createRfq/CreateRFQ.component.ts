@@ -42,8 +42,14 @@ export class CreateRFQComponent {
 
 
   constructor(private RFQGroupService: RFQGroupService, private router: Router, private routeParam: ActivatedRoute) {
+    const params = this.routeParam.snapshot.queryParams;
     this.account_id = new userLogged().parseStorage(localStorage).AccountID;
     this.rfq_group_id = this.routeParam.snapshot.paramMap.get('id');
+
+    // Get the current parameter
+    if (params.hasOwnProperty('service_type')) {
+      this.default_service = params.service_type;
+    }
 
     this.RFQGroupService.GetRecordByID(this.rfq_group_id).subscribe(res => {
       const payload_data = res["data"][0];
@@ -55,18 +61,24 @@ export class CreateRFQComponent {
   {
     const service_outlet_name = this.getServiceName(option);
     let service_outlet_object: any = {};
-    // e.g {Air_Freight: ['Air_Freight']}
-    service_outlet_object[service_outlet_name] = [service_outlet_name];
+
+    service_outlet_object[service_outlet_name] = [service_outlet_name]; // e.g {Air_Freight: ['Air_Freight']}
+    const option_param = option.slice(3); // slice string
 
     if (option === this.default_service) {
       this.option_choiced = false;
       this.router.navigate(['/', 'rfq', this.rfq_group_id]);
     } else {
       this.option_choiced = true;
-      this.router.navigate(['/', 'rfq', this.rfq_group_id]);
+      this.router.navigate(['/', 'rfq', this.rfq_group_id], {
+        queryParams: {service_type: option_param}
+      });
+
       setTimeout(() => {
-        this.router.navigate(['/', 'rfq', this.rfq_group_id, { outlets: service_outlet_object}]);
-      }, 100)
+        this.router.navigate(['/', 'rfq', this.rfq_group_id, {
+          outlets: service_outlet_object
+        }], {queryParams: {service_type: option_param}});
+      }, 50);
     }
   }
 

@@ -102,6 +102,10 @@ export class AppComponent implements OnInit {
     }
   }
 
+  hasRoute(router: string): boolean {
+    return this.currentRouter === router;
+  }
+
   logout()
   {
     localStorage.clear()

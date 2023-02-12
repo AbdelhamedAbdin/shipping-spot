@@ -10,18 +10,18 @@
         <div class="modal-body">
             <div class="row">
               <div class="col-lg-8">
-                <select class="form-control mb-3">
+                <select class="form-control mb-3" #group_title (change)="groupId(group_title.value)">
                   <option *ngFor="let group of rfq_group" value="{{ group.id }}">{{ group.Title }}</option>
                 </select>
               </div>
               <div class="col-lg-4">
-                <button type="submit" class="btn btn-primary form-control">Choose Group</button>
+                <button [attr.data-groupID]="group_id" id="selectGroup" (click)="selectGroup($event)" type="button" class="btn btn-primary form-control">Choose Group</button>
               </div>
             </div>
             <input autocomplete="off" class="form-control" type="text" name="Title" placeholder="Create New Group" ngModel>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="close-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Create New Group</button>
         </div>
       </div>

@@ -2,22 +2,22 @@
 import { Component, Injectable } from '@angular/core';
 import { selectServiceType } from "../run_event";
 // ShippingSpot Components
-import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
 import { ActivatedRoute } from "@angular/router";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {OceanLCLService} from "../../interface-models/rfq_type_services/OceanLCL";
 
 @Injectable({
   providedIn: 'root'
 })
 
 @Component({
-  selector: 'app-air-freight',
-  templateUrl: './AirFreight.html',
+  selector: 'app-ocean-lcl',
+  templateUrl: './OceanLCL.html',
   styleUrls: []
 })
 
-export class AirFreight {
+export class OceanLCL {
   service_type_param: any;
   rfq_group_id: any;
 
@@ -32,7 +32,6 @@ export class AirFreight {
     this.currentRoute.queryParams.subscribe(res => {
       this.service_type_param = res.service_type
     })
-
     this.rfq_group_id = this.currentRoute.parent?.snapshot.params.id;
 
     this.formGroup = new FormGroup({
@@ -47,11 +46,11 @@ export class AirFreight {
 
       Shipping_Term: new FormControl<string>(this.default_term),
       Incoterm: new FormControl<string>(''),
-      Need_Insurance: new FormControl<boolean>(false),
-      Value_of_Goods: new FormControl<number|null>(null),
+      Need_Insurance: new FormControl<string>(''),
+      Value_of_Goods: new FormControl<string>(''),
       Dangerous_Commodity: new FormControl<boolean>(false),
       Need_Temperature_Control: new FormControl<boolean>(false),
-      Temperature: new FormControl<number>(0, [ Validators.pattern(/d+/g) ]),
+      Temperature: new FormControl<string>(''),
 
       Pickup_Country: new FormControl<string>(''),
       Delivery_Country: new FormControl<string>(''),
@@ -60,24 +59,14 @@ export class AirFreight {
       POL_Port_of_Loading: new FormControl<string>(''),
       POD_Port_of_Discharge: new FormControl<string>(''),
 
-      Total_Number_of_Packages: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-      Total_Net_Weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-      Total_Gross_weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-
-      Description: new FormControl<string>(''),
-
-      child: new FormGroup({
-        Quantity: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-        Length: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-        Width: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-        Height: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-        Net_Weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-        Gross_Weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-      })
+      Total_Number_of_Packages: new FormControl<string>('', [ Validators.pattern(/d+/) ]),
+      Total_Net_Weight: new FormControl<string>('', [ Validators.pattern(/d+/) ]),
+      Total_Gross_weight: new FormControl<string>('', [ Validators.pattern(/d+/) ]),
+      Description: new FormControl<string>('')
     });
   }
 
-  createRFQ(RFQForm: AirFreightService)
+  createRFQ(RFQForm: OceanLCLService)
   {
     // @ts-ignore
     let items = RFQForm.child; // store nested child

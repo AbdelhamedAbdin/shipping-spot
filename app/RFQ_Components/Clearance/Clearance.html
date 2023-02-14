@@ -13,39 +13,20 @@
     <input type="text" placeholder="CBM" class="form-control mb-3" formControlName="CBM">
     <input type="text" placeholder="Insurance Type" class="form-control mb-3" formControlName="Equipment_Type">
     <input type="text" placeholder="maximum per item weight kg" class="form-control mb-3" formControlName="maximum_per_item_weight_kg">
-
-    <select class="form-control mb-3" formControlName="Shipping_Term">
-      <option>-- None --</option>
-      <option *ngFor="let term of terms" [ngValue]="term">{{ term }}</option>
-    </select>
-    <select class="form-control mb-3" formControlName="Incoterm">
-      <option>-- None --</option>
-      <option *ngFor="let term of incoterms" [ngValue]="term">{{ term }}</option>
-    </select>
-    <div>
-      <label>Need Insurance:</label>&nbsp;&nbsp;
-      <input type="checkbox" formControlName="Need_Insurance">
+    <input type="text" placeholder="HS Code" class="form-control mb-3" formControlName="HS_Code">
+    <div class="form-floating mb-2">
+      <textarea formControlName="Service_Operation" class="form-control" placeholder="Service Operation"></textarea>
+      <label for="noteTextarea">Service Operation</label>
     </div>
-    <input type="text" placeholder="Value of Goods" class="form-control mb-3" formControlName="Value_of_Goods">
-    <div>
-      <label>Dangerous Commodity</label>&nbsp;&nbsp;
-      <input type="checkbox" formControlName="Dangerous_Commodity">
-    </div>
-    <div>
-      <label>Need Temperature Control</label>&nbsp;&nbsp;
-      <input type="checkbox" formControlName="Need_Temperature_Control">
-    </div>
-    <div>
-      <label>Temperature</label>&nbsp;&nbsp;
-      <input type="checkbox" formControlName="Temperature">
+    <div class="form-floating mb-2">
+      <textarea formControlName="Service_Mode" class="form-control" placeholder="Service Mode"></textarea>
+      <label>Service Mode</label>
     </div>
 
     <input type="text" placeholder="Pickup Country" class="form-control mb-3" formControlName="Pickup_Country">
     <input type="text" placeholder="Delivery Country" class="form-control mb-3" formControlName="Delivery_Country">
     <input type="text" placeholder="Pickup Address" class="form-control mb-3" formControlName="Pickup_Address">
     <input type="text" placeholder="Delivery Address" class="form-control mb-3" formControlName="Delivery_Address">
-    <input type="text" placeholder="POL Port of Loading" class="form-control mb-3" formControlName="POL_Port_of_Loading">
-    <input type="text" placeholder="POL Port of Discharge" class="form-control mb-3" formControlName="POD_Port_of_Discharge">
 
     <!-- Nested Items -->
     <div formGroupName="child">
@@ -53,15 +34,7 @@
         <div class="form-group">
           <h3>Create Items</h3>
           <div>
-            <label>Net Weight</label>
-            <input class="form-control" type="number" formControlName="Net_Weight" placeholder="Net Weight">
-          </div>
-          <div>
-            <label>Gross Weight</label>
-            <input class="form-control" type="number" formControlName="Gross_Weight" placeholder="Gross Weight">
-          </div>
-          <div>
-            <label>Number Of Containers</label>
+            <label>Number of Containers</label>
             <input class="form-control" type="number" formControlName="Number_of_Containers">
           </div>
         </div>

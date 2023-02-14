@@ -1,21 +1,22 @@
-export interface Air_Freight {
+export interface DomesticCourierService {
+  // RFQ Information
   Request_Title: string;
   Commodity: string;
+  Note?: string;
+  // Details
   FCL_LCL: string;
-  Note: string;
   CBM: string;
+  maximum_per_item_weight_kg: number;
   Equipment_Type: string;
-  Shipping_Term: string;
-  Incoterm: string;
-  Need_Insurance?: boolean;
-  Dangerous_Commodity?: boolean;
-  Value_of_Goods: string;
+  // Pickup & Delivery
   Pickup_Country: string;
   Delivery_Country: string;
   Pickup_Address: string;
   Delivery_Address: string;
-  maximum_per_item_weight_kg: number;
+  // Total Items
   Total_Number_of_Packages: number;
   Total_Net_Weight: number;
   Total_Gross_weight: number;
+  // description
+  Description?: string;
 }

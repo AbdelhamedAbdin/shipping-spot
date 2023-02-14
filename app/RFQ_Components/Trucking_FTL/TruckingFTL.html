@@ -61,8 +61,11 @@
             <input class="form-control" type="number" formControlName="Gross_Weight" placeholder="Gross Weight">
           </div>
           <div>
-            <label>Number Of Containers</label>
-            <input class="form-control" type="number" formControlName="Number_of_Containers">
+            <label>Number Of Trucks</label>
+            <select class="form-control mb-3" formControlName="Number_of_Trucks">
+              <option>-- None --</option>
+              <option *ngFor="let item of choose_truck_or_shipment" [ngValue]="item">{{ item }}</option>
+            </select>
           </div>
         </div>
       </div>

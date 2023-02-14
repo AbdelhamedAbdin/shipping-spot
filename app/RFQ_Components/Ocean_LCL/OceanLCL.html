@@ -14,8 +14,9 @@
     <input type="text" placeholder="Insurance Type" class="form-control mb-3" formControlName="Equipment_Type">
     <input type="text" placeholder="maximum per item weight kg" class="form-control mb-3" formControlName="maximum_per_item_weight_kg">
 
-    <select class="form-control mb-3" formControlName="Shipping_Term">
-      <option>-- None --</option>
+    <select type="text" placeholder="Shipping Term"
+            class="form-control mb-3" formControlName="Shipping_Term">
+      <option>{{default_term}}</option>
       <option *ngFor="let term of terms" [ngValue]="term">{{ term }}</option>
     </select>
     <select class="form-control mb-3" formControlName="Incoterm">
@@ -47,22 +48,38 @@
     <input type="text" placeholder="POL Port of Loading" class="form-control mb-3" formControlName="POL_Port_of_Loading">
     <input type="text" placeholder="POL Port of Discharge" class="form-control mb-3" formControlName="POD_Port_of_Discharge">
 
+    <input type="text" placeholder="Total Number of Packages" class="form-control mb-3" formControlName="Total_Number_of_Packages">
+    <input type="text" placeholder="Total Net Weight" class="form-control mb-3" formControlName="Total_Net_Weight">
+    <input type="text" placeholder="Total Gross weight" class="form-control mb-3" formControlName="Total_Gross_weight">
+
     <!-- Nested Items -->
     <div formGroupName="child">
       <div class="items">
         <div class="form-group">
           <h3>Create Items</h3>
           <div>
-            <label>Net Weight</label>
-            <input class="form-control" type="number" formControlName="Net_Weight" placeholder="Net Weight">
+            <label>Quantity</label>
+            <input class="form-control" type="text" formControlName="Quantity" placeholder="Quantity">
           </div>
           <div>
-            <label>Gross Weight</label>
-            <input class="form-control" type="number" formControlName="Gross_Weight" placeholder="Gross Weight">
+            <label>Length_cm</label>
+            <input class="form-control" type="text" formControlName="Length" placeholder="Length (cm)">
           </div>
           <div>
-            <label>Number Of Containers</label>
-            <input class="form-control" type="number" formControlName="Number_of_Containers">
+            <label>Width_cm</label>
+            <input class="form-control" type="text" formControlName="Width" placeholder="Width_cm">
+          </div>
+          <div>
+            <label>Height_cm</label>
+            <input class="form-control" type="text" formControlName="Height" placeholder="Height_cm">
+          </div>
+          <div>
+            <label>Net_Weight_kg</label>
+            <input class="form-control" type="text" formControlName="Net_Weight" placeholder="Net_Weight_kg">
+          </div>
+          <div>
+            <label>Gross_Weight_kg</label>
+            <input class="form-control" type="text" formControlName="Gross_Weight" placeholder="Gross_Weight_kg">
           </div>
         </div>
       </div>

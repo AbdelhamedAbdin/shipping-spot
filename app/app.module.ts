@@ -1,4 +1,4 @@
-import {ElementRef, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -15,10 +15,23 @@ import { ReportComponent } from "./Dashboard/Report/report.component";
 import { RFQComponent } from "./RFQ/RFQ.component";
 import { PageTitleComponent } from "./popup/pageTitle.component";
 import {CreateRFQComponent} from "./RFQ/createRfq/CreateRFQ.component";
-// import {MainFormComponent} from "./RFQ_Components/MainForm/MainForm.component";
+// import {Air_Freight_ItemsComponent} from "./RFQ_Components/MainForm/MainForm.component";
 import {AirFreight} from "./RFQ_Components/Air_Freight/AirFreight";
 import {OceanFCL} from "./RFQ_Components/Ocean_FCL/OceanFCL";
-
+import {createRFQs} from "./RFQ_Components/none_service_items";
+import {OceanLCL} from "./RFQ_Components/Ocean_LCL/OceanLCL";
+import {TruckingFTL} from "./RFQ_Components/Trucking_FTL/TruckingFTL";
+import {TruckingLTL} from "./RFQ_Components/Trucking_LTL/TruckingLTL";
+import {Courier} from "./RFQ_Components/Courier/Courier";
+import {DomesticCourier} from "./RFQ_Components/Domestic_Courier/DomesticCourier";
+import {DomesticTrucking} from "./RFQ_Components/Domestic_Trucking/DomesticTrucking";
+import {Clearance} from "./RFQ_Components/Clearance/Clearance";
+import {StorageComp} from "./RFQ_Components/Storage/StorageComp";
+import {Packing} from "./RFQ_Components/Packing/Packing";
+import {Fumigation} from "./RFQ_Components/Fumigation/Fumigation";
+import {Equipment} from "./RFQ_Components/Equipment/Equipment";
+import {Insurance} from "./RFQ_Components/Insurance/Insurance";
+import {ProviderComponent} from "./Provider/provider.component";
 
 @NgModule({
   declarations: [
@@ -29,15 +42,28 @@ import {OceanFCL} from "./RFQ_Components/Ocean_FCL/OceanFCL";
     // Account Component
     ProfileComponent,
     ClientComponent,
+    ProviderComponent,
     // DashBoard
     ReportComponent,
     // RFQ
     RFQComponent,
     CreateRFQComponent,
     // RFQ::Components
-    // MainFormComponent,
+    // Air_Freight_ItemsComponent,
     AirFreight,
     OceanFCL,
+    OceanLCL,
+    TruckingFTL,
+    TruckingLTL,
+    Courier,
+    DomesticCourier,
+    DomesticTrucking,
+    Clearance,
+    StorageComp,
+    Packing,
+    Fumigation,
+    Equipment,
+    Insurance,
     // Popup
     PageTitleComponent
   ],
@@ -49,7 +75,7 @@ import {OceanFCL} from "./RFQ_Components/Ocean_FCL/OceanFCL";
     ReactiveFormsModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [createRFQs],
   bootstrap: [AppComponent]
 })
 

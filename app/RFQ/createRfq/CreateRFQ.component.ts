@@ -26,20 +26,18 @@ export class CreateRFQComponent {
     "Ocean Freight - LCL",
     "International Trucking - FTL",
     "International Trucking - LTL",
-    "International Courier",
+    "International Clearance",
     "Domestic Trucking",
-    "Domestic Courier",
+    "Domestic Clearance",
     "Custom Clearance",
     "Storage",
     "Packing",
     "Fumigation",
-    "Fumigation",
-    "Handling Equipment",
+    "Handling Insurance",
     "Insurance"
   ]
   default_service: string = "-- None --";
   option_choiced: boolean = false;
-
 
   constructor(private RFQGroupService: RFQGroupService, private router: Router, private routeParam: ActivatedRoute) {
     const params = this.routeParam.snapshot.queryParams;
@@ -62,7 +60,7 @@ export class CreateRFQComponent {
     const service_outlet_name = this.getServiceName(option);
     let service_outlet_object: any = {};
 
-    service_outlet_object[service_outlet_name] = [service_outlet_name]; // e.g {Air_Freight: ['Air_Freight']}
+    service_outlet_object[service_outlet_name] = [service_outlet_name]; // e.g {OceanLCL: ['OceanLCL']}
     const option_param = option.slice(3); // slice string
 
     if (option === this.default_service) {
@@ -76,7 +74,7 @@ export class CreateRFQComponent {
 
       setTimeout(() => {
         this.router.navigate(['/', 'rfq', this.rfq_group_id, {
-          outlets: service_outlet_object
+          outlets: service_outlet_object,
         }], {queryParams: {service_type: option_param}});
       }, 50);
     }

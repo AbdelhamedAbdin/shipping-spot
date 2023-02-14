@@ -1,30 +1,92 @@
-<form #createRfq="ngForm" class="p-4" (ngSubmit)="createRFQ(createRfq.value)">
+<form [formGroup]="this.formGroup" #createRfq="ngForm" class="p-4" (ngSubmit)="createRFQ(createRfq.value)">
   <div class="form-group">
 <!--    <app-main-rfq-form></app-main-rfq-form>-->
 
-    <input name="Request_Title" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Title" ngModel>
-    <input name="Commodity" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Commodity" ngModel>
+    <input formControlName="Request_Title" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Title">
+    <input formControlName="Commodity" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Commodity">
     <div class="form-floating mb-2">
-      <textarea name="Note" class="form-control" placeholder="Leave a comment here" id="noteTextarea" ngModel></textarea>
+      <textarea formControlName="Note" class="form-control" placeholder="Leave a comment here" id="noteTextarea"></textarea>
       <label for="noteTextarea">Note</label>
     </div>
 
-    <input type="text" placeholder="FCL - LCL..." class="form-control mb-3" name="FCL_LCL" ngModel>
-    <input type="text" placeholder="CBM" class="form-control mb-3" name="CBM" ngModel>
-    <input type="text" placeholder="Equipment Type" class="form-control mb-3" name="Equipment_Type" ngModel>
-    <input type="text" placeholder="maximum per item weight kg" class="form-control mb-3" name="maximum_per_item_weight_kg" ngModel>
-    <input type="text" placeholder="Shipping Term" class="form-control mb-3" name="Shipping_Term" ngModel>
-    <input type="text" placeholder="Incoterm" class="form-control mb-3" name="Incoterm" ngModel>
-    <input type="checkbox" name="Need_Insurance" ngModel>
-    <input type="text" placeholder="Value of Goods" class="form-control mb-3" name="Value_of_Goods" ngModel>
-    <input type="checkbox" name="Dangerous_Commodity" ngModel>
-    <input type="text" placeholder="Pickup Country" class="form-control mb-3" name="Pickup_Country" ngModel>
-    <input type="text" placeholder="Delivery Country" class="form-control mb-3" name="Delivery_Country" ngModel>
-    <input type="text" placeholder="Pickup Address" class="form-control mb-3" name="Pickup_Address" ngModel>
-    <input type="text" placeholder="Delivery Address" class="form-control mb-3" name="Delivery_Address" ngModel>
-    <input type="text" placeholder="Total Number of Packages" class="form-control mb-3" name="Total_Number_of_Packages" ngModel>
-    <input type="text" placeholder="Total Net Weight" class="form-control mb-3" name="Total_Net_Weight" ngModel>
-    <input type="text" placeholder="Total Gross weight" class="form-control mb-3" name="Total_Gross_weight" ngModel>
+    <input type="text" placeholder="FCL - LCL..." class="form-control mb-3" formControlName="FCL_LCL">
+    <input type="text" placeholder="CBM" class="form-control mb-3" formControlName="CBM">
+    <input type="text" placeholder="Insurance Type" class="form-control mb-3" formControlName="Equipment_Type">
+    <input type="text" placeholder="maximum per item weight kg" class="form-control mb-3" formControlName="maximum_per_item_weight_kg">
+
+    <select class="form-control mb-3" formControlName="Shipping_Term">
+      <option>{{default_term}}</option>
+      <option *ngFor="let term of terms" [ngValue]="term">{{ term }}</option>
+    </select>
+    <select class="form-control mb-3" formControlName="Incoterm">
+      <option>-- None --</option>
+      <option *ngFor="let term of incoterms" [ngValue]="term">{{ term }}</option>
+    </select>
+    <div>
+      <label>Need Insurance:</label>&nbsp;&nbsp;
+      <input type="checkbox" formControlName="Need_Insurance">
+    </div>
+    <input type="text" placeholder="Value of Goods" class="form-control mb-3" formControlName="Value_of_Goods">
+    <div>
+      <label>Dangerous Commodity</label>&nbsp;&nbsp;
+      <input type="checkbox" formControlName="Dangerous_Commodity">
+    </div>
+    <div>
+      <label>Need Temperature Control</label>&nbsp;&nbsp;
+      <input type="checkbox" formControlName="Need_Temperature_Control">
+    </div>
+    <div>
+      <label>Temperature</label>&nbsp;&nbsp;
+      <input type="checkbox" formControlName="Temperature">
+    </div>
+
+    <input type="text" placeholder="Pickup Country" class="form-control mb-3" formControlName="Pickup_Country">
+    <input type="text" placeholder="Delivery Country" class="form-control mb-3" formControlName="Delivery_Country">
+    <input type="text" placeholder="Pickup Address" class="form-control mb-3" formControlName="Pickup_Address">
+    <input type="text" placeholder="Delivery Address" class="form-control mb-3" formControlName="Delivery_Address">
+    <input type="text" placeholder="POL Port of Loading" class="form-control mb-3" formControlName="POL_Port_of_Loading">
+    <input type="text" placeholder="POL Port of Discharge" class="form-control mb-3" formControlName="POD_Port_of_Discharge">
+
+    <input type="text" placeholder="Total Number of Packages" class="form-control mb-3" formControlName="Total_Number_of_Packages">
+    <input type="text" placeholder="Total Net Weight" class="form-control mb-3" formControlName="Total_Net_Weight">
+    <input type="text" placeholder="Total Gross weight" class="form-control mb-3" formControlName="Total_Gross_weight">
+
+    <label>Description</label>
+    <textarea type="text" placeholder="Description..." class="form-control mb-3" formControlName="Description" row="3"></textarea>
+
+    <!-- Nested Items -->
+    <div formGroupName="child">
+      <div class="items">
+        <div class="form-group">
+          <h3>Create Items</h3>
+          <div>
+            <label>Quantity</label>
+            <input class="form-control" type="text" formControlName="Quantity" placeholder="Quantity">
+          </div>
+          <div>
+            <label>Length_cm</label>
+            <input class="form-control" type="text" formControlName="Length" placeholder="Length (cm)">
+          </div>
+          <div>
+            <label>Width_cm</label>
+            <input class="form-control" type="text" formControlName="Width" placeholder="Width_cm">
+          </div>
+          <div>
+            <label>Height_cm</label>
+            <input class="form-control" type="text" formControlName="Height" placeholder="Height_cm">
+          </div>
+          <div>
+            <label>Net_Weight_kg</label>
+            <input class="form-control" type="text" formControlName="Net_Weight" placeholder="Net_Weight_kg">
+          </div>
+          <div>
+            <label>Gross_Weight_kg</label>
+            <input class="form-control" type="text" formControlName="Gross_Weight" placeholder="Gross_Weight_kg">
+          </div>
+        </div>
+      </div>
+    </div>
+
     <input type="submit" class="btn btn-outline-primary">
   </div>
 </form>

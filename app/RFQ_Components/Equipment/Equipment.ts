@@ -5,6 +5,12 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {OceanFCLService} from "../../interface-models/rfq_type_services/OceanFCL";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
 import {ActivatedRoute} from "@angular/router";
+import {TruckingFTLService} from "../../interface-models/rfq_type_services/TruckingFTL";
+import {TruckingLTLService} from "../../interface-models/rfq_type_services/TruckingLTL";
+import {CourierService} from "../../interface-models/rfq_type_services/Courier";
+import {PackingService} from "../../interface-models/rfq_type_services/Packing";
+import {FumigationService} from "../../interface-models/rfq_type_services/Fumigation";
+import {HandlingEquipmentService} from "../../interface-models/rfq_type_services/HandlingEquipment";
 
 
 @Injectable({
@@ -12,12 +18,12 @@ import {ActivatedRoute} from "@angular/router";
 })
 
 @Component({
-  selector: 'app-ocean-fcl',
-  templateUrl: './OceanFCL.html',
+  selector: 'app-equipment',
+  templateUrl: './Equipment.html',
   styleUrls: []
 })
 
-export class OceanFCL {
+export class Equipment {
   service_type_param: any;
   rfq_group_id: any;
 
@@ -41,30 +47,17 @@ export class OceanFCL {
       Note: new FormControl<string>(''),
 
       FCL_LCL: new FormControl<string>(''),
-      CBM: new FormControl<string>(''),
-      maximum_per_item_weight_kg: new FormControl<string>('', [ Validators.pattern(/d+/) ]),
+      CBM: new FormControl<number|null>(null),
+      maximum_per_item_weight_kg: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
       Equipment_Type: new FormControl<string>(''),
-
-      Shipping_Term: new FormControl<string>(this.default_term),
-      Incoterm: new FormControl<string>(''),
-      Need_Insurance: new FormControl<string>(''),
-      Value_of_Goods: new FormControl<string>('', [ Validators.pattern('([0-9]*[.])?[0-9]+') ]),
-      Dangerous_Commodity: new FormControl<boolean>(false),
-      Need_Temperature_Control: new FormControl<boolean>(false),
-      Temperature: new FormControl<string>(''),
-
-      Pickup_Country: new FormControl<string>(''),
-      Delivery_Country: new FormControl<string>(''),
-      Pickup_Address: new FormControl<string>(''),
-      Delivery_Address: new FormControl<string>(''),
-      POL_Port_of_Loading: new FormControl<string>(''),
-      POD_Port_of_Discharge: new FormControl<string>(''),
+      Address: new FormControl<string>(''),
+      Time_Needed_hours: new FormControl<number|null>(null),
 
       Description: new FormControl<string>('')
     });
   }
 
-  createRFQ(RFQForm: OceanFCLService)
+  createRFQ(RFQForm: HandlingEquipmentService)
   {
     // @ts-ignore
     let items = RFQForm.child; // store nested child

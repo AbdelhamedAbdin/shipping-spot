@@ -18,7 +18,6 @@ import {CreateRFQComponent} from "./RFQ/createRfq/CreateRFQ.component";
 // import {Air_Freight_ItemsComponent} from "./RFQ_Components/MainForm/MainForm.component";
 import {AirFreight} from "./RFQ_Components/Air_Freight/AirFreight";
 import {OceanFCL} from "./RFQ_Components/Ocean_FCL/OceanFCL";
-import {createRFQs} from "./RFQ_Components/none_service_items";
 import {OceanLCL} from "./RFQ_Components/Ocean_LCL/OceanLCL";
 import {TruckingFTL} from "./RFQ_Components/Trucking_FTL/TruckingFTL";
 import {TruckingLTL} from "./RFQ_Components/Trucking_LTL/TruckingLTL";
@@ -75,7 +74,7 @@ import {ProviderComponent} from "./Provider/provider.component";
     ReactiveFormsModule,
     FontAwesomeModule
   ],
-  providers: [createRFQs],
+  providers: [],
   bootstrap: [AppComponent]
 })
 

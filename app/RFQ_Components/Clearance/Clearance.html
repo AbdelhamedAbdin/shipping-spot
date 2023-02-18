@@ -1,32 +1,70 @@
 <form [formGroup]="this.formGroup" #createRfq="ngForm" class="p-4" (ngSubmit)="createRFQ(createRfq.value)">
   <div class="form-group">
-<!--    <app-main-rfq-form></app-main-rfq-form>-->
-
-    <input formControlName="Request_Title" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Title">
-    <input formControlName="Commodity" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Commodity">
-    <div class="form-floating mb-2">
-      <textarea formControlName="Note" class="form-control" placeholder="Leave a comment here" id="noteTextarea"></textarea>
+    <div>
+      <label for="commodity">Commodity</label>
+      <input id="commodity" formControlName="Commodity" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Commodity">
+    </div>
+    <div>
       <label for="noteTextarea">Note</label>
+      <textarea formControlName="Note" class="form-control" placeholder="Leave a comment here" id="noteTextarea"></textarea>
     </div>
 
-    <input type="text" placeholder="FCL - LCL..." class="form-control mb-3" formControlName="FCL_LCL">
-    <input type="text" placeholder="CBM" class="form-control mb-3" formControlName="CBM">
-    <input type="text" placeholder="Insurance Type" class="form-control mb-3" formControlName="Equipment_Type">
-    <input type="text" placeholder="maximum per item weight kg" class="form-control mb-3" formControlName="maximum_per_item_weight_kg">
-    <input type="text" placeholder="HS Code" class="form-control mb-3" formControlName="HS_Code">
-    <div class="form-floating mb-2">
-      <textarea formControlName="Service_Operation" class="form-control" placeholder="Service Operation"></textarea>
+    <div>
+      <label for="hs_code">HS Code</label>
+      <input id="hs_code" type="number" placeholder="HS Code" class="form-control mb-3" formControlName="HS_Code">
+    </div>
+    <div>
+      <select formControlName="Service_Operation" class="form-control">
+        <option *ngFor="let services of service_operations;" [ngValue]="services">{{services}}</option>
+      </select>
       <label for="noteTextarea">Service Operation</label>
     </div>
-    <div class="form-floating mb-2">
-      <textarea formControlName="Service_Mode" class="form-control" placeholder="Service Mode"></textarea>
+    <div>
       <label>Service Mode</label>
+      <select #mode_value (change)="showFields(mode_value.value.slice(3))" formControlName="Service_Mode" class="form-control">
+        <option *ngFor="let mode of modes;" [ngValue]="mode">{{mode}}</option>
+      </select>
     </div>
 
-    <input type="text" placeholder="Pickup Country" class="form-control mb-3" formControlName="Pickup_Country">
-    <input type="text" placeholder="Delivery Country" class="form-control mb-3" formControlName="Delivery_Country">
-    <input type="text" placeholder="Pickup Address" class="form-control mb-3" formControlName="Pickup_Address">
-    <input type="text" placeholder="Delivery Address" class="form-control mb-3" formControlName="Delivery_Address">
+    <div class="mt-2" *ngFor="let modes of showFields(mode_value.value.slice(3));">
+      <label>{{ modes.formControlName }}</label>
+      <input [type]="modes.type" [formControlName]="modes.formControlName" [class]="modes.class">
+    </div>
+
+    <!-- Air Service Mode -->
+    <div *ngIf="mode_value.value.slice(3) === 'Air'">
+      <label>Airport Mode</label>
+      <select formControlName="Airport" class="form-control">
+        <option *ngFor="let Airport of Airports;" [ngValue]="Airport">{{ Airport }}</option>
+      </select>
+    </div>
+    <!-- Land Service Mode -->
+    <div *ngIf="mode_value.value.slice(3) === 'Land'">
+      <label>Landport Mode</label>
+      <select formControlName="Landport" class="form-control">
+        <option *ngFor="let Landport of Landports;" [ngValue]="Landport">{{ Landport }}</option>
+      </select>
+    </div>
+    <!-- Ocean Service Mode -->
+    <div *ngIf="mode_value.value.slice(3) === 'Ocean'">
+      <label>Seaport Mode</label>
+      <select formControlName="Seaport" class="form-control">
+        <option *ngFor="let Seaport of Seaports;" [ngValue]="Seaport">{{ Seaport }}</option>
+      </select>
+    </div>
+
+    <div class="mt-2">
+      <input type="text" placeholder="Pickup Country" class="form-control mb-3" formControlName="Pickup_Country">
+    </div>
+    <div class="mt-2">
+      <input type="text" placeholder="Delivery Country" class="form-control mb-3" formControlName="Delivery_Country">
+    </div>
+    <div class="mt-2">
+      <input type="text" placeholder="Pickup Address" class="form-control mb-3" formControlName="Pickup_Address">
+    </div>
+    <div class="mt-2">
+      <input type="text" placeholder="Delivery Address" class="form-control mb-3" formControlName="Delivery_Address">
+    </div>
 
     <!-- Nested Items -->
     <div formGroupName="child">

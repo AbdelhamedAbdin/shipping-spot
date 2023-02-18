@@ -1,6 +1,6 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import {selectServiceType} from "../run_event";
+import {selectServiceType} from "../service_handlers";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {OceanFCLService} from "../../interface-models/rfq_type_services/OceanFCL";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
@@ -25,9 +25,9 @@ export class Courier {
   rfq_group_id: any;
 
   formGroup: any;
-  default_term: string = "-- None --";
+  default_term: string = "-None-";
   terms: Array<string> = ["Door to Door", "Port to Port", "Incoterm"];
-  incoterms: Array<string> = ["Option 1", "Option 2"];
+  incoterms: Array<string> = ['EXW', 'EX Works', 'FCA', 'Free Carrier', 'FAS', 'Free Alongside Ship', 'FOB', 'Free On Board', 'CFR', 'Cost & Freight', 'CIF', 'Cost Insurance & Freight', 'CPT', 'Carriage Paid To', 'CIP', 'Carriage Insurance Paid To', 'DAP', 'Delivered At Place', 'DPU', 'Delivered at Place Unloaded', 'DDP', 'Delivered Duty Paid'];
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -39,17 +39,11 @@ export class Courier {
     this.rfq_group_id = this.currentRoute.parent?.snapshot.params.id;
 
     this.formGroup = new FormGroup({
-      Request_Title: new FormControl<string>('', [ Validators.required ]),
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
 
-      FCL_LCL: new FormControl<string>(''),
-      CBM: new FormControl<number|null>(null),
-      maximum_per_item_weight_kg: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-      Equipment_Type: new FormControl<string>(''),
-
       Shipping_Term: new FormControl<string>(this.default_term),
-      Incoterm: new FormControl<string>(''),
+      Incoterm: new FormControl<string>(this.default_term),
       Need_Insurance: new FormControl<boolean>(false),
       Value_of_Goods: new FormControl<number|null>(null, [ Validators.pattern('([0-9]*[.])?[0-9]+') ]),
       Dangerous_Commodity: new FormControl<boolean>(false),
@@ -64,8 +58,6 @@ export class Courier {
       Total_Number_of_Packages: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
       Total_Net_Weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
       Total_Gross_weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
-
-      Description: new FormControl<string>('')
     });
   }
 

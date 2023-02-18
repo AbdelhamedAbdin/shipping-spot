@@ -1,15 +1,9 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import {selectServiceType} from "../run_event";
+import {selectServiceType} from "../service_handlers";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {OceanFCLService} from "../../interface-models/rfq_type_services/OceanFCL";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
 import {ActivatedRoute} from "@angular/router";
-import {TruckingFTLService} from "../../interface-models/rfq_type_services/TruckingFTL";
-import {TruckingLTLService} from "../../interface-models/rfq_type_services/TruckingLTL";
-import {CourierService} from "../../interface-models/rfq_type_services/Courier";
-import {PackingService} from "../../interface-models/rfq_type_services/Packing";
-import {FumigationService} from "../../interface-models/rfq_type_services/Fumigation";
 import {HandlingEquipmentService} from "../../interface-models/rfq_type_services/HandlingEquipment";
 
 
@@ -26,11 +20,7 @@ import {HandlingEquipmentService} from "../../interface-models/rfq_type_services
 export class Equipment {
   service_type_param: any;
   rfq_group_id: any;
-
   formGroup: any;
-  default_term: string = "-- None --";
-  terms: Array<string> = ["Door to Door", "Port to Port", "Incoterm"];
-  incoterms: Array<string> = ["Option 1", "Option 2"];
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -42,18 +32,11 @@ export class Equipment {
     this.rfq_group_id = this.currentRoute.parent?.snapshot.params.id;
 
     this.formGroup = new FormGroup({
-      Request_Title: new FormControl<string>('', [ Validators.required ]),
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
 
-      FCL_LCL: new FormControl<string>(''),
-      CBM: new FormControl<number|null>(null),
-      maximum_per_item_weight_kg: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-      Equipment_Type: new FormControl<string>(''),
       Address: new FormControl<string>(''),
       Time_Needed_hours: new FormControl<number|null>(null),
-
-      Description: new FormControl<string>('')
     });
   }
 

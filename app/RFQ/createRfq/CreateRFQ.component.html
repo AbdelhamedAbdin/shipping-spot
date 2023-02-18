@@ -10,7 +10,6 @@
           <select [(ngModel)]="this.default_service" #service_name (change)="displayFields(service_name.value);"
                   name="Service_Type" id="service-type" class="form-control"
                    ngModel>
-            <option>-- None --</option>
             <option *ngFor="let services of Type_Services" [ngValue]="services">{{ services }}</option>
           </select>
         </div>

@@ -1,6 +1,6 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import {selectServiceType} from "../run_event";
+import {selectServiceType} from "../service_handlers";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {OceanFCLService} from "../../interface-models/rfq_type_services/OceanFCL";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
@@ -29,9 +29,12 @@ export class Insurance {
   rfq_group_id: any;
 
   formGroup: any;
-  default_term: string = "-- None --";
-  terms: Array<string> = ["Door to Door", "Port to Port", "Incoterm"];
-  incoterms: Array<string> = ["Option 1", "Option 2"];
+  default_term: string = "-None-";
+  shipping_modes: Array<string> = ["-None-", "air", "ocean", "land"];
+  coves: Array<string> = ["-None-", 'Door to Door', 'Port to Port', 'Door to Port', 'Port to Door'];
+  country_origin: Array<string> = ["-None-", "countries"];
+  country_destination: Array<string> = ["-None-", "countries"];
+  policy_types: Array<string> = ["-None-", "A", "B", "C"];
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -43,18 +46,15 @@ export class Insurance {
     this.rfq_group_id = this.currentRoute.parent?.snapshot.params.id;
 
     this.formGroup = new FormGroup({
-      Request_Title: new FormControl<string>('', [ Validators.required ]),
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
 
-      FCL_LCL: new FormControl<string>(''),
-      CBM: new FormControl<number|null>(null),
-      maximum_per_item_weight_kg: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-      Equipment_Type: new FormControl<string>(''),
-      Address: new FormControl<string>(''),
-      Time_Needed_hours: new FormControl<number|null>(null),
-
-      Description: new FormControl<string>('')
+      Shipping_Mode: new FormControl<string>(this.default_term),
+      Country_of_Origin: new FormControl<string>(this.default_term),
+      Country_of_Destination: new FormControl<string>(this.default_term),
+      Coverage: new FormControl<string>(this.default_term),
+      Policy_Type: new FormControl<string>(this.default_term),
+      Value: new FormControl<number|null>(null, [Validators.pattern(/d+/g)]),
     });
   }
 

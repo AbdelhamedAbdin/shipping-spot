@@ -31,6 +31,7 @@ import {Fumigation} from "./RFQ_Components/Fumigation/Fumigation";
 import {Equipment} from "./RFQ_Components/Equipment/Equipment";
 import {Insurance} from "./RFQ_Components/Insurance/Insurance";
 import {ProviderComponent} from "./Provider/provider.component";
+import {MainFormComponent} from "./RFQ_Components/MainForm/MainForm.component";
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {ProviderComponent} from "./Provider/provider.component";
     CreateRFQComponent,
     // RFQ::Components
     // Air_Freight_ItemsComponent,
+    // MainFormComponent,
     AirFreight,
     OceanFCL,
     OceanLCL,

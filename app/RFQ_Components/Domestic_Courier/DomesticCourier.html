@@ -1,18 +1,13 @@
 <form [formGroup]="this.formGroup" #createRfq="ngForm" class="p-4" (ngSubmit)="createRFQ(createRfq.value)">
   <div class="form-group">
-<!--    <app-main-rfq-form></app-main-rfq-form>-->
-
-    <input formControlName="Request_Title" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Title">
-    <input formControlName="Commodity" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Commodity">
-    <div class="form-floating mb-2">
-      <textarea formControlName="Note" class="form-control" placeholder="Leave a comment here" id="noteTextarea"></textarea>
-      <label for="noteTextarea">Note</label>
+    <div>
+      <label for="commodity">Commodity</label>
+      <input id="commodity" formControlName="Commodity" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Commodity">
     </div>
-
-    <input type="text" placeholder="FCL - LCL..." class="form-control mb-3" formControlName="FCL_LCL">
-    <input type="text" placeholder="CBM" class="form-control mb-3" formControlName="CBM">
-    <input type="text" placeholder="Insurance Type" class="form-control mb-3" formControlName="Equipment_Type">
-    <input type="text" placeholder="maximum per item weight kg" class="form-control mb-3" formControlName="maximum_per_item_weight_kg">
+    <div>
+      <label for="noteTextarea">Note</label>
+      <textarea formControlName="Note" class="form-control" placeholder="Leave a comment here" id="noteTextarea"></textarea>
+    </div>
 
     <input type="text" placeholder="Pickup Country" class="form-control mb-3" formControlName="Pickup_Country">
     <input type="text" placeholder="Delivery Country" class="form-control mb-3" formControlName="Delivery_Country">

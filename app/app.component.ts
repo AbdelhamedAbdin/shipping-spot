@@ -8,11 +8,16 @@ import { NavigationEnd, Router } from '@angular/router';
 import * as svg_icons from "@fortawesome/free-solid-svg-icons";
 import { filter } from 'rxjs/operators';
 import { ContactsService } from "../services/CRMModules/Contacts";
-import { HttpClient } from "@angular/common/http";
 
+let DEBUG: boolean = true;
+let DOMAIN: string = "sandbox";
+
+// Live Server
+if (!DEBUG) {
+  DOMAIN = "";
+}
 
 const DataStorageName = "user_login";
-let rfq_group_listener: any = ""
 
 @Component({
   selector: 'app-root',
@@ -133,5 +138,4 @@ export class AppComponent implements OnInit {
   }
 }
 
-// @ts-ignore
-export { DataStorageName, rfq_group_listener };
+export { DataStorageName, DOMAIN };

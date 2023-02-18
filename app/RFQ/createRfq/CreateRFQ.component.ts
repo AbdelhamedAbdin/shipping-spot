@@ -21,22 +21,22 @@ export class CreateRFQComponent {
   rfq_group_id: any;
   rfq_group_name: any;
   Type_Services: any = [
+    "-None-",
     "Air Freight",
     "Ocean Freight - FCL",
     "Ocean Freight - LCL",
     "International Trucking - FTL",
     "International Trucking - LTL",
-    "International Clearance",
     "Domestic Trucking",
-    "Domestic Clearance",
+    "Domestic Courier",
     "Custom Clearance",
     "Storage",
     "Packing",
     "Fumigation",
-    "Handling Insurance",
+    "Handling Equipment",
     "Insurance"
   ]
-  default_service: string = "-- None --";
+  default_service: string = "-None-";
   option_choiced: boolean = false;
 
   constructor(private RFQGroupService: RFQGroupService, private router: Router, private routeParam: ActivatedRoute) {

@@ -1,23 +1,49 @@
 <form [formGroup]="this.formGroup" #createRfq="ngForm" class="p-4" (ngSubmit)="createRFQ(createRfq.value)">
   <div class="form-group">
-<!--    <app-main-rfq-form></app-main-rfq-form>-->
-
-    <input formControlName="Request_Title" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Title">
-    <input formControlName="Commodity" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Commodity">
-    <div class="form-floating mb-2">
-      <textarea formControlName="Note" class="form-control" placeholder="Leave a comment here" id="noteTextarea"></textarea>
+    <div>
+      <label for="commodity">Commodity</label>
+      <input id="commodity" formControlName="Commodity" class="form-control mb-2" type="text" required autocomplete="off" placeholder="Commodity">
+    </div>
+    <div>
       <label for="noteTextarea">Note</label>
+      <textarea formControlName="Note" class="form-control" placeholder="Leave a comment here" id="noteTextarea"></textarea>
     </div>
 
-    <input type="text" placeholder="FCL - LCL..." class="form-control mb-3" formControlName="FCL_LCL">
-    <input type="text" placeholder="CBM" class="form-control mb-3" formControlName="CBM">
-    <input type="text" placeholder="Insurance Type" class="form-control mb-3" formControlName="Equipment_Type">
-    <input type="text" placeholder="maximum per item weight kg" class="form-control mb-3" formControlName="maximum_per_item_weight_kg">
+    <div class="mt-2">
+      <label>Choose Truck</label>
+      <select #choose_truck class="form-control mb-3" formControlName="Choose_Truck">
+        <option *ngFor="let truck of choose_trucks" [ngValue]="truck">{{ truck }}</option>
+      </select>
+    </div>
 
-    <input type="text" placeholder="Pickup Country" class="form-control mb-3" formControlName="Pickup_Country">
-    <input type="text" placeholder="Delivery Country" class="form-control mb-3" formControlName="Delivery_Country">
-    <input type="text" placeholder="Pickup Address" class="form-control mb-3" formControlName="Pickup_Address">
-    <input type="text" placeholder="Delivery Address" class="form-control mb-3" formControlName="Delivery_Address">
+    <div *ngIf="choose_truck.value.slice(3) === 'Choose Your Truck'" class="mt-2">
+      <label>Truck Type</label>
+      <select class="form-control mb-3" formControlName="Truck_Type">
+        <option *ngFor="let truck of truck_types" [ngValue]="truck">{{ truck }}</option>
+      </select>
+    </div>
+
+    <div *ngIf="choose_truck.value.slice(3) === 'Choose Your Truck'" class="mt-2">
+      <label for="Number_of_Trucks">Number of Trucks</label>
+      <input id="Number_of_Trucks" type="number" formControlName="Number_of_Trucks" class="form-control mb-3">
+    </div>
+
+    <div>
+      <label for="pickup_country"></label>
+      <input id="pickup_country" type="text" placeholder="Pickup Country" class="form-control mb-3" formControlName="Pickup_Country">
+    </div>
+    <div>
+      <label for="delivery_country">Delivery Country</label>
+      <input id="delivery_country" type="text" placeholder="Delivery Country" class="form-control mb-3" formControlName="Delivery_Country">
+    </div>
+    <div>
+      <label for="pickup_address">Pickup Address</label>
+      <input id="pickup_address" type="text" placeholder="Pickup Address" class="form-control mb-3" formControlName="Pickup_Address">
+    </div>
+    <div>
+      <label for="delivery_address">Delivery Address</label>
+      <input id="delivery_address" type="text" placeholder="Delivery Address" class="form-control mb-3" formControlName="Delivery_Address">
+    </div>
 
     <!-- Nested Items -->
     <div formGroupName="child">
@@ -27,16 +53,13 @@
           <div>
             <label>Quantity</label>
             <select class="form-control mb-3" formControlName="Number_of_Trucks">
-              <option>-- None --</option>
-              <option *ngFor="let item of choose_truck_or_shipment" [ngValue]="item">{{ item }}</option>
+<!--              <option *ngFor="let item of choose_truck_or_shipment" [ngValue]="item">{{ item }}</option>-->
             </select>
           </div>
         </div>
       </div>
     </div>
 
-    <label>Description</label>
-    <textarea type="text" placeholder="Description..." class="form-control mb-3" formControlName="Description" row="3"></textarea>
     <input type="submit" class="btn btn-outline-primary">
   </div>
 </form>

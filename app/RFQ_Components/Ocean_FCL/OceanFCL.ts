@@ -1,6 +1,6 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import {selectServiceType} from "../run_event";
+import {selectServiceType} from "../service_handlers";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {OceanFCLService} from "../../interface-models/rfq_type_services/OceanFCL";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
@@ -22,9 +22,9 @@ export class OceanFCL {
   rfq_group_id: any;
 
   formGroup: any;
-  default_term: string = "-- None --";
-  terms: Array<string> = ["Door to Door", "Port to Port", "Incoterm"];
-  incoterms: Array<string> = ["Option 1", "Option 2"];
+  default_term: string = "-None-";
+  terms: Array<string> = ["-None-", "Door to Door", "Port to Port", "Incoterm"];
+  incoterms: Array<string> = ["-None-", "Option 1", "Option 2"];
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -36,22 +36,16 @@ export class OceanFCL {
     this.rfq_group_id = this.currentRoute.parent?.snapshot.params.id;
 
     this.formGroup = new FormGroup({
-      Request_Title: new FormControl<string>('', [ Validators.required ]),
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
 
-      FCL_LCL: new FormControl<string>(''),
-      CBM: new FormControl<string>(''),
-      maximum_per_item_weight_kg: new FormControl<string>('', [ Validators.pattern(/d+/) ]),
-      Equipment_Type: new FormControl<string>(''),
-
       Shipping_Term: new FormControl<string>(this.default_term),
-      Incoterm: new FormControl<string>(''),
+      Incoterm: new FormControl<string>(this.default_term),
       Need_Insurance: new FormControl<string>(''),
       Value_of_Goods: new FormControl<string>('', [ Validators.pattern('([0-9]*[.])?[0-9]+') ]),
       Dangerous_Commodity: new FormControl<boolean>(false),
       Need_Temperature_Control: new FormControl<boolean>(false),
-      Temperature: new FormControl<string>(''),
+      Temperature: new FormControl<number|null>(null),
 
       Pickup_Country: new FormControl<string>(''),
       Delivery_Country: new FormControl<string>(''),
@@ -59,8 +53,6 @@ export class OceanFCL {
       Delivery_Address: new FormControl<string>(''),
       POL_Port_of_Loading: new FormControl<string>(''),
       POD_Port_of_Discharge: new FormControl<string>(''),
-
-      Description: new FormControl<string>('')
     });
   }
 

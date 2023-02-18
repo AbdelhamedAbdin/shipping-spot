@@ -1,6 +1,6 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import {selectServiceType} from "../run_event";
+import {selectServiceType} from "../service_handlers";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {OceanFCLService} from "../../interface-models/rfq_type_services/OceanFCL";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
@@ -26,9 +26,9 @@ export class StorageComp {
   rfq_group_id: any;
 
   formGroup: any;
-  default_term: string = "-- None --";
-  spaces: Array<string> = ["Square Meter", "Cubic Meter"];
-  incoterms: Array<string> = ["Option 1", "Option 2"];
+  default_term: string = "-None-";
+  space_types: Array<string> = ["-None-", "Square Meter", "Cubic Meter"];
+  storage_types: Array<string> = ["-None-", "Fixed Space", "Per Cargo Size"];
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -40,19 +40,14 @@ export class StorageComp {
     this.rfq_group_id = this.currentRoute.parent?.snapshot.params.id;
 
     this.formGroup = new FormGroup({
-      Request_Title: new FormControl<string>('', [ Validators.required ]),
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
 
-      FCL_LCL: new FormControl<string>(''),
-      CBM: new FormControl<number|null>(null),
-      maximum_per_item_weight_kg: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-      Equipment_Type: new FormControl<string>(''),
-      Space_Type: new FormControl<string>(''),
+      Space_Type: new FormControl<string>(this.default_term),
+      Storage_Type: new FormControl<string>(this.default_term),
       City: new FormControl<string>(''),
       Preferred_District: new FormControl<string>(''),
       Space: new FormControl<number|null>(null),
-      Storage_Type: new FormControl<string>(''),
 
       From: new FormControl<Date>(new Date()),
       To: new FormControl<Date>(new Date()),
@@ -60,8 +55,6 @@ export class StorageComp {
       Total_Number_of_Packages: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
       Total_Net_Weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
       Total_Gross_weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
-
-      Description: new FormControl<string>('')
     });
   }
 

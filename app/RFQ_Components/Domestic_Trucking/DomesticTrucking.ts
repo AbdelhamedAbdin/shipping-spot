@@ -1,6 +1,6 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import {selectServiceType} from "../run_event";
+import {selectServiceType} from "../service_handlers";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {OceanFCLService} from "../../interface-models/rfq_type_services/OceanFCL";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
@@ -25,12 +25,10 @@ import {DomesticTruckingService} from "../../interface-models/rfq_type_services/
 export class DomesticTrucking {
   service_type_param: any;
   rfq_group_id: any;
-
   formGroup: any;
-  default_term: string = "-- None --";
-  terms: Array<string> = ["Door to Door", "Port to Port", "Incoterm"];
-  incoterms: Array<string> = ["Option 1", "Option 2"];
-  choose_truck_or_shipment = ["Choose Truck", "Enter Shipment Detail"];
+  default_term: string = "-None-";
+  choose_trucks = ["-None-", "Choose Your Truck"];
+  truck_types = ["-None-", 'Small open', 'Large open', 'Small closed', 'Large closed', 'Small refer', 'Large refer'];
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -42,21 +40,16 @@ export class DomesticTrucking {
     this.rfq_group_id = this.currentRoute.parent?.snapshot.params.id;
 
     this.formGroup = new FormGroup({
-      Request_Title: new FormControl<string>('', [ Validators.required ]),
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
-
-      FCL_LCL: new FormControl<string>(''),
-      CBM: new FormControl<number|null>(null),
-      maximum_per_item_weight_kg: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-      Equipment_Type: new FormControl<string>(''),
+      Choose_Truck: new FormControl<string>(this.default_term),
+      Truck_Type: new FormControl<string>(this.default_term),
+      Number_of_Trucks: new FormControl<number|null>(null),
 
       Pickup_Country: new FormControl<string>(''),
       Delivery_Country: new FormControl<string>(''),
       Pickup_Address: new FormControl<string>(''),
       Delivery_Address: new FormControl<string>(''),
-
-      Description: new FormControl<string>('')
     });
   }
 

@@ -1,7 +1,7 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import {selectServiceType} from "../run_event";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {selectServiceType} from "../service_handlers";
+import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {OceanFCLService} from "../../interface-models/rfq_type_services/OceanFCL";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
 import {ActivatedRoute} from "@angular/router";
@@ -10,7 +10,7 @@ import {TruckingLTLService} from "../../interface-models/rfq_type_services/Truck
 import {CourierService} from "../../interface-models/rfq_type_services/Courier";
 import {DomesticCourierService} from "../../interface-models/rfq_type_services/DomesticCourier";
 import {DomesticTruckingService} from "../../interface-models/rfq_type_services/DomesticTrucking";
-import {ClearanceService} from "../../interface-models/rfq_type_services/Clearance";
+import {ClearanceService, ServiceModeData} from "../../interface-models/rfq_type_services/Clearance";
 
 
 @Injectable({
@@ -28,39 +28,51 @@ export class Clearance {
   rfq_group_id: any;
 
   formGroup: any;
-  default_term: string = "-- None --";
-  terms: Array<string> = ["Door to Door", "Port to Port", "Incoterm"];
-  incoterms: Array<string> = ["Option 1", "Option 2"];
+  default_term: string = "-None-";
+  service_operations: Array<string> = ["-None-", "Import", "Export"];
+  modes: Array<string> = ["-None-", "Air", "Ocean", "Land"];
+  Airports: Array<string> = ["-None-", "Cairo Airport", "Alexandria Airport"];
+  Landports: Array<string> = ["-None-", "option2"];
+  Seaports: Array<string> = ["-None-", 'Portsaid East Port', 'Portsaid West Port', 'Damietta Port', 'Suez Port', 'Adabiya Port'];
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
     // Get real name of the service
     this.currentRoute.queryParams.subscribe(res => {
-      this.service_type_param = res.service_type
+      this.service_type_param = res.service_type;
     })
 
     this.rfq_group_id = this.currentRoute.parent?.snapshot.params.id;
 
     this.formGroup = new FormGroup({
-      Request_Title: new FormControl<string>('', [ Validators.required ]),
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
 
-      FCL_LCL: new FormControl<string>(''),
-      CBM: new FormControl<number|null>(null),
-      maximum_per_item_weight_kg: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-      Equipment_Type: new FormControl<string>(''),
       HS_Code: new FormControl<number|null>(null),
-      Service_Operation: new FormControl<string>(''),
-      Service_Mode: new FormControl<string>(''),
+      Service_Operation: new FormControl<string>(this.default_term),
+      Service_Mode: new FormControl<string>(this.default_term),
+      // Based On Service_Mode Criteria
+      Airport: new FormControl<string>(this.default_term),
+      Landport: new FormControl<string>(this.default_term),
+      Seaport: new FormControl<string>(this.default_term),
+      Gross_Weight_kg: new FormControl<string>(this.default_term),
+      Quantity: new FormControl<string>(this.default_term),
+      CBM: new FormControl<string>(this.default_term),
+      Shipment_Gross_Weight_kg: new FormControl<string>(this.default_term),
+      Number_of_Trucks: new FormControl<string>(this.default_term),
 
       Pickup_Country: new FormControl<string>(''),
       Delivery_Country: new FormControl<string>(''),
       Pickup_Address: new FormControl<string>(''),
       Delivery_Address: new FormControl<string>(''),
-
-      Description: new FormControl<string>('')
     });
+  }
+
+  showFields: Function = function (pickup_value: string) {
+    console.log(pickup_value);
+    // @ts-ignore
+    let service_states = ServiceModeData()[pickup_value];
+    return service_states;
   }
 
   createRFQ(RFQForm: ClearanceService)

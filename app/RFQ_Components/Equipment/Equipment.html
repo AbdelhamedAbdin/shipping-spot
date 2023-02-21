@@ -16,6 +16,40 @@
       <input type="text" placeholder="Time Needed hours" class="form-control mb-3" formControlName="Time_Needed_hours">
     </div>
 
+<!-- Nested Items -->
+    <div class="childs">
+      <div class="items">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Quantity</th>
+                <th scope="col">Equipment Type</th>
+                <th scope="col">Maximum per Item Weight</th>
+                <th scope="col">Add</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="child-form" formGroupName="child">
+                <td>
+                  <input class="form-control" type="number" formControlName="Quantity" placeholder="Quantity">
+                </td>
+                <td>
+                  <select class="form-control" formControlName="Equipment_Type">
+                    <option *ngFor="let equipment of equipments;">{{ equipment }}</option>
+                  </select>
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Maximum_per_Item_Weight" placeholder="Maximum per Item Weight">
+                </td>
+                <td>
+                  <button id="1" type="button" class="add-btn btn btn-primary">+</button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+
     <input type="submit" class="btn btn-outline-primary">
   </div>
 </form>

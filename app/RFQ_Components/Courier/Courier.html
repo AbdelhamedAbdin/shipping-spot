@@ -64,40 +64,49 @@
     <input type="text" placeholder="Total Gross weight" class="form-control mb-3" formControlName="Total_Gross_weight">
 
     <!-- Nested Items -->
-    <div formGroupName="child">
+    <div class="childs">
       <div class="items">
-        <div class="form-group">
-          <h3>Create Items</h3>
-          <div>
-            <label>Quantity</label>
-            <input class="form-control" type="text" formControlName="Quantity" placeholder="Quantity">
-          </div>
-          <div>
-            <label>Length_cm</label>
-            <input class="form-control" type="text" formControlName="Length" placeholder="Length (cm)">
-          </div>
-          <div>
-            <label>Width_cm</label>
-            <input class="form-control" type="text" formControlName="Width" placeholder="Width_cm">
-          </div>
-          <div>
-            <label>Height_cm</label>
-            <input class="form-control" type="text" formControlName="Height" placeholder="Height_cm">
-          </div>
-          <div>
-            <label>Net_Weight_kg</label>
-            <input class="form-control" type="text" formControlName="Net_Weight" placeholder="Net_Weight_kg">
-          </div>
-          <div>
-            <label>Gross_Weight_kg</label>
-            <input class="form-control" type="text" formControlName="Gross_Weight" placeholder="Gross_Weight_kg">
-          </div>
-        </div>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Quantity</th>
+                <th scope="col">Length (cm)</th>
+                <th scope="col">Width (cm)</th>
+                <th scope="col">Height (cm)</th>
+                <th scope="col">Net Weight (kg)</th>
+                <th scope="col">Gross Weight (kg)</th>
+                <th scope="col">Add</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="child-form" formGroupName="child">
+                <td>
+                  <input class="form-control" type="number" formControlName="Quantity" placeholder="Quantity">
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Length" placeholder="Length (cm)">
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Width" placeholder="Width_cm">
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Height" placeholder="Height_cm">
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Net_Weight" placeholder="Net_Weight_kg">
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Gross_Weight" placeholder="Gross_Weight_kg">
+                </td>
+                <td>
+                  <button id="1" type="button" class="add-btn btn btn-primary">+</button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
       </div>
     </div>
 
-    <label>Description</label>
-    <textarea type="text" placeholder="Description..." class="form-control mb-3" formControlName="Description" row="3"></textarea>
     <input type="submit" class="btn btn-outline-primary">
   </div>
 </form>

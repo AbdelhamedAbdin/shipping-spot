@@ -29,6 +29,7 @@ export class CreateRFQComponent {
     "International Trucking - LTL",
     "Domestic Trucking",
     "Domestic Courier",
+    "International Courier",
     "Custom Clearance",
     "Storage",
     "Packing",

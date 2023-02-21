@@ -14,6 +14,46 @@
       <input type="text" placeholder="City" class="form-control mb-3" formControlName="City">
     </div>
 
+    <!-- Nested Items -->
+    <div class="childs">
+      <div class="items">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Quantity</th>
+                <th scope="col">Length (cm)</th>
+                <th scope="col">Width (cm)</th>
+                <th scope="col">Height (cm)</th>
+                <th scope="col">Net Weight (kg)</th>
+                <th scope="col">Add</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="child-form" formGroupName="child">
+                <td>
+                  <input class="form-control" type="number" formControlName="Quantity" placeholder="Quantity">
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Length" placeholder="Length (cm)">
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Width" placeholder="Width_cm">
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Height" placeholder="Height_cm">
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Net_Weight" placeholder="Net_Weight_kg">
+                </td>
+                <td>
+                  <button id="1" type="button" class="add-btn btn btn-primary">+</button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+
     <input type="submit" class="btn btn-outline-primary">
   </div>
 </form>

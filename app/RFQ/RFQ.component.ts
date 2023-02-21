@@ -1,8 +1,8 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import { RFQGroupService } from "../../services/CRMModules/RFQGroup";
+import { GetRFQGroupServices } from "../../services/CRMModules/GetRFQGroups";
 import { userLogged } from "../../utils";
-import { NavigationEnd, Router } from "@angular/router";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -20,16 +20,26 @@ export class RFQComponent {
   rfq_group: any = [];
   related_rfqs: any = [];
   account_id: any;
+  user_type: string = "";
 
-  constructor(private RFQGroupService: RFQGroupService, private router: Router) {
+  constructor(private RFQGroupService: GetRFQGroupServices, private router: Router) {
     this.account_id = new userLogged().parseStorage(localStorage).AccountID;
+    this.user_type = new userLogged().parseStorage(localStorage).UserType;
 
-    const RFQG = this.RFQGroupService.GetRecordByID("search?criteria=(Account:equals:" + this.account_id + ")");
+    const RFQG = this.RFQGroupService.GetRecordByBody({
+      "ID":this.account_id,
+      "Module":"Accounts",
+      "Module_feilds":["Account_Name","Shipping_Country"],
+      "Raleted_list": [
+          {"api_related":"RFQs","Raleted_list_fields":["id","Title", "Created_Time"]}
+      ]
+    });
     RFQG.subscribe(res => {
-      this.rfq_group = res["data"];
+      try {
+        this.rfq_group = res["raleted_list"][0]["RFQs"];
+      } catch (e) {
+        this.rfq_group = null;
+      }
     })
   }
-
-  // close RFQ Details section
-  resetRFQDetails() {this.related_rfqs = []}
 }

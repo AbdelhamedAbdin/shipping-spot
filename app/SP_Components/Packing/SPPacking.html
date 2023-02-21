@@ -1,0 +1,54 @@
+<div *ngIf="getParam.get('service_type') === title" class="col-lg-12">
+  <form #formElem="ngForm" [formGroup]="this.formGroup" (ngSubmit)="createQuotation(formElem.value)">
+    <div class="form-group">
+      <div class="row">
+      <div class="col-lg-6">
+        <div>
+          <label>Price</label>
+          <input type="number" formControlName="Price" placeholder="Price" class="form-control">
+        </div>
+        <div>
+          <label>All In Price</label>
+          <input type="number" formControlName="All_In_Price" placeholder="All In Price" class="form-control">
+        </div>
+        <div>
+          <label>Price Breakdown</label>
+          <textarea row="3" formControlName="Price_Breakdown" placeholder="Price Breakdown" class="form-control"></textarea>
+        </div>
+        <div>
+          <label>Credit Terms</label>
+          <textarea row="3" formControlName="Credit_Terms" placeholder="Credit Terms" class="form-control"></textarea>
+        </div>
+        <div>
+          <label>Packing Time (days)</label>
+          <input type="date" formControlName="Packing_Time_days" placeholder="Packing Time (days)" class="form-control">
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div>
+          <label>Price Validity</label>
+          <input type="date" formControlName="Price_Validity" placeholder="Price Validity" class="form-control">
+        </div>
+        <div>
+          <label>Note</label>
+          <textarea row="3" formControlName="Note" placeholder="Note" class="form-control"></textarea>
+        </div>
+        <div>
+          <label>Credit Amount</label>
+          <input type="number" formControlName="Credit_Amount" placeholder="Credit Amount" class="form-control">
+        </div>
+        <div>
+          <label>Credit Period (days)</label>
+          <input type="number" formControlName="Credit_Period_days" placeholder="Credit Period (days)" class="form-control">
+        </div>
+        <div>
+          <label>Terms & Conditions</label>
+          <textarea row="3" formControlName="Terms_Conditions" placeholder="Terms Conditions" class="form-control"></textarea>
+        </div>
+      </div>
+      </div>
+    </div>
+    <input type="submit" class="btn btn-primary">
+  </form>
+</div>

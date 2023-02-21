@@ -1,14 +1,12 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import {selectServiceType} from "../service_handlers";
+import {getItemsOrNone, RFQBody, selectServiceType} from "../service_handlers";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {OceanFCLService} from "../../interface-models/rfq_type_services/OceanFCL";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
 import {ActivatedRoute} from "@angular/router";
-import {TruckingFTLService} from "../../interface-models/rfq_type_services/TruckingFTL";
-import {TruckingLTLService} from "../../interface-models/rfq_type_services/TruckingLTL";
-import {CourierService} from "../../interface-models/rfq_type_services/Courier";
 import {StorageService} from "../../interface-models/rfq_type_services/Storage";
+import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
+import {AddRemoveItems} from "../add_remove_items";
 
 
 @Injectable({
@@ -56,33 +54,13 @@ export class StorageComp {
       Total_Net_Weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
       Total_Gross_weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
     });
+
+    new AddRemoveItems().windowButtons();
   }
 
-  createRFQ(RFQForm: StorageService)
+  createRFQ(RFQForm: AirFreightService)
   {
-    // @ts-ignore
-    let items = RFQForm.child; // store nested child
-    Reflect.deleteProperty(RFQForm, "child"); // remove child
-    items["Type"] = this.service_type_param; // add Type key to service type
-
-    let _body = {
-      Module: "RFQs",
-      data: {
-        Service_Type: this.service_type_param,
-        RFQ_Group: {
-          id: this.rfq_group_id
-        },
-        ...RFQForm
-      },
-      Lookup_name_in_module_related: "RFQ",
-      Module_related: "Items",
-      data_related: [items]
-    }
-
-    console.log(_body);
-
-    this.RFQService.NewRecord(_body).subscribe((res: any) => {
-      console.log(res);
-    });
+    let item_list = getItemsOrNone(RFQForm, this);
+    RFQBody(RFQForm, item_list, this);
   }
 }

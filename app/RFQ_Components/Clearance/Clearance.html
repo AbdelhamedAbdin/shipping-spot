@@ -14,10 +14,10 @@
       <input id="hs_code" type="number" placeholder="HS Code" class="form-control mb-3" formControlName="HS_Code">
     </div>
     <div>
+      <label for="noteTextarea">Service Operation</label>
       <select formControlName="Service_Operation" class="form-control">
         <option *ngFor="let services of service_operations;" [ngValue]="services">{{services}}</option>
       </select>
-      <label for="noteTextarea">Service Operation</label>
     </div>
     <div>
       <label>Service Mode</label>
@@ -67,20 +67,35 @@
     </div>
 
     <!-- Nested Items -->
-    <div formGroupName="child">
+    <div class="childs">
       <div class="items">
-        <div class="form-group">
-          <h3>Create Items</h3>
-          <div>
-            <label>Number of Containers</label>
-            <input class="form-control" type="number" formControlName="Number_of_Containers">
-          </div>
-        </div>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Number of Containers</th>
+                <th scope="col">Container Type</th>
+                <th scope="col">Add</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="child-form" formGroupName="child">
+                <td>
+                  <input class="form-control" type="number" formControlName="Number_of_Containers" placeholder="Number of Containers">
+                </td>
+                <td>
+                  <select class="form-control" formControlName="Container_Type">
+                    <option #test *ngFor="let container_type of container_types;">{{ container_type }}</option>
+                  </select>
+                </td>
+                <td>
+                  <button id="1" type="button" class="add-btn btn btn-primary">+</button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
       </div>
     </div>
 
-    <label>Description</label>
-    <textarea type="text" placeholder="Description..." class="form-control mb-3" formControlName="Description" row="3"></textarea>
     <input type="submit" class="btn btn-outline-primary">
   </div>
 </form>

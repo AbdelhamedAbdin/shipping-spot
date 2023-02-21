@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 // Services API
 import { CRMRecordsService } from '../../DataAccess/CRMRecords.service'
 

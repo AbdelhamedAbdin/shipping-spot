@@ -68,23 +68,34 @@
     </div>
 
     <!-- Nested Items -->
-    <div formGroupName="child">
+    <div class="childs">
       <div class="items">
-        <div class="form-group">
-          <h3>Create Items</h3>
-          <div>
-            <label>Net Weight</label>
-            <input class="form-control" type="number" formControlName="Net_Weight" placeholder="Net Weight">
-          </div>
-          <div>
-            <label>Gross Weight</label>
-            <input class="form-control" type="number" formControlName="Gross_Weight" placeholder="Gross Weight">
-          </div>
-          <div>
-            <label>Number Of Containers</label>
-            <input class="form-control" type="number" formControlName="Number_of_Containers">
-          </div>
-        </div>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Net Weight</th>
+                <th scope="col">Gross Weight</th>
+                <th scope="col">Number Of Containers</th>
+                <th scope="col">Add</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="child-form" formGroupName="child">
+                <td>
+                  <input class="form-control" type="number" formControlName="Net_Weight" placeholder="Net Weight">
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Gross_Weight" placeholder="Gross Weight">
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="Number_of_Containers" placeholder="Number of Containers">
+                </td>
+                <td>
+                  <button id="1" type="button" class="add-btn btn btn-primary">+</button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
       </div>
     </div>
 

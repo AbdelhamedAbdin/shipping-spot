@@ -1,5 +1,5 @@
 // Built-in Angular Apps
-import { Component, Injectable, Input, Output } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,5 @@ import { Component, Injectable, Input, Output } from '@angular/core';
 })
 
 export class ProviderComponent {
-  title = "Client";
-
+  title = "Provider";
 }

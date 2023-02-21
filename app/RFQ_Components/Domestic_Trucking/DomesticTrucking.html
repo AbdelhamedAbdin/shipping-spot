@@ -46,17 +46,30 @@
     </div>
 
     <!-- Nested Items -->
-    <div formGroupName="child">
+    <div class="childs">
+      <select #choose_truck (change)="showResults(choose_truck.value)" class="form-control" formControlName="Choose_Truck_or_Enter_Shipment_Details">
+        <option *ngFor="let truck of choose_trucks" [ngValue]="truck">{{truck}}</option>
+      </select>
+
       <div class="items">
-        <div class="form-group">
-          <h3>Create Items</h3>
-          <div>
-            <label>Quantity</label>
-            <select class="form-control mb-3" formControlName="Number_of_Trucks">
-<!--              <option *ngFor="let item of choose_truck_or_shipment" [ngValue]="item">{{ item }}</option>-->
-            </select>
-          </div>
-        </div>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Number of Containers</th>
+                <th scope="col">Add</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="child-form" formGroupName="child">
+                <td>
+                  <input class="form-control" type="number" formControlName="Number_of_Containers" placeholder="Number of Containers">
+                </td>
+                <td>
+                  <button id="1" type="button" class="add-btn btn btn-primary">+</button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
       </div>
     </div>
 

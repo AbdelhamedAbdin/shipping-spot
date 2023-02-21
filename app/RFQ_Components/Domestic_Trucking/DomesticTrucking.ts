@@ -1,15 +1,12 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import {selectServiceType} from "../service_handlers";
+import {getItemsOrNone, RFQBody, selectServiceType} from "../service_handlers";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {OceanFCLService} from "../../interface-models/rfq_type_services/OceanFCL";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
 import {ActivatedRoute} from "@angular/router";
-import {TruckingFTLService} from "../../interface-models/rfq_type_services/TruckingFTL";
-import {TruckingLTLService} from "../../interface-models/rfq_type_services/TruckingLTL";
-import {CourierService} from "../../interface-models/rfq_type_services/Courier";
-import {DomesticCourierService} from "../../interface-models/rfq_type_services/DomesticCourier";
 import {DomesticTruckingService} from "../../interface-models/rfq_type_services/DomesticTrucking";
+import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
+import {AddRemoveItems} from "../add_remove_items";
 
 
 @Injectable({
@@ -51,23 +48,17 @@ export class DomesticTrucking {
       Pickup_Address: new FormControl<string>(''),
       Delivery_Address: new FormControl<string>(''),
     });
+
+    new AddRemoveItems().windowButtons();
   }
 
-  createRFQ(RFQForm: DomesticTruckingService)
-  {
-    let _body = {
-      Module: "RFQs",
-      data: {
-        Service_Type: this.service_type_param,
-        RFQ_Group: {
-          id: this.rfq_group_id
-        },
-        ...RFQForm
-      }
-    }
+  showResults(val: any) {
+    console.log(val);
+  }
 
-    this.RFQService.NewRecord(_body).subscribe((res: any) => {
-      console.log(res);
-    });
+  createRFQ(RFQForm: AirFreightService)
+  {
+    let item_list = getItemsOrNone(RFQForm, this);
+    RFQBody(RFQForm, item_list, this);
   }
 }

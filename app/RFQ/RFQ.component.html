@@ -1,7 +1,7 @@
 <div class="row">
     <!-- RFQ Group -->
     <div class="col-md-12 col-lg-12 col-sm-12">
-        <div class="card white-box p-0">
+        <div *ngIf="rfq_group !== null" class="card white-box p-0">
             <div class="card-body">
                 <h3 class="box-title mb-0">RFQ Groups</h3>
             </div>
@@ -19,5 +19,10 @@
                 </div>
             </div>
         </div>
+      <div *ngIf="rfq_group === null">
+        <div class="empty-group text-center">
+          <h3>You Have No RFQ Group yet</h3>
+        </div>
+      </div>
     </div>
 </div>

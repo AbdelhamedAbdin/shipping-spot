@@ -1,0 +1,33 @@
+<div class="row">
+  <div *ngFor="let jobs of rfq_jobs;" class="col-lg-12 mb-3">
+    <div class="card">
+      <h5 class="card-header">{{ jobs.Service_Type }}</h5>
+      <div class="card-body">
+        <h5 class="card-title">{{jobs.Commodity}}</h5>
+        <p class="card-text">{{jobs.Shipping_Term}}</p>
+        <a [routerLink]="['/rfq-jobs', jobs.id]" class="btn btn-primary">Details</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SP Services -->
+  <router-outlet></router-outlet>
+
+  <!-- Pagination -->
+  <div class="col-lg-12">
+    <nav>
+      <ul class="pagination pagination-lg">
+        <li
+          [ngClass]="{disabled:
+          get_params.page === c.toString()
+          || (c.toString() === '1' && !get_params.hasOwnProperty('page'))
+          }"
+          *ngFor="let c of pagination;" class="page-item">
+          <a class="page-link" [href]="'rfq-jobs?page=' + c">
+            {{c}}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

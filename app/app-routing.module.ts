@@ -24,6 +24,22 @@ import {Fumigation} from "./RFQ_Components/Fumigation/Fumigation";
 import {Equipment} from "./RFQ_Components/Equipment/Equipment";
 import {Insurance} from "./RFQ_Components/Insurance/Insurance";
 import {ProviderComponent} from "./Provider/provider.component";
+import {RFQJobs} from "./RFQ_Jobs/RFQJobs";
+import {RFQJobDetails} from "./RFQ_Jobs/RFQ_Details/RFQJobDetails";
+import {SPAirFreight} from "./SP_Components/Air_Freight/SPAirFreight";
+import {SPOceanFCL} from "./SP_Components/Ocean_FCL/SPOceanFCL";
+import {SPOceanLCL} from "./SP_Components/Ocean_LCL/SPOceanLCL";
+import {SPTruckFTL} from "./SP_Components/Truck_FTL/SPTruckFTL";
+import {SPTruckLTL} from "./SP_Components/Truck_LTL/SPTruckLTL";
+import {SPInterCourier} from "./SP_Components/InterCouirer/SPInterCourier";
+import {SPDomesticDelivery} from "./SP_Components/DomesticDelivery/SPDomesticDelivery";
+import {SPDomesticCourier} from "./SP_Components/DomesticCourier/SPDomesticCourier";
+import {SPClearance} from "./SP_Components/Clearance/SPClearance";
+import {SPStorage} from "./SP_Components/SP_Storage/SPStorage";
+import {SPPacking} from "./SP_Components/Packing/SPPacking";
+import {SPFumigation} from "./SP_Components/Fumigation/SPFumigation";
+import {SPEquipment} from "./SP_Components/Equipments/SPEquipment";
+import {SPInsurance} from "./SP_Components/Insurance/SPInsurance";
 
 if (location.pathname === "/app/") {
   location.href = location.href + "/(login:login)";
@@ -65,7 +81,25 @@ export const routes: Routes = [
       {path: ':service_type', component: Equipment, outlet: 'Handling_Equipment'},
       {path: ':service_type', component: Insurance, outlet: 'Insurance'},
     ]
-  }
+  },
+  // RFQ Jobs
+  {path: 'rfq-jobs', component: RFQJobs},
+  {path: 'rfq-jobs/:id', component: RFQJobDetails, children: [
+      {path: ':service_type', component: SPAirFreight},
+      {path: ':service_type', component: SPStorage},
+      {path: ':service_type', component: SPOceanFCL},
+      {path: ':service_type', component: SPOceanLCL},
+      {path: ':service_type', component: SPTruckFTL},
+      {path: ':service_type', component: SPTruckLTL},
+      {path: ':service_type', component: SPInterCourier},
+      {path: ':service_type', component: SPDomesticDelivery},
+      {path: ':service_type', component: SPDomesticCourier},
+      {path: ':service_type', component: SPClearance},
+      {path: ':service_type', component: SPPacking},
+      {path: ':service_type', component: SPFumigation},
+      {path: ':service_type', component: SPEquipment},
+      {path: ':service_type', component: SPInsurance}
+  ]}
 ]
 
 @NgModule({

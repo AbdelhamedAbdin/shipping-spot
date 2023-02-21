@@ -32,6 +32,22 @@ import {Equipment} from "./RFQ_Components/Equipment/Equipment";
 import {Insurance} from "./RFQ_Components/Insurance/Insurance";
 import {ProviderComponent} from "./Provider/provider.component";
 import {MainFormComponent} from "./RFQ_Components/MainForm/MainForm.component";
+import {RFQJobs} from "./RFQ_Jobs/RFQJobs";
+import {RFQJobDetails} from "./RFQ_Jobs/RFQ_Details/RFQJobDetails";
+import {SPAirFreight} from "./SP_Components/Air_Freight/SPAirFreight";
+import {SPOceanFCL} from "./SP_Components/Ocean_FCL/SPOceanFCL";
+import {SPOceanLCL} from "./SP_Components/Ocean_LCL/SPOceanLCL";
+import {SPTruckFTL} from "./SP_Components/Truck_FTL/SPTruckFTL";
+import {SPTruckLTL} from "./SP_Components/Truck_LTL/SPTruckLTL";
+import {SPInterCourier} from "./SP_Components/InterCouirer/SPInterCourier";
+import {SPDomesticDelivery} from "./SP_Components/DomesticDelivery/SPDomesticDelivery";
+import {SPDomesticCourier} from "./SP_Components/DomesticCourier/SPDomesticCourier";
+import {SPClearance} from "./SP_Components/Clearance/SPClearance";
+import {SPStorage} from "./SP_Components/SP_Storage/SPStorage";
+import {SPPacking} from "./SP_Components/Packing/SPPacking";
+import {SPFumigation} from "./SP_Components/Fumigation/SPFumigation";
+import {SPEquipment} from "./SP_Components/Equipments/SPEquipment";
+import {SPInsurance} from "./SP_Components/Insurance/SPInsurance";
 
 @NgModule({
   declarations: [
@@ -65,6 +81,24 @@ import {MainFormComponent} from "./RFQ_Components/MainForm/MainForm.component";
     Fumigation,
     Equipment,
     Insurance,
+    // RFQ_Jobs
+    RFQJobs,
+    RFQJobDetails,
+    // SP::Components
+    SPAirFreight,
+    SPOceanFCL,
+    SPOceanLCL,
+    SPTruckFTL,
+    SPTruckLTL,
+    SPInterCourier,
+    SPDomesticDelivery,
+    SPDomesticCourier,
+    SPClearance,
+    SPStorage,
+    SPPacking,
+    SPFumigation,
+    SPEquipment,
+    SPInsurance,
     // Popup
     PageTitleComponent
   ],

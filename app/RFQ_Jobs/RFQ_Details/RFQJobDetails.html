@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="rfq-details">
+    <div class="col-lg-12">
+      <div class="details">
+        <h4>RFQ Details</h4>
+        <p class="lead">etc...</p>
+      </div>
+    </div>
+
+    <div class="col-lg-12">
+      <form #doQuote="ngForm" class="p-4">
+        <div class="form-group">
+          <label for="Service_Type">Service Type</label>
+          <input type="text" class="form-control" id="Service_Type" [disabled]="true" [value]="service_type">
+        </div>
+      </form>
+
+      <!-- Services Types (SPForm Components) -->
+      <div class="form-group mt-4">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -124,6 +124,11 @@
                     <fa-icon [icon]="svg_icon.faCodePullRequest"></fa-icon>&nbsp; RFQ
                 </a>
             </li>
+            <li *ngIf="user_role === 'provider'">
+                <a [routerLink]="['/rfq-jobs']">
+                    <fa-icon [icon]="svg_icon.faBriefcase"></fa-icon>&nbsp; Job Requests
+                </a>
+            </li>
           </ul>
         </div>
       </div>

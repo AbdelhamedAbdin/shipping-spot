@@ -1,11 +1,14 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import { selectServiceType } from "../service_handlers";
+import {RFQBody, selectServiceType} from "../service_handlers";
 // ShippingSpot Components
 import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
 import { ActivatedRoute } from "@angular/router";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AddRemoveItems} from '../add_remove_items';
+import {getItemsOrNone} from '../service_handlers';
+
 
 @Injectable({
   providedIn: 'root'
@@ -67,33 +70,14 @@ export class AirFreight {
         Gross_Weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
       })
     });
+
+    // Add/Remove multi-line items
+    new AddRemoveItems().windowButtons();
   }
 
   createRFQ(RFQForm: AirFreightService)
   {
-    // @ts-ignore
-    let items = RFQForm.child; // store nested child
-    Reflect.deleteProperty(RFQForm, "child"); // remove child
-    items["Type"] = this.service_type_param; // add Type key to service type
-
-    let _body = {
-      Module: "RFQs",
-      data: {
-        Service_Type: this.service_type_param,
-        RFQ_Group: {
-          id: this.rfq_group_id
-        },
-        ...RFQForm
-      },
-      Lookup_name_in_module_related: "RFQ",
-      Module_related: "Items",
-      data_related: [items]
-    }
-
-    console.log(_body);
-
-    this.RFQService.NewRecord(_body).subscribe((res: any) => {
-      console.log(res);
-    });
+    let item_list = getItemsOrNone(RFQForm, this);
+    RFQBody(RFQForm, item_list, this);
   }
 }

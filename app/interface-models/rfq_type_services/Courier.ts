@@ -8,6 +8,7 @@ export interface CourierService {
   Need_Insurance?: boolean;
   Value_of_Goods: number|null;
   Dangerous_Commodity?: boolean;
+  Safety_Data_Sheet?: File|HTMLImageElement|null;
   // Pickup & Delivery
   Pickup_Country: string;
   Delivery_Country: string;
@@ -19,4 +20,6 @@ export interface CourierService {
   Total_Number_of_Packages: number;
   Total_Net_Weight: number;
   Total_Gross_weight: number;
+  Total_Dimensional_Weight: number;
+  Total_Chargeable_Weight: number;
 }

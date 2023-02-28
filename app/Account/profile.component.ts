@@ -8,6 +8,7 @@ import {Location} from "@angular/common";
 import {OutletReader} from "../../utils";
 import {AppComponent} from "../app.component";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,22 +19,26 @@ import {AppComponent} from "../app.component";
   styleUrls: ['./profile.component.css']
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
   title = "Profile";
   user_payloads = JSON.parse(localStorage.user_payloads);
   user_role: string = this.user_payloads.UserType;
+  user_id: string = this.user_payloads.AccountID;
   @Input() user_request: any;
   resolver: any;
   app_component: any;
+  data: any;
 
-  constructor(private authService: AuthService, private router: Router, private location: Location,
+  constructor(private authService: AuthService,
+              private router: Router,
+              private location: Location,
               private contactsService: ContactsService) {
     this.resolver = new OutletReader(this.router);
-    // @ts-ignore
-    this.app_component = new AppComponent(this.router, this.authService, contactsService);
+    this.isAuth();
   }
 
-  ngOnInit() {
+  isAuth() {
+    this.app_component = new AppComponent(this.router, this.authService, this.contactsService);
     if (this.app_component.is_authenticated) {
        this.router.navigateByUrl('profile/' + this.user_role);
     }

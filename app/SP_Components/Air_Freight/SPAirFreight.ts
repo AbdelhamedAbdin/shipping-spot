@@ -1,10 +1,11 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { userLogged } from "../../../utils";
 import {SPQuoationService} from "../../../services/CRMModules/SPQuoation";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import AirFreightService from "../../interface-models/sp_type_services/AirFreight";
+import {createQuote} from "../service_handlers";
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class SPAirFreight {
   getRFQParamID: any;
   service_forms: any = null;
 
-  constructor(private SPQuoationService: SPQuoationService, private routerParam: ActivatedRoute) {
+  constructor(private SPQuoationService: SPQuoationService, private routerParam: ActivatedRoute, private router: Router) {
     this.getParam = this.routerParam.snapshot.paramMap;
     this.getRFQParamID = this.routerParam.parent?.snapshot.paramMap.get("id");
     this.account_id = new userLogged().parseStorage(localStorage).AccountID;
@@ -48,28 +49,6 @@ export class SPAirFreight {
   })
 
   createQuotation(SPQuote: AirFreightService) {
-    let payload = {
-      data: [
-        {
-          RFQ: {
-            id: this.getRFQParamID
-          },
-          Service_Provider: {
-            id: this.account_id
-          },
-          ...SPQuote,
-          Status: "Pending",
-          RFQ_Type: "Air Freight"
-        }
-      ],
-      trigger: ['workflow']
-    }
-
-    console.log(payload);
-
-    this.SPQuoationService.NewRecord(payload).subscribe(res => {
-      console.log("data has been saved");
-      console.log(res);
-    });
+    createQuote(this, SPQuote, this.title)
   }
 }

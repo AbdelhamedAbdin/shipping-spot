@@ -55,7 +55,7 @@ export class Insurance {
     new AddRemoveItems().windowButtons();
   }
 
-  createRFQ(RFQForm: AirFreightService)
+  createRFQ(RFQForm: InsuranceService)
   {
     let item_list = getItemsOrNone(RFQForm, this);
     RFQBody(RFQForm, item_list, this);

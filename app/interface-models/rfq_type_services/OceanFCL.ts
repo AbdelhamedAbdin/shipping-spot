@@ -6,10 +6,11 @@ export interface OceanFCLService {
   Shipping_Term: string;
   Incoterm: string;
   Need_Insurance?: boolean;
-  Value_of_Goods: number|null;
+  Value_of_Goods?: number|null;
   Dangerous_Commodity?: boolean;
   Need_Temperature_Control?: boolean;
-  Temperature: number|null;
+  Temperature?: number|null;
+  Safety_Data_Sheet?: File|HTMLImageElement|null;
   // Pickup & Delivery
   Pickup_Country: string;
   Delivery_Country: string;

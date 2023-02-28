@@ -14,33 +14,27 @@ import {userLogged} from "../../utils";
 
 export class PageTitleComponent {
   title: string = "Page-Title";
-  rfq_group: any;
+  rfq_group: any = [];
   account_id: any;
   group_id: string = "";
   get_id_after_created: string = "";
 
   constructor(private RFQGroupService: RFQGroupService, private router: Router,
               private GetRFQGroupService: GetRFQGroupServices) {
+
+    this.getAccountIdOrNone();
+    this.SubscribeGroupID();
+  }
+
+  getAccountIdOrNone() {
     try {
       this.account_id = new userLogged().parseStorage(localStorage).AccountID;
     } catch (e) {
       this.account_id = "";
     }
+  }
 
-    // const RFQG = this.RFQGroupService.GetRecordByID("search?criteria=(Account:equals:" + this.account_id + ")");
-    // RFQG.subscribe(res => {
-    //   try {
-    //     this.rfq_group = res["data"];
-    //   } catch (e) {
-    //     this.rfq_group = null;
-    //   }
-    //
-    //   if (this.rfq_group !== null) {
-    //     // to select group by id
-    //     this.group_id = this.rfq_group[0].id;
-    //   }
-    // })
-
+  SubscribeGroupID() {
     const RFQG = this.GetRFQGroupService.GetRecordByBody({
       "ID":this.account_id,
       "Module":"Accounts",
@@ -49,18 +43,26 @@ export class PageTitleComponent {
           {"api_related":"RFQs","Raleted_list_fields":["id","Title", "Created_Time"]}
       ]
     });
-    RFQG.subscribe(res => {
+
+    RFQG.subscribe((res: any) => {
       try {
+        // get data or None
         this.rfq_group = res["raleted_list"][0]["RFQs"];
+        if (this.rfq_group === 'No Data') {
+          this.rfq_group = [];
+        }
       } catch (e) {
         this.rfq_group = null;
       }
 
       if (this.rfq_group !== null) {
+        if (this.rfq_group.length === 0) {
+          return;
+        }
         // to select group by id
         this.group_id = this.rfq_group[0].id;
       }
-    })
+    });
   }
 
   createRfqGroup(rfq_group: {Title: string})
@@ -79,15 +81,18 @@ export class PageTitleComponent {
     });
   }
 
-  groupId(id: string) {
+  groupId(id: string)
+  {
     let selectGroup = document.getElementById("selectGroup");
     selectGroup?.setAttribute("data-groupID", id)
   }
 
   // Choose from the list
-  selectGroup(event: any) {
+  selectGroup(event: any)
+  {
     const group_id = event.target.dataset['groupid'];
-    this.router.navigate(["rfq", group_id]);
+    // this.router.navigate(["rfq", group_id]);
+    this.router.navigateByUrl("/rfq/" + group_id);
   }
 
 }

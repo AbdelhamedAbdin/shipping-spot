@@ -1,0 +1,26 @@
+<div class="follow-requests">
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Cancellation Reason</th>
+            <th scope="col">Expiry Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let quote of quotation_records let i = index" (click)="getNameOfRFQCreator(quote.id)">
+            <th scope="row">{{i+1|number}}</th>
+            <td>{{ quote.id }}</td>
+            <td>{{ quote.Status }}</td>
+            <td>{{ quote.Cancelation_Reason }}</td>
+            <td>{{ quote.Expiry_Date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

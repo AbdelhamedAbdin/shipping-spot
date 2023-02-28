@@ -5,9 +5,10 @@ import {RFQBody, selectServiceType} from "../service_handlers";
 import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
 import { ActivatedRoute } from "@angular/router";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {CheckboxControlValueAccessor, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AddRemoveItems} from '../add_remove_items';
 import {getItemsOrNone} from '../service_handlers';
+import {compareWeights, DimensionalWeight, grossWeight, netWeight, numberOfPKGs} from "../../RFQ/Total_Calculations";
 
 
 @Injectable({
@@ -56,10 +57,7 @@ export class AirFreight {
       Delivery_Address: new FormControl<string>(''),
       POL_Port_of_Loading: new FormControl<string>(''),
       POD_Port_of_Discharge: new FormControl<string>(''),
-
-      Total_Number_of_Packages: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-      Total_Net_Weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
-      Total_Gross_weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
+      Safety_Data_Sheet: new FormControl<string>(''),
 
       child: new FormGroup({
         Quantity: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
@@ -78,6 +76,13 @@ export class AirFreight {
   createRFQ(RFQForm: AirFreightService)
   {
     let item_list = getItemsOrNone(RFQForm, this);
+    RFQForm.Total_Number_of_Packages = numberOfPKGs(item_list);
+    RFQForm.Total_Dimensional_Weight = DimensionalWeight(item_list, 6000);
+    RFQForm.Total_Net_Weight = netWeight(item_list);
+    RFQForm.Total_Gross_weight = grossWeight(item_list);
+    RFQForm.Total_Chargeable_Weight = compareWeights(RFQForm.Total_Gross_weight, RFQForm.Total_Dimensional_Weight);
     RFQBody(RFQForm, item_list, this);
   }
+
+  changeStateEvent = (checked: any) => checked;
 }

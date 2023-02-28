@@ -32,7 +32,8 @@ export class RegisterService implements OnInit {
     Last_Name: "",
     Phone: "",
     Account_Name: "",
-    userType: ""
+    userType: "",
+    Service_Type: []
   }
 
   private RegisterUser = new BehaviorSubject<Register>(this.user_register);

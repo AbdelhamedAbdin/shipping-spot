@@ -7,6 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import {CourierService} from "../../interface-models/rfq_type_services/Courier";
 import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
 import {AddRemoveItems} from "../add_remove_items";
+import {compareWeights, DimensionalWeight, grossWeight, netWeight, numberOfPKGs} from "../../RFQ/Total_Calculations";
 
 
 @Injectable({
@@ -46,6 +47,7 @@ export class Courier {
       Need_Insurance: new FormControl<boolean>(false),
       Value_of_Goods: new FormControl<number|null>(null, [ Validators.pattern('([0-9]*[.])?[0-9]+') ]),
       Dangerous_Commodity: new FormControl<boolean>(false),
+      Safety_Data_Sheet: new FormControl<File|HTMLImageElement|null>(null),
 
       Pickup_Country: new FormControl<string>(''),
       Delivery_Country: new FormControl<string>(''),
@@ -53,18 +55,21 @@ export class Courier {
       Delivery_Address: new FormControl<string>(''),
       POL_Port_of_Loading: new FormControl<string>(''),
       POD_Port_of_Discharge: new FormControl<string>(''),
-
-      Total_Number_of_Packages: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
-      Total_Net_Weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
-      Total_Gross_weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
     });
 
     new AddRemoveItems().windowButtons();
   }
 
-  createRFQ(RFQForm: AirFreightService)
+  createRFQ(RFQForm: CourierService)
   {
     let item_list = getItemsOrNone(RFQForm, this);
+    RFQForm.Total_Number_of_Packages = numberOfPKGs(item_list);
+    RFQForm.Total_Dimensional_Weight = DimensionalWeight(item_list, 5000);
+    RFQForm.Total_Net_Weight = netWeight(item_list);
+    RFQForm.Total_Gross_weight = grossWeight(item_list);
+    RFQForm.Total_Chargeable_Weight = compareWeights(RFQForm.Total_Gross_weight, RFQForm.Total_Dimensional_Weight);
     RFQBody(RFQForm, item_list, this);
   }
+
+  changeStateEvent = (checked: any) => checked;
 }

@@ -10,16 +10,20 @@
     </div>
 
     <div>
+      <label>Storage Type</label>
+      <select #storage_type class="form-control mb-3" formControlName="Storage_Type">
+        <option *ngFor="let space of storage_types" [ngValue]="space">{{ space }}</option>
+      </select>
+    </div>
+    <div *ngIf="storage_type.value.slice(3) === 'Fixed Space'">
       <label>Space Type</label>
       <select class="form-control mb-3" formControlName="Space_Type">
         <option *ngFor="let space of space_types" [ngValue]="space">{{ space }}</option>
       </select>
     </div>
-    <div>
-      <label>Storage Type</label>
-      <select class="form-control mb-3" formControlName="Storage_Type">
-        <option *ngFor="let space of storage_types" [ngValue]="space">{{ space }}</option>
-      </select>
+    <div *ngIf="storage_type.value.slice(3) === 'Fixed Space'" class="mt-2">
+      <label>Space</label>
+      <input type="number" placeholder="Space..." class="form-control mb-3" formControlName="Space">
     </div>
     <div class="mt-2">
       <label>City</label>
@@ -29,20 +33,12 @@
       <label>Preferred District</label>
       <input type="text" placeholder="Preferred District..." class="form-control mb-3" formControlName="Preferred_District">
     </div>
-    <div class="mt-2">
-      <label>Space</label>
-      <input type="number" placeholder="Space..." class="form-control mb-3" formControlName="Space">
-    </div>
 
     <input type="date" placeholder="Duration From..." class="form-control mb-3" formControlName="From">
     <input type="date" placeholder="Duration To..." class="form-control mb-3" formControlName="To">
 
-    <input type="text" placeholder="Total Number of Packages" class="form-control mb-3" formControlName="Total_Number_of_Packages">
-    <input type="text" placeholder="Total Net Weight" class="form-control mb-3" formControlName="Total_Net_Weight">
-    <input type="text" placeholder="Total Gross weight" class="form-control mb-3" formControlName="Total_Gross_weight">
-
     <!-- Nested Items -->
-    <div class="childs">
+    <div *ngIf="storage_type.value.slice(3) === 'Per Cargo Size'" class="childs">
       <div class="items">
         <table class="table table-hover">
             <thead>

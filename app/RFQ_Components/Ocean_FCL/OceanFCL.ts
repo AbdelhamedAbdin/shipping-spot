@@ -26,7 +26,8 @@ export class OceanFCL {
   formGroup: any;
   default_term: string = "-None-";
   terms: Array<string> = ["-None-", "Door to Door", "Port to Port", "Incoterm"];
-  incoterms: Array<string> = ["-None-", "Option 1", "Option 2"];
+  container_types: Array<string> = ["-None-", "Option 1", "Option 2"];
+  incoterms: any = ["-None-"];
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -59,9 +60,11 @@ export class OceanFCL {
     new AddRemoveItems().windowButtons();
   }
 
-  createRFQ(RFQForm: AirFreightService)
+  createRFQ(RFQForm: OceanFCLService)
   {
     let item_list = getItemsOrNone(RFQForm, this);
     RFQBody(RFQForm, item_list, this);
   }
+
+  changeStateEvent = (checked: any) => checked;
 }

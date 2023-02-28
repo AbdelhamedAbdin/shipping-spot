@@ -24,6 +24,22 @@ export class RegisterComponent implements OnInit {
   resolver: any;
   app_component: any;
   user_role: any;
+  services: any = [
+    "Air Freight",
+    "Ocean Freight - FCL",
+    "Ocean Freight - LCL",
+    "International Trucking - FTL",
+    "International Trucking - LTL",
+    "Domestic Trucking",
+    "Domestic Courier",
+    "International Courier",
+    "Custom Clearance",
+    "Storage",
+    "Packing",
+    "Fumigation",
+    "Handling Equipment",
+    "Insurance"
+    ]
 
   roles = [
     {option: "Client"},
@@ -32,7 +48,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(private registerService: RegisterService,
               private router: Router,
-              private location: Location, private authService: AuthService,
+              private location: Location,
+              private authService: AuthService,
               private contactsService: ContactsService) {
     try {
       this.user_role = new userLogged().parseStorage(localStorage).UserType;

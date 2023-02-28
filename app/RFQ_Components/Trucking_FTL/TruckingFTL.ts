@@ -50,6 +50,7 @@ export class TruckingFTL {
       Dangerous_Commodity: new FormControl<boolean>(false),
       Need_Temperature_Control: new FormControl<boolean>(false),
       Temperature: new FormControl<number|null>(null),
+      Safety_Data_Sheet: new FormControl<File|HTMLImageElement|null>(null),
 
       Pickup_Country: new FormControl<string>(''),
       Delivery_Country: new FormControl<string>(''),
@@ -61,9 +62,11 @@ export class TruckingFTL {
     new AddRemoveItems().windowButtons();
   }
 
-  createRFQ(RFQForm: AirFreightService)
+  createRFQ(RFQForm: TruckingFTLService)
   {
     let item_list = getItemsOrNone(RFQForm, this);
     RFQBody(RFQForm, item_list, this);
   }
+
+  changeStateEvent = (checked: any) => checked;
 }

@@ -14,7 +14,7 @@
   <router-outlet></router-outlet>
 
   <!-- Pagination -->
-  <div class="col-lg-12">
+  <div class="col-lg-12" *ngIf="this.pagination.length !== 1">
     <nav>
       <ul class="pagination pagination-lg">
         <li

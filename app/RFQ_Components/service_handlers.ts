@@ -48,6 +48,8 @@ export function getItemsOrNone(RFQForm: any, $this: any, hasItem: boolean = true
 // RFQ Structure
 export function RFQBody(RFQForm: any, item_list: any, $this: any) {
   let user_type = new userLogged().parseStorage(localStorage).UserType;
+  let user_id = new userLogged().parseStorage(localStorage).AccountID;
+
   let _body = {
     Module: "RFQs",
     data: {
@@ -57,7 +59,8 @@ export function RFQBody(RFQForm: any, item_list: any, $this: any) {
       },
       ...RFQForm,
       User_Type: user_type,
-      Status: "New"
+      Status: "New",
+      Client: user_id
     },
     Lookup_name_in_module_related: "RFQ",
     Module_related: "Items",
@@ -68,5 +71,5 @@ export function RFQBody(RFQForm: any, item_list: any, $this: any) {
 
   $this.RFQService.NewRecord(_body).subscribe((res: any) => {
     console.log("Status (201) OK: ", res)
-  });
+  }, (error: any) => {console.log("Status (400): ", error)});
 }

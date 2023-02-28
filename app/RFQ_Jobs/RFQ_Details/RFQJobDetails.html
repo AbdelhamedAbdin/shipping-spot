@@ -3,23 +3,52 @@
     <div class="col-lg-12">
       <div class="details">
         <h4>RFQ Details</h4>
-        <p class="lead">etc...</p>
+        <div class="row">
+          <div class="col-lg-4" *ngFor="let obj_key of data_keys;">
+            <div *ngIf="data[obj_key] !== null">
+              <h5>{{ obj_key }}</h5>
+              <p>{{ data[obj_key] }}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="col-lg-12">
-      <form #doQuote="ngForm" class="p-4">
-        <div class="form-group">
-          <label for="Service_Type">Service Type</label>
-          <input type="text" class="form-control" id="Service_Type" [disabled]="true" [value]="service_type">
+    <!-- Start Wrapper -->
+    <div #outer_wrap (click)="showHiddenBox(outer_wrap, inner_wrap)" class="outer-wrapper"></div>
+    <div #inner_wrap class="service-form-wrapper">
+      <div class="col-lg-12">
+        <form #QuoteForm="ngForm" class="p-4">
+          <div class="form-group">
+            <label for="Service_Type">Service Type</label>
+            <input type="text" class="form-control" id="Service_Type" [disabled]="true" [value]="service_type">
+          </div>
+        </form>
+
+        <!-- Services Types (SPForm Components) -->
+        <div *ngIf="!is_quoted" class="form-group mt-4">
+            <router-outlet name="Air_Freight"></router-outlet>
+            <router-outlet name="Storage"></router-outlet>
+            <router-outlet name="Ocean_Freight_FCL"></router-outlet>
+            <router-outlet name="Ocean_Freight_LCL"></router-outlet>
+            <router-outlet name="International_Truck_FTL"></router-outlet>
+            <router-outlet name="International_Truck_LTL"></router-outlet>
+            <router-outlet name="International_Courier"></router-outlet>
+            <router-outlet name="Domestic_Trucking"></router-outlet>
+            <router-outlet name="Domestic_Courier"></router-outlet>
+            <router-outlet name="Clearance"></router-outlet>
+            <router-outlet name="Packing"></router-outlet>
+            <router-outlet name="Fumigation"></router-outlet>
+            <router-outlet name="Equipment"></router-outlet>
+            <router-outlet name="Insurance"></router-outlet>
+          </div>
+          <div *ngIf="is_quoted === true">You have quoted this service</div>
         </div>
-      </form>
+    </div>
+    <!-- End Wrapper -->
 
-      <!-- Services Types (SPForm Components) -->
-      <div class="form-group mt-4">
-        <router-outlet></router-outlet>
-      </div>
-
+    <div class="col-lg-12">
+      <button (click)="showHiddenBox(outer_wrap, inner_wrap)" class="btn btn-primary">Make Quote?</button>
     </div>
   </div>
 </div>

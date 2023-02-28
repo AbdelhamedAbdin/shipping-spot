@@ -7,6 +7,8 @@ import {ActivatedRoute} from "@angular/router";
 import {StorageService} from "../../interface-models/rfq_type_services/Storage";
 import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
 import {AddRemoveItems} from "../add_remove_items";
+import {compareWeights, DimensionalWeight, grossWeight, netWeight, numberOfPKGs} from "../../RFQ/Total_Calculations";
+import {ResetValues} from "../events";
 
 
 @Injectable({
@@ -49,18 +51,24 @@ export class StorageComp {
 
       From: new FormControl<Date>(new Date()),
       To: new FormControl<Date>(new Date()),
-
-      Total_Number_of_Packages: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
-      Total_Net_Weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
-      Total_Gross_weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
     });
 
     new AddRemoveItems().windowButtons();
   }
 
-  createRFQ(RFQForm: AirFreightService)
+  createRFQ(RFQForm: StorageService)
   {
     let item_list = getItemsOrNone(RFQForm, this);
+    RFQForm.Total_Number_of_Packages = numberOfPKGs(item_list);
+    RFQForm.Total_CBM = DimensionalWeight(item_list, 1000000);
+    RFQForm.Total_Net_Weight = netWeight(item_list);
+    RFQForm.Total_Gross_weight = grossWeight(item_list);
+    RFQForm.Total_Chargeable_CBM = compareWeights(RFQForm.Total_Gross_weight, RFQForm.Total_CBM);
     RFQBody(RFQForm, item_list, this);
+  }
+
+  triggerEvent(value: any, input: any) {
+    input.value = ResetValues(value);
+    return input.value;
   }
 }

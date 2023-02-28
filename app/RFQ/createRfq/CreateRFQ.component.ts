@@ -16,7 +16,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 export class CreateRFQComponent {
   title = "RFQ";
-  related_rfqs: any = [];
   account_id: any;
   rfq_group_id: any;
   rfq_group_name: any;

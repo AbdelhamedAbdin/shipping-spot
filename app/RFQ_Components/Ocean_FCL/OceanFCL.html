@@ -1,4 +1,4 @@
-<form [formGroup]="this.formGroup" #createRfq="ngForm" class="p-4" (ngSubmit)="createRFQ(createRfq.value)">
+<form enctype="multipart/form-data" [formGroup]="this.formGroup" #createRfq="ngForm" class="p-4" (ngSubmit)="createRFQ(createRfq.value)">
   <div class="form-group">
     <div>
       <label for="commodity">Commodity</label>
@@ -21,23 +21,33 @@
         <option *ngFor="let term of incoterms" [ngValue]="term">{{ term }}</option>
       </select>
     </div>
+
+    <!-- Need Insurance -->
     <div>
       <label for="need_insurance">Need Insurance:</label>&nbsp;&nbsp;
-      <input id="need_insurance" type="checkbox" formControlName="Need_Insurance">
+      <input #need_insurance (change)="changeStateEvent(need_insurance.checked)" id="need_insurance" type="checkbox" formControlName="Need_Insurance">
     </div>
-    <div>
+    <div *ngIf="changeStateEvent(need_insurance.checked)">
       <label for="value_of_goods">Value Of Goods</label>
       <input id="value_of_goods" type="number" placeholder="Value of Goods" class="form-control mb-3" formControlName="Value_of_Goods">
     </div>
+
+    <!-- Dangerous Commodity -->
     <div>
       <label for="dang_commodity">Dangerous Commodity</label>&nbsp;&nbsp;
-      <input id="dang_commodity" type="checkbox" formControlName="Dangerous_Commodity">
+      <input #dang_com (change)="changeStateEvent(dang_com.checked)" id="dang_commodity" type="checkbox" formControlName="Dangerous_Commodity">
     </div>
+    <div *ngIf="changeStateEvent(dang_com.checked)">
+      <label for="Safety_Data_Sheet">Safety Data Sheet</label>
+      <input id="Safety_Data_Sheet" type="file" class="form-control mb-3" formControlName="Safety_Data_Sheet">
+    </div>
+
+    <!-- Need Temperature -->
     <div>
       <label for="need_temp">Need Temperature Control</label>&nbsp;&nbsp;
-      <input id="need_temp" type="checkbox" formControlName="Need_Temperature_Control">
+      <input #temp (change)="changeStateEvent(temp.checked)" id="need_temp" type="checkbox" formControlName="Need_Temperature_Control">
     </div>
-    <div>
+    <div *ngIf="changeStateEvent(temp.checked)">
       <label for="temperature">Temperature</label>&nbsp;&nbsp;
       <input id="temperature" class="form-control" type="number" formControlName="Temperature">
     </div>
@@ -76,6 +86,7 @@
                 <th scope="col">Net Weight</th>
                 <th scope="col">Gross Weight</th>
                 <th scope="col">Number Of Containers</th>
+                <th scope="col">Container Type</th>
                 <th scope="col">Add</th>
               </tr>
             </thead>
@@ -89,6 +100,11 @@
                 </td>
                 <td>
                   <input class="form-control" type="number" formControlName="Number_of_Containers" placeholder="Number of Containers">
+                </td>
+                <td>
+                  <select class="form-control" formControlName="Container_Type">
+                    <option *ngFor="let container of container_types;">{{ container }}</option>
+                  </select>
                 </td>
                 <td>
                   <button id="1" type="button" class="add-btn btn btn-primary">+</button>

@@ -7,6 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import {FumigationService} from "../../interface-models/rfq_type_services/Fumigation";
 import {AddRemoveItems} from "../add_remove_items";
 import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
+import {DimensionalWeight, grossWeight, numberOfPKGs} from "../../RFQ/Total_Calculations";
 
 
 @Injectable({
@@ -44,9 +45,12 @@ export class Fumigation {
     new AddRemoveItems().windowButtons();
   }
 
-  createRFQ(RFQForm: AirFreightService)
+  createRFQ(RFQForm: FumigationService)
   {
     let item_list = getItemsOrNone(RFQForm, this, false);
+    RFQForm.Total_Number_of_Packages = numberOfPKGs(item_list);
+    RFQForm.Total_Gross_weight = grossWeight(item_list);
+    RFQForm.Total_CBM = DimensionalWeight(item_list, 1000000);
     RFQBody(RFQForm, item_list, this);
   }
 }

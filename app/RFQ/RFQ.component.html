@@ -1,28 +1,104 @@
-<div class="row">
-    <!-- RFQ Group -->
-    <div class="col-md-12 col-lg-12 col-sm-12">
-        <div *ngIf="rfq_group !== null" class="card white-box p-0">
-            <div class="card-body">
-                <h3 class="box-title mb-0">RFQ Groups</h3>
-            </div>
-            <div class="comment-widgets">
-                <!-- Comment Row -->
-                <div *ngFor="let group of rfq_group" class="d-flex flex-row comment-row p-3 mt-0">
-                    <div class="comment-text ps-2 ps-md-3 w-100">
-                        <h5 class="font-medium">{{ $any(group).Title }}</h5>
-                        <div class="comment-footer d-md-flex align-items-center">
-                             <span class="badge bg-primary rounded">Pending</span>
-                             <div class="group-id d-none" [attr.data-pk]="group.id"></div>
-                            <div class="text-muted fs-5 ms-auto mt-2 mt-md-0">{{ $any(group).Created_Time | date:'mediumDate' }}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      <div *ngIf="rfq_group === null">
-        <div class="empty-group text-center">
-          <h3>You Have No RFQ Group yet</h3>
-        </div>
+<!--<div class="row">-->
+<!--    &lt;!&ndash; RFQ Group &ndash;&gt;-->
+<!--    <div class="col-md-12 col-lg-12 col-sm-12">-->
+<!--        <div *ngIf="rfq_group !== null" class="card white-box p-0">-->
+<!--            <div class="card-body">-->
+<!--                <h3 class="box-title mb-0">RFQ Groups</h3>-->
+<!--            </div>-->
+<!--            <div class="comment-widgets">-->
+<!--                &lt;!&ndash; Comment Row &ndash;&gt;-->
+<!--                <div *ngFor="let group of rfq_group" class="d-flex flex-row comment-row p-3 mt-0">-->
+<!--                    <div class="comment-text ps-2 ps-md-3 w-100">-->
+<!--                        <h5 class="font-medium">{{ $any(group).Title }}</h5>-->
+<!--                        <div class="comment-footer d-md-flex align-items-center">-->
+<!--                             <span class="badge bg-primary rounded">Pending</span>-->
+<!--                             <div class="group-id d-none" [attr.data-pk]="group.id"></div>-->
+<!--                            <div class="text-muted fs-5 ms-auto mt-2 mt-md-0">{{ $any(group).Created_Time | date:'mediumDate' }}</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--      <div *ngIf="rfq_group === null">-->
+<!--        <div class="empty-group text-center">-->
+<!--          <h3>You Have No RFQ Group yet</h3>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="container">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Request For Quotations
+      </div>
+      <div class="panel-body text-center">
+        <table class="table table-condensed table-striped">
+          <!-- RFQ Heading (Static) -->
+          <thead>
+            <tr>
+              <th>RFQ ID</th>
+              <th>Number of Quotations</th>
+              <th>Created Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+              <!-- RFQs List (Dynamic) -->
+              <tr (click)="expandAccordion($event); getSPQuotationRecords(RFQs.id);" *ngFor="let RFQs of rfq_list; let i = index;" data-toggle="collapse" [attr.data-target]="'#quotations' + convertToInteger(i + 1)" class="accordion-toggle">
+                <td>{{ RFQs.Name }}</td>
+                <td>{{ getValueOrNone(RFQs.Number_Of_Quotations) }}</td>
+                <td>{{ $any(RFQs).Created_Time | date:'mediumDate' }}</td>
+                <td>{{ RFQs.Status }}</td>
+              </tr>
+              <tr *ngFor="let RFQs of rfq_list; let i = index;">
+                <td colspan="12" class="hiddenRow">
+                  <div class="accordian-body collapse" id="quotations{{convertToInteger(i + 1)}}">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr class="info">
+                          <th>Service Provider</th>
+                          <th>Status</th>
+                          <th>Price Validity</th>
+                          <th>
+                            Approve Request
+                          </th>
+                          <th>
+                            Cancel Request
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="related_sp !== 'No Data'">
+                        <!-- SP Quotations -->
+                        <tr *ngFor="let sp of related_sp">
+                          <td>{{ displayClient(sp) }}</td>
+                          <td>{{ sp.Status }}</td>
+                          <td>{{ sp.Price_Validity }}</td>
+                          <td *ngIf="sp.Status !== 'Completed' || sp.Status !== 'Canceled'">
+                            <form #completedForm="ngForm" (ngSubmit)="updateStatus(completedForm.value)">
+                              <input type="hidden" [ngModel]="'Completed'" name="Status">
+                              <input type="hidden" [ngModel]="sp.id" name="SP_Quotations">
+                              <button id="approve" type="submit" class="btn btn-success">Approve</button>
+                            </form>
+                          </td>
+                          <td *ngIf="sp.Status !== 'Completed' || sp.Status !== 'Canceled'">
+                            <form #canceledForm="ngForm" (ngSubmit)="updateStatus(canceledForm.value)">
+                              <input type="hidden" [ngModel]="'Canceled'" name="Status">
+                              <input type="hidden" [ngModel]="sp.id" name="SP_Quotations">
+                              <button id="cancel" type="submit" class="btn btn-danger">Cancel</button>
+                            </form>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+  </div>
 </div>
+

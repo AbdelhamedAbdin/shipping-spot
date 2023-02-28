@@ -129,6 +129,11 @@
                     <fa-icon [icon]="svg_icon.faBriefcase"></fa-icon>&nbsp; Job Requests
                 </a>
             </li>
+            <li *ngIf="user_role === 'provider'">
+                <a [routerLink]="['/follow-requests']">
+                    <fa-icon [icon]="svg_icon.faPaperPlane"></fa-icon>&nbsp; Follow Requests
+                </a>
+            </li>
           </ul>
         </div>
       </div>

@@ -7,6 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import {HandlingEquipmentService} from "../../interface-models/rfq_type_services/HandlingEquipment";
 import {AddRemoveItems} from "../add_remove_items";
 import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
+import EquipmentService from "../../interface-models/sp_type_services/Equipment";
 
 
 @Injectable({
@@ -45,7 +46,7 @@ export class Equipment {
     new AddRemoveItems().windowButtons();
   }
 
-  createRFQ(RFQForm: AirFreightService)
+  createRFQ(RFQForm: HandlingEquipmentService)
   {
     let item_list = getItemsOrNone(RFQForm, this);
     RFQBody(RFQForm, item_list, this);

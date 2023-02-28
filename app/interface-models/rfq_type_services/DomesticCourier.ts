@@ -11,4 +11,6 @@ export interface DomesticCourierService {
   Total_Number_of_Packages: number;
   Total_Net_Weight: number;
   Total_Gross_weight: number;
+  Total_Dimensional_Weight: number;
+  Total_Chargeable_Weight: number;
 }

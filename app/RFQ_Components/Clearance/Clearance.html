@@ -21,49 +21,57 @@
     </div>
     <div>
       <label>Service Mode</label>
-      <select #mode_value (change)="showFields(mode_value.value.slice(3))" formControlName="Service_Mode" class="form-control">
+      <select #mode_value formControlName="Service_Mode" class="form-control">
         <option *ngFor="let mode of modes;" [ngValue]="mode">{{mode}}</option>
       </select>
     </div>
 
-    <div class="mt-2" *ngFor="let modes of showFields(mode_value.value.slice(3));">
-      <label>{{ modes.formControlName }}</label>
-      <input [type]="modes.type" [formControlName]="modes.formControlName" [class]="modes.class">
+    <!-- Show Modes -->
+    <div *ngIf="mode_value.value.slice(3) === 'Air' || mode_value.value.slice(3) === 'Ocean LCL'" class="mt-2">
+      <label>Quantity</label>
+      <input type="number" formControlName="Quantity" class="form-control mb-3" id="Quantity">
+    </div>
+
+    <div *ngIf="mode_value.value.slice(3) === 'Air' || mode_value.value.slice(3) === 'Ocean LCL'" class="mt-2">
+      <label>Gross Weight (kg)</label>
+      <input type="number" formControlName="Gross_Weight_kg" class="form-control mb-3" id="Gross_Weight_kg">
+    </div>
+
+    <div *ngIf="mode_value.value.slice(3) === 'Ocean LCL'" class="mt-2">
+      <label>CBM</label>
+      <input type="number" formControlName="CBM" class="form-control mb-3" id="CBM">
+    </div>
+
+    <div *ngIf="mode_value.value.slice(3) === 'Land'" class="mt-2">
+      <label>Shipment Gross Weight (kg)</label>
+      <input type="number" formControlName="Shipment_Gross_Weight_kg" class="form-control mb-3" id="Shipment_Gross_Weight_kg">
+    </div>
+
+    <div *ngIf="mode_value.value.slice(3) === 'Land'" class="mt-2">
+      <label>Number of Trucks</label>
+      <input type="number" formControlName="Number_of_Trucks" class="form-control mb-3" id="Number_of_Trucks">
     </div>
 
     <!-- Air Service Mode -->
     <div *ngIf="mode_value.value.slice(3) === 'Air'">
-      <label>Airport Mode</label>
+      <label>Airport</label>
       <select formControlName="Airport" class="form-control">
         <option *ngFor="let Airport of Airports;" [ngValue]="Airport">{{ Airport }}</option>
       </select>
     </div>
     <!-- Land Service Mode -->
     <div *ngIf="mode_value.value.slice(3) === 'Land'">
-      <label>Landport Mode</label>
+      <label>Landport</label>
       <select formControlName="Landport" class="form-control">
         <option *ngFor="let Landport of Landports;" [ngValue]="Landport">{{ Landport }}</option>
       </select>
     </div>
     <!-- Ocean Service Mode -->
-    <div *ngIf="mode_value.value.slice(3) === 'Ocean'">
-      <label>Seaport Mode</label>
+    <div *ngIf="mode_value.value.slice(3) === 'Ocean FCL' || mode_value.value.slice(3) === 'Ocean LCL'">
+      <label>Seaport</label>
       <select formControlName="Seaport" class="form-control">
         <option *ngFor="let Seaport of Seaports;" [ngValue]="Seaport">{{ Seaport }}</option>
       </select>
-    </div>
-
-    <div class="mt-2">
-      <input type="text" placeholder="Pickup Country" class="form-control mb-3" formControlName="Pickup_Country">
-    </div>
-    <div class="mt-2">
-      <input type="text" placeholder="Delivery Country" class="form-control mb-3" formControlName="Delivery_Country">
-    </div>
-    <div class="mt-2">
-      <input type="text" placeholder="Pickup Address" class="form-control mb-3" formControlName="Pickup_Address">
-    </div>
-    <div class="mt-2">
-      <input type="text" placeholder="Delivery Address" class="form-control mb-3" formControlName="Delivery_Address">
     </div>
 
     <!-- Nested Items -->
@@ -84,7 +92,7 @@
                 </td>
                 <td>
                   <select class="form-control" formControlName="Container_Type">
-                    <option #test *ngFor="let container_type of container_types;">{{ container_type }}</option>
+                    <option *ngFor="let container_type of container_types;">{{ container_type }}</option>
                   </select>
                 </td>
                 <td>

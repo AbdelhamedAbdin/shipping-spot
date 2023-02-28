@@ -40,6 +40,7 @@ import {SPPacking} from "./SP_Components/Packing/SPPacking";
 import {SPFumigation} from "./SP_Components/Fumigation/SPFumigation";
 import {SPEquipment} from "./SP_Components/Equipments/SPEquipment";
 import {SPInsurance} from "./SP_Components/Insurance/SPInsurance";
+import {FollowRequests} from "./RFQ_Jobs/Follow_Requests/FollowRequests";
 
 if (location.pathname === "/app/") {
   location.href = location.href + "/(login:login)";
@@ -52,9 +53,10 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent, outlet: "login"},
   {path: 'signup', component: RegisterComponent, outlet: "register"},
   // Profile
-  {path: 'profile', component: ProfileComponent},
-  {path: 'profile/client', component: ClientComponent},
-  {path: 'profile/provider', component: ProviderComponent},
+  {path: 'profile', component: ProfileComponent, children: [
+    {path: 'client', component: ClientComponent},
+    {path: 'provider', component: ProviderComponent},
+  ]},
   // Dashboard
   {path: 'dashboard',
     children: [
@@ -84,22 +86,25 @@ export const routes: Routes = [
   },
   // RFQ Jobs
   {path: 'rfq-jobs', component: RFQJobs},
-  {path: 'rfq-jobs/:id', component: RFQJobDetails, children: [
-      {path: ':service_type', component: SPAirFreight},
-      {path: ':service_type', component: SPStorage},
-      {path: ':service_type', component: SPOceanFCL},
-      {path: ':service_type', component: SPOceanLCL},
-      {path: ':service_type', component: SPTruckFTL},
-      {path: ':service_type', component: SPTruckLTL},
-      {path: ':service_type', component: SPInterCourier},
-      {path: ':service_type', component: SPDomesticDelivery},
-      {path: ':service_type', component: SPDomesticCourier},
-      {path: ':service_type', component: SPClearance},
-      {path: ':service_type', component: SPPacking},
-      {path: ':service_type', component: SPFumigation},
-      {path: ':service_type', component: SPEquipment},
-      {path: ':service_type', component: SPInsurance}
-  ]}
+  {path: 'rfq-jobs/:id', component: RFQJobDetails,
+    children: [
+      {path: ':service_type', component: SPAirFreight, outlet: 'Air_Freight'},
+      {path: ':service_type', component: SPStorage, outlet: 'Storage'},
+      {path: ':service_type', component: SPOceanFCL, outlet: 'Ocean_Freight_FCL'},
+      {path: ':service_type', component: SPOceanLCL, outlet: 'Ocean_Freight_LCL'},
+      {path: ':service_type', component: SPTruckFTL, outlet: 'International_Truck_FTL'},
+      {path: ':service_type', component: SPTruckLTL, outlet: 'International_Truck_LTL'},
+      {path: ':service_type', component: SPInterCourier, outlet: 'International_Courier'},
+      {path: ':service_type', component: SPDomesticDelivery, outlet: 'Domestic_Trucking'},
+      {path: ':service_type', component: SPDomesticCourier, outlet: 'Domestic_Courier'},
+      {path: ':service_type', component: SPClearance, outlet: 'Clearance'},
+      {path: ':service_type', component: SPPacking, outlet: 'Packing'},
+      {path: ':service_type', component: SPFumigation, outlet: 'Fumigation'},
+      {path: ':service_type', component: SPEquipment, outlet: 'Equipment'},
+      {path: ':service_type', component: SPInsurance, outlet: 'Insurance'}
+    ]
+  },
+  {path: 'follow-requests', component: FollowRequests},
 ]
 
 @NgModule({

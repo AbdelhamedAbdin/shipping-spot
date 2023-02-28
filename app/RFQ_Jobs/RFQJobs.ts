@@ -1,8 +1,9 @@
 // Built-in Angular Apps
 import { Component, Injectable } from '@angular/core';
 import { userLogged } from "../../utils";
-import {RFQJobService} from "../../services/CRMModules/RFQJobs";
-import {ActivatedRoute, NavigationEnd} from "@angular/router";
+import { RFQJobService } from "../../services/CRMModules/RFQJobs";
+import { ActivatedRoute, Router } from "@angular/router";
+import { provider_auth } from '../Auth/authentication'
 
 
 @Injectable({
@@ -32,17 +33,21 @@ export class RFQJobs {
     let direction = start < end ? 1 : -1;
     let startingPoint = start - (direction * (offset || 0));
     let stepSize = direction * (step || 1);
-
-    return Array(len).fill(0).map(function(_, index) {
-      return startingPoint + (stepSize * index);
-    });
-
+    try {
+      return new Array(len).fill(0).map(function(_, index) {
+        return startingPoint + (stepSize * index);
+      });
+    } catch (e) {
+      return [1];
+    }
   }
 
-  constructor(private RFQJobServiceList: RFQJobService, private routeParam: ActivatedRoute) {
+  constructor(private RFQJobServiceList: RFQJobService, private routeParam: ActivatedRoute, private router: Router) {
     this.account_id = new userLogged().parseStorage(localStorage).AccountID;
     this.user_type = new userLogged().parseStorage(localStorage).UserType;
     this.get_params = this.routeParam.snapshot.queryParams;
+
+    provider_auth(this.user_type, this.router);
 
     // Get page number if not null
     if (this.get_params.hasOwnProperty("page")) {

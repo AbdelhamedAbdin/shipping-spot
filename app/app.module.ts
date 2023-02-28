@@ -48,6 +48,7 @@ import {SPPacking} from "./SP_Components/Packing/SPPacking";
 import {SPFumigation} from "./SP_Components/Fumigation/SPFumigation";
 import {SPEquipment} from "./SP_Components/Equipments/SPEquipment";
 import {SPInsurance} from "./SP_Components/Insurance/SPInsurance";
+import {FollowRequests} from "./RFQ_Jobs/Follow_Requests/FollowRequests";
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import {SPInsurance} from "./SP_Components/Insurance/SPInsurance";
     // RFQ_Jobs
     RFQJobs,
     RFQJobDetails,
+    FollowRequests,
     // SP::Components
     SPAirFreight,
     SPOceanFCL,

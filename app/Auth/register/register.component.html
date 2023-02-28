@@ -52,8 +52,16 @@
         </div>
         <div class="form-group">
           <label for="register-userRole">User Role</label>
-          <select [(ngModel)]="this.selectedRole" name="userType" id="register-userRole" class="form-control" ngModel>
+          <select #user_role [(ngModel)]="this.selectedRole" name="userType" id="register-userRole" class="form-control" ngModel>
             <option [ngValue]="role.option" *ngFor="let role of roles">{{ role.option }}</option>
+          </select>
+        </div>
+        <div *ngIf="user_role.value.slice(3) === 'Service Provider'" class="form-group">
+          <label for="Service_Type">Type Services</label>
+          <select class="select form-control" multiple name="Service_Type" id="Service_Type" ngModel>
+            <option [ngValue]="service" *ngFor="let service of services">
+              {{ service }}
+            </option>
           </select>
         </div>
         <button type="submit" class="btn btn-primary mt-2">Create Account!</button>

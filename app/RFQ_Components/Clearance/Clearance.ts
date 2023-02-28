@@ -26,7 +26,7 @@ export class Clearance {
   formGroup: any;
   default_term: string = "-None-";
   service_operations: Array<string> = ["-None-", "Import", "Export"];
-  modes: Array<string> = ["-None-", "Air", "Ocean", "Land"];
+  modes: Array<string> = ["-None-", "Air", "Ocean FCL", "Ocean LCL", "Land"];
   Airports: Array<string> = ["-None-", "Cairo Airport", "Alexandria Airport"];
   Landports: Array<string> = ["-None-", "option2"];
   Seaports: Array<string> = ["-None-", 'Portsaid East Port', 'Portsaid West Port', 'Damietta Port', 'Suez Port', 'Adabiya Port'];
@@ -53,29 +53,18 @@ export class Clearance {
       Airport: new FormControl<string>(this.default_term),
       Landport: new FormControl<string>(this.default_term),
       Seaport: new FormControl<string>(this.default_term),
+
       Gross_Weight_kg: new FormControl<string>(this.default_term),
       Quantity: new FormControl<string>(this.default_term),
       CBM: new FormControl<string>(this.default_term),
       Shipment_Gross_Weight_kg: new FormControl<string>(this.default_term),
       Number_of_Trucks: new FormControl<number|null>(null),
-
-      Pickup_Country: new FormControl<string>(''),
-      Delivery_Country: new FormControl<string>(''),
-      Pickup_Address: new FormControl<string>(''),
-      Delivery_Address: new FormControl<string>(''),
     });
 
     new AddRemoveItems().windowButtons();
   }
 
-  showFields: Function = function (pickup_value: string) {
-    console.log(pickup_value);
-    // @ts-ignore
-    let service_states = ServiceModeData()[pickup_value];
-    return service_states;
-  }
-
-  createRFQ(RFQForm: AirFreightService)
+  createRFQ(RFQForm: ClearanceService)
   {
     let item_list = getItemsOrNone(RFQForm, this);
     RFQBody(RFQForm, item_list, this);

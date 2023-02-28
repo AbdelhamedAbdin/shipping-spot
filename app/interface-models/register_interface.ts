@@ -7,4 +7,5 @@ export interface Register {
   Phone?: string;
   Account_Name: string;
   userType: string;
+  Service_Type: string[];
 }

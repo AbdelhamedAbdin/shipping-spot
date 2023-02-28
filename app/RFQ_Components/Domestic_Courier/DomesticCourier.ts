@@ -7,6 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import {DomesticCourierService} from "../../interface-models/rfq_type_services/DomesticCourier";
 import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
 import {AddRemoveItems} from "../add_remove_items";
+import {compareWeights, DimensionalWeight, grossWeight, netWeight, numberOfPKGs} from "../../RFQ/Total_Calculations";
 
 
 @Injectable({
@@ -40,20 +41,20 @@ export class DomesticCourier {
       Pickup_Country: new FormControl<string>(''),
       Delivery_Country: new FormControl<string>(''),
       Pickup_Address: new FormControl<string>(''),
-      Delivery_Address: new FormControl<string>(''),
-
-      Total_Number_of_Packages: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
-      Total_Net_Weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
-      Total_Gross_weight: new FormControl<number|null>(null, [ Validators.pattern(/d+/g) ]),
-
-      Description: new FormControl<string>('')
+      Delivery_Address: new FormControl<string>('')
     });
 
     new AddRemoveItems().windowButtons();
   }
-  createRFQ(RFQForm: AirFreightService)
+
+  createRFQ(RFQForm: DomesticCourierService)
   {
     let item_list = getItemsOrNone(RFQForm, this);
+    RFQForm.Total_Number_of_Packages = numberOfPKGs(item_list);
+    RFQForm.Total_Dimensional_Weight = DimensionalWeight(item_list, 5000);
+    RFQForm.Total_Net_Weight = netWeight(item_list);
+    RFQForm.Total_Gross_weight = grossWeight(item_list);
+    RFQForm.Total_Chargeable_Weight = compareWeights(RFQForm.Total_Gross_weight, RFQForm.Total_Dimensional_Weight);
     RFQBody(RFQForm, item_list, this);
   }
 }

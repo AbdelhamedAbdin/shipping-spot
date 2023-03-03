@@ -19,3 +19,12 @@
 .transform-caret-left {
   rotate: 90deg;
 }
+.app-header .app-header__content {
+  flex-direction: row-reverse;
+}
+.scrollbar-sidebar a {
+  color: #000 !important;
+}
+.scrollbar-sidebar a:hover {
+  cursor: pointer;
+}

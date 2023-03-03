@@ -1,10 +1,11 @@
 // Built-in Angular Apps
-import {Component, ElementRef, Injectable} from '@angular/core';
+import {Component, ElementRef, Injectable, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RFQJobDetailsService} from "../../../services/CRMModules/RFQJobDetail";
 import {RFQDetailsRestrictionService} from "../../../services/CRMModules/RFQDetailsRestriction";
 import {GETSPQuotationByAccountService} from "../../../services/CRMModules/GETSPQuotationByAccount";
 import { userLogged } from "../../../utils";
+import {SpinnerComponent} from "../../popup/spinner/Spinner.component";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ import { userLogged } from "../../../utils";
   styleUrls: ['./RFQJobDetails.css']
 })
 
-export class RFQJobDetails {
+export class RFQJobDetails implements OnInit {
   title = "RFQ Details";
   service_id: any = "";
   service_type: any;
@@ -24,6 +25,7 @@ export class RFQJobDetails {
   data_keys: any;
   is_quoted: any;
   user_id: any;
+  spinner = new SpinnerComponent();
 
   constructor(private router: Router, private routeParam: ActivatedRoute,
               private RFQJobDetails: RFQJobDetailsService,
@@ -64,6 +66,7 @@ error => {
     });
 
     quotation_id.subscribe(res => {
+      this.spinner.endSpinnerLoading();
       res["raleted_list"].forEach((r: any) => {
         try {
           r["SP_Quotations"].filter((id: any) => {
@@ -79,7 +82,10 @@ error => {
         } catch (e) {return}
       })
     })
-    // setTimeout(() => console.log(this.is_quoted), 5000);
+  }
+
+  ngOnInit() {
+    this.spinner.startSpinnerLoading();
   }
 
   getServiceName(service_name: any) {

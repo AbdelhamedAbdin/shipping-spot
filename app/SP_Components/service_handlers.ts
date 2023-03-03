@@ -1,3 +1,5 @@
+import {FlashComponent} from "../flash_message/Flash.component";
+
 export function createQuote($this: any, SPQuote: any, RFQ_Type: string) {
   let payload = {
     data: [
@@ -15,6 +17,8 @@ export function createQuote($this: any, SPQuote: any, RFQ_Type: string) {
     ],
     trigger: ['workflow']
   }
+
+  let flash_message = new FlashComponent();
 
   $this.SPQuoationService.NewRecord(payload).subscribe((res: any) => {
     $this.router.navigateByUrl('/rfq-jobs');

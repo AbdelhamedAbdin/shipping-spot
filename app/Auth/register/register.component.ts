@@ -49,8 +49,7 @@ export class RegisterComponent implements OnInit {
   constructor(private registerService: RegisterService,
               private router: Router,
               private location: Location,
-              private authService: AuthService,
-              private contactsService: ContactsService) {
+              private authService: AuthService) {
     try {
       this.user_role = new userLogged().parseStorage(localStorage).UserType;
     }
@@ -60,7 +59,7 @@ export class RegisterComponent implements OnInit {
     this.selectedRole = this.roles[0].option;
     this.resolver = new OutletReader(this.router);
     // @ts-ignore
-    this.app_component = new AppComponent(this.router, this.authService, this.contactsService);
+    this.app_component = new AppComponent(this.router, this.authService);
   }
 
   ngOnInit() {

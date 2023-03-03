@@ -3,11 +3,12 @@ import { AuthService } from "../services/auth.service";
 // ShippingSpot Other Files
 import { OutletReader, pathNameValidation } from '../utils';
 // Built-in Angular Apps
-import {Component, ElementRef, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import * as svg_icons from "@fortawesome/free-solid-svg-icons";
 import { filter } from 'rxjs/operators';
-import { ContactsService } from "../services/CRMModules/Contacts";
+import {SpinnerComponent} from "./popup/spinner/Spinner.component";
+
 
 let DEBUG: boolean = true;
 let DOMAIN: string = "sandbox";
@@ -33,13 +34,11 @@ export class AppComponent implements OnInit {
   svg_icon: any;
   currentRouter: any;
   get_url_name: any;
-  contact_name: string = "";
   user_role: string = "";
   @Input() user_request: any;
+  spinner = new SpinnerComponent();
 
-  constructor(private router: Router,
-              public authService: AuthService,
-              private contactsService: ContactsService)
+  constructor(private router: Router, public authService: AuthService)
   {
     this.authService.$isLoggedIn.subscribe(auth => {this.is_authenticated = auth});
     this.token = localStorage.getItem(DataStorageName);
@@ -48,15 +47,7 @@ export class AppComponent implements OnInit {
 
     try {
       const user_payloads = JSON.parse(localStorage.user_payloads);
-      const userID = user_payloads.userID;
-      const contact_service = this.contactsService.GetRecordByID(userID);
-
       this.user_role = user_payloads.UserType;
-      contact_service.subscribe(res => {
-        res["data"].forEach((item: { Full_Name: any; }) => {
-          this.contact_name = item.Full_Name;
-        })
-      });
     } catch (e) {
       return;
     }
@@ -116,6 +107,14 @@ export class AppComponent implements OnInit {
     localStorage.clear()
     this.authService.isLoggedInAuth(false);
     this.router.navigateByUrl(this.get_url_name.ResolverURL("login", false));
+    this.Reloader();
+  }
+
+  // Reload system for login again
+  Reloader() {
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   }
 
   // close sidebar
@@ -131,9 +130,7 @@ export class AppComponent implements OnInit {
       .classList.toggle("transform-caret-left");
 
     console.log(event.target.closest(".heading-content").querySelector(".caret-left"));
-
     const target_elem = event.target.closest(".heading-content");
-
     // const get_aria_attrs = document.querySelectorAll(".heading-content > a");
   }
 }

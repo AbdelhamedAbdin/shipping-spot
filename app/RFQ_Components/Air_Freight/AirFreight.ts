@@ -1,15 +1,18 @@
 // Built-in Angular Apps
-import { Component, Injectable } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {RFQBody, selectServiceType} from "../service_handlers";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 // ShippingSpot Components
 import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
-import { ActivatedRoute } from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
-import {CheckboxControlValueAccessor, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AddRemoveItems} from '../add_remove_items';
 import {getItemsOrNone} from '../service_handlers';
 import {compareWeights, DimensionalWeight, grossWeight, netWeight, numberOfPKGs} from "../../RFQ/Total_Calculations";
-
+import {TotalQuantity} from '../../RFQ/Total_Quantity_Event';
+import {TotalDimensionalWeight} from '../../RFQ/Total_Dimensional_Weight';
+import {TotalNetWeight} from "../../RFQ/Total_Net_Weight";
+import {TotalGrossWeight} from "../../RFQ/Total_Gross_Weight";
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +21,10 @@ import {compareWeights, DimensionalWeight, grossWeight, netWeight, numberOfPKGs}
 @Component({
   selector: 'app-air-freight',
   templateUrl: './AirFreight.html',
-  styleUrls: []
+  styleUrls: ["./AirFreight.css"]
 })
 
-export class AirFreight {
+export class AirFreight implements OnInit {
   service_type_param: any;
   rfq_group_id: any;
 
@@ -58,6 +61,7 @@ export class AirFreight {
       POL_Port_of_Loading: new FormControl<string>(''),
       POD_Port_of_Discharge: new FormControl<string>(''),
       Safety_Data_Sheet: new FormControl<string>(''),
+      Total_Packages: new FormControl<number|null>(null),
 
       child: new FormGroup({
         Quantity: new FormControl<number|null>(null, [ Validators.pattern(/d+/) ]),
@@ -71,6 +75,13 @@ export class AirFreight {
 
     // Add/Remove multi-line items
     new AddRemoveItems().windowButtons();
+  }
+
+  ngOnInit() {
+    new TotalQuantity().listenToChangeEvent();
+    new TotalDimensionalWeight().listenToChangeEvent();
+    new TotalNetWeight().listenToChangeEvent();
+    new TotalGrossWeight().listenToChangeEvent();
   }
 
   createRFQ(RFQForm: AirFreightService)

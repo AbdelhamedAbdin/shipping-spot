@@ -1,9 +1,9 @@
 // Built-in Angular Apps
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from "@angular/router";
-import {RFQGroupService} from "../../services/CRMModules/RFQGroup";
-import {GetRFQGroupServices} from "../../services/CRMModules/GetRFQGroups";
-import {userLogged} from "../../utils";
+import {RFQGroupService} from "../../../services/CRMModules/RFQGroup";
+import {GetRFQGroupServices} from "../../../services/CRMModules/GetRFQGroups";
+import {userLogged} from "../../../utils";
 
 
 @Component({
@@ -67,6 +67,8 @@ export class PageTitleComponent {
 
   createRfqGroup(rfq_group: {Title: string})
   {
+    const page_title_selector = document.querySelector(".app-page-title #rfqg") as HTMLElement;
+    const modal = document.querySelector(".modal-backdrop") as HTMLElement;
     const _body = {
       data: [{Title: rfq_group.Title, Account: {id: this.account_id}}],
       trigger: ["workflow"]
@@ -79,6 +81,8 @@ export class PageTitleComponent {
       () => {
         this.router.navigateByUrl("/rfq/" + this.get_id_after_created);
     });
+    page_title_selector.style.display = "none";
+    modal.style.display = "none";
   }
 
   groupId(id: string)
@@ -91,8 +95,13 @@ export class PageTitleComponent {
   selectGroup(event: any)
   {
     const group_id = event.target.dataset['groupid'];
-    // this.router.navigate(["rfq", group_id]);
+    const page_title_selector = document.querySelector(".app-page-title #rfqg") as HTMLElement;
+    const modal = document.querySelector(".modal-backdrop") as HTMLElement;
+
     this.router.navigateByUrl("/rfq/" + group_id);
+    page_title_selector.style.display = "none";
+    modal.style.display = "none";
+    document.body.style.overflowY = "auto";
   }
 
 }

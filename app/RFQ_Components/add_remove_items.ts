@@ -69,7 +69,10 @@ export class AddRemoveItems {
       last_td.after(table_data);
     }
 
-    btn.closest('tbody').append(element_cloned)
+    btn.closest('tbody').append(element_cloned);
+    element_cloned.querySelectorAll("input").forEach((input: any) => {
+      input.value = "";
+    })
   }
 
   removeButton(btn: any)

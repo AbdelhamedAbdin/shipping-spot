@@ -1,3 +1,5 @@
+<app-flash-message></app-flash-message>
+
 <div *ngIf="userRequest().is_authenticated" class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
   <!-- Header -->
   <div class="app-header header-shadow">
@@ -25,22 +27,7 @@
     <div class="app-header__content">
       <div class="app-header-left">
       </div>
-      <div class="app-header-right">
-          <div class="header-btn-lg pr-0">
-              <div class="widget-content p-0">
-                  <div class="widget-content-wrapper">
-                      <div class="widget-content-left  ml-3 header-user-info">
-                          <div class="widget-heading">
-                              {{ contact_name }}
-                          </div>
-                          <div class="widget-subheading">
-                              {{ user_role }}
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+      <app-header-component></app-header-component>
     </div>
   </div>
 
@@ -64,7 +51,7 @@
           <ul class="vertical-nav-menu">
             <li class="app-sidebar__heading"></li>
             <li class="heading-content">
-                <a href="#" (click)="arrow_rotation($event);">
+                <a (click)="arrow_rotation($event);">
                     <fa-icon [icon]="svg_icon.faClock"></fa-icon>&nbsp;
                     Dashboard
                     <fa-icon class="caret-left" [icon]="svg_icon.faChevronRight"></fa-icon>&nbsp;
@@ -84,7 +71,7 @@
                 </ul>
             </li>
             <li class="heading-content">
-                <a href="#" (click)="arrow_rotation($event);">
+                <a (click)="arrow_rotation($event);">
                     <fa-icon [icon]="svg_icon.faUser"></fa-icon>&nbsp;
                     Account
                     <fa-icon class="caret-left" [icon]="svg_icon.faChevronRight"></fa-icon>&nbsp;
@@ -97,7 +84,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="elements-dropdowns.html">
+                        <a>
                             <i class="metismenu-icon">
                             </i>My Contacts
                         </a>
@@ -105,7 +92,7 @@
                 </ul>
             </li>
             <li class="heading-content">
-                <a href="#" (click)="arrow_rotation($event);">
+                <a (click)="arrow_rotation($event);">
                     <fa-icon [icon]="svg_icon.faGear"></fa-icon>&nbsp;
                     Settings
                     <fa-icon class="caret-left" [icon]="svg_icon.faChevronRight"></fa-icon>&nbsp;
@@ -184,4 +171,6 @@
 </div>
 
 <!-- Modal -->
-<app-page-title></app-page-title>
+<app-page-title class="app-page-title"></app-page-title>
+
+<app-spinner></app-spinner>

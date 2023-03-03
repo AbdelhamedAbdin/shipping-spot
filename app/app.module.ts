@@ -13,7 +13,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClientComponent } from "./Client/client.component";
 import { ReportComponent } from "./Dashboard/Report/report.component";
 import { RFQComponent } from "./RFQ/RFQ.component";
-import { PageTitleComponent } from "./popup/pageTitle.component";
+import { PageTitleComponent } from "./popup/page_title/pageTitle.component";
 import {CreateRFQComponent} from "./RFQ/createRfq/CreateRFQ.component";
 // import {Air_Freight_ItemsComponent} from "./RFQ_Components/MainForm/MainForm.component";
 import {AirFreight} from "./RFQ_Components/Air_Freight/AirFreight";
@@ -31,7 +31,6 @@ import {Fumigation} from "./RFQ_Components/Fumigation/Fumigation";
 import {Equipment} from "./RFQ_Components/Equipment/Equipment";
 import {Insurance} from "./RFQ_Components/Insurance/Insurance";
 import {ProviderComponent} from "./Provider/provider.component";
-import {MainFormComponent} from "./RFQ_Components/MainForm/MainForm.component";
 import {RFQJobs} from "./RFQ_Jobs/RFQJobs";
 import {RFQJobDetails} from "./RFQ_Jobs/RFQ_Details/RFQJobDetails";
 import {SPAirFreight} from "./SP_Components/Air_Freight/SPAirFreight";
@@ -49,6 +48,9 @@ import {SPFumigation} from "./SP_Components/Fumigation/SPFumigation";
 import {SPEquipment} from "./SP_Components/Equipments/SPEquipment";
 import {SPInsurance} from "./SP_Components/Insurance/SPInsurance";
 import {FollowRequests} from "./RFQ_Jobs/Follow_Requests/FollowRequests";
+import {HeaderComponent} from "./Auth/header/Header";
+import {SpinnerComponent} from "./popup/spinner/Spinner.component";
+import {FlashComponent} from "./flash_message/Flash.component";
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import {FollowRequests} from "./RFQ_Jobs/Follow_Requests/FollowRequests";
     // Logging components
     LoginComponent,
     RegisterComponent,
+    HeaderComponent,
     // Account Component
     ProfileComponent,
     ClientComponent,
@@ -102,7 +105,9 @@ import {FollowRequests} from "./RFQ_Jobs/Follow_Requests/FollowRequests";
     SPEquipment,
     SPInsurance,
     // Popup
-    PageTitleComponent
+    PageTitleComponent,
+    SpinnerComponent,
+    FlashComponent
   ],
   imports: [
     BrowserModule,

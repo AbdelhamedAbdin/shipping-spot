@@ -30,15 +30,13 @@ export class ProfileComponent {
   data: any;
 
   constructor(private authService: AuthService,
-              private router: Router,
-              private location: Location,
-              private contactsService: ContactsService) {
+              private router: Router) {
     this.resolver = new OutletReader(this.router);
     this.isAuth();
   }
 
   isAuth() {
-    this.app_component = new AppComponent(this.router, this.authService, this.contactsService);
+    this.app_component = new AppComponent(this.router, this.authService);
     if (this.app_component.is_authenticated) {
        this.router.navigateByUrl('profile/' + this.user_role);
     }

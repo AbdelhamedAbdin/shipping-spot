@@ -8,7 +8,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div class="row">
+            <div *ngIf="rfq_group.length !== 0" class="row">
               <div class="col-lg-8">
                 <select class="form-control mb-3" #group_title (change)="groupId(group_title.value)">
                   <option *ngFor="let group of rfq_group" value="{{ group.id }}">{{ group.Title }}</option>

@@ -1,11 +1,12 @@
 // Built-in Angular Apps
-import { Component, Injectable } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import { GetRFQGroupServices } from "../../services/CRMModules/GetRFQGroups";
 import { userLogged } from "../../utils";
 import { Router } from "@angular/router";
 import {SearchRecordsService} from "../../services/CRMModules/SearchRecords";
 import {SPQuotationRFQListService} from "../../services/CRMModules/SPQuotationRFQList";
 import {UpdateSPQuotationService} from "../../services/CRMModules/updateSPQuotation";
+import {SpinnerComponent} from "../popup/spinner/Spinner.component";
 
 
 @Injectable({
@@ -18,7 +19,7 @@ import {UpdateSPQuotationService} from "../../services/CRMModules/updateSPQuotat
   styleUrls: ['./RFQ.component.css']
 })
 
-export class RFQComponent {
+export class RFQComponent implements OnInit {
   title = "RFQ";
 
   rfq_group: any = [];
@@ -31,6 +32,7 @@ export class RFQComponent {
       SP_Quotations: [{id: "-", Service_Provider: {name: "-"}, Status: "-", Price_Validity: "-"}]
     }]
   };
+  spinner = new SpinnerComponent();
 
   constructor(private RFQGroupService: GetRFQGroupServices,
               private SearchRecords: SearchRecordsService,
@@ -50,6 +52,7 @@ export class RFQComponent {
 
     RFQG.subscribe((res: any) => {
       try {
+        this.spinner.endSpinnerLoading();
         this.rfq_group = res["raleted_list"][0]["RFQs"];
         if (this.rfq_group === "No Data") {
           this.rfq_group = [];
@@ -63,7 +66,12 @@ export class RFQComponent {
     // Get List of RFQs
     this.getRFQRecords().subscribe((res) => {
       this.rfq_list = res['data'];
+      console.log(res["data"]);
     })
+  }
+
+  ngOnInit() {
+    this.spinner.startSpinnerLoading();
   }
 
   getRFQRecords() {
@@ -72,6 +80,8 @@ export class RFQComponent {
   }
 
   getSPQuotationRecords(rec: any): any {
+    const spinner = new SpinnerComponent();
+    spinner.startSpinnerLoading();
     this.SPQuotationRFQList.GetRecordByBody({
       "ID":rec,
       "Module":"RFQs",
@@ -80,12 +90,13 @@ export class RFQComponent {
           {"api_related":"SP_Quotations","Raleted_list_fields":["id", "Service_Provider", "Status", "Price_Validity"]}
       ]
     }).subscribe(res => {
-      console.log(res);
+      spinner.endSpinnerLoading();
       try {
         this.related_sp = res["raleted_list"][0]["SP_Quotations"];
+        console.log(res["raleted_list"]);
       }
       catch (e) {this.related_sp = []}
-    })
+    });
   }
 
   // Converter to increment number above zero

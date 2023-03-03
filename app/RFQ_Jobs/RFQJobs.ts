@@ -1,9 +1,10 @@
 // Built-in Angular Apps
-import { Component, Injectable } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import { userLogged } from "../../utils";
 import { RFQJobService } from "../../services/CRMModules/RFQJobs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { provider_auth } from '../Auth/authentication'
+import {SpinnerComponent} from "../popup/spinner/Spinner.component";
 
 
 @Injectable({
@@ -16,7 +17,7 @@ import { provider_auth } from '../Auth/authentication'
   styleUrls: ['./RFQJobs.css']
 })
 
-export class RFQJobs {
+export class RFQJobs implements OnInit {
   rfq_jobs: any = [];
   account_id: any;
   user_type: string = "";
@@ -26,6 +27,11 @@ export class RFQJobs {
   page_count: number = 1;
   pagination: Array<number> = [];
   get_params: any = null;
+  spinner = new SpinnerComponent();
+
+  ngOnInit() {
+    this.spinner.startSpinnerLoading();
+  }
 
   range(start: number, end: number, step: number=0, offset: number=0) {
 
@@ -66,6 +72,7 @@ export class RFQJobs {
     const RFQJobList = this.RFQJobServiceList.NewRecord(payloads);
 
     RFQJobList.subscribe(res => {
+      this.spinner.endSpinnerLoading();
       try {
         this.page_count = Math.ceil(res['Counter'] / payloads["Per_Page"]);
 
@@ -73,7 +80,6 @@ export class RFQJobs {
         if (this.page_count === 0) {
           this.page_count = 1;
         }
-
         this.rfq_jobs = res['data'];
       } catch (e) {
         this.rfq_jobs = null;

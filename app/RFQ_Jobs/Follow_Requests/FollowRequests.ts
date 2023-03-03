@@ -1,9 +1,10 @@
 // Built-in Angular Apps
-import {Component, Injectable} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import { userLogged } from "../../../utils";
 import {SPQuotationListService} from "../../../services/CRMModules/SPQuotationList";
 import {Observable, Subject} from "rxjs";
+import {SpinnerComponent} from "../../popup/spinner/Spinner.component";
 
 @Injectable({
   providedIn: 'root'
@@ -15,21 +16,27 @@ import {Observable, Subject} from "rxjs";
   styleUrls: ['./FollowRequests.css']
 })
 
-export class FollowRequests {
+export class FollowRequests implements OnInit {
   title = "Follow Requests";
   service_type: any;
   data: any;
   account_id: string = "";
   quotation_records: any;
   rfq_user_type: any;
+  spinner = new SpinnerComponent();
 
   constructor(private router: Router,
               private routeParam: ActivatedRoute,
               private SPQuotationList: SPQuotationListService) {
     this.account_id = new userLogged().parseStorage(localStorage).AccountID;
     this.getAllSpQuotations().subscribe(res => {
+      this.spinner.endSpinnerLoading();
       this.quotation_records = res["raleted_list"][0]["Quotations"]
     })
+  }
+
+  ngOnInit() {
+    this.spinner.startSpinnerLoading();
   }
 
   getAllSpQuotations() {

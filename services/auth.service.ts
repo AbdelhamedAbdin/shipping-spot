@@ -1,15 +1,14 @@
 import {HttpClient} from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {Router} from "@angular/router";
 import { DataStorageName } from "../app/app.component";
-import {Register} from "../app/interface-models/register_interface";
+
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class AuthService implements OnInit {
+export class AuthService {
   private BASE_URL = "../server/";
   path = "auth/sign-in";
   fullPath = this.BASE_URL + this.path;
@@ -19,14 +18,12 @@ export class AuthService implements OnInit {
 
   // Check if the user is authenticated
   private isLoggedIn = new BehaviorSubject<boolean>(false);
-  $isLoggedIn = this.isLoggedIn.asObservable();
+  $isLoggedIn = this.isLoggedIn.asObservable(); // Listener for any event occurs
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
     const token = localStorage.getItem(DataStorageName);
     this.isLoggedIn.next(!!token);
   }
-
-  ngOnInit(): void {}
 
   login(_body: any): Observable<any>
   {
@@ -41,6 +38,7 @@ export class AuthService implements OnInit {
     return this.fullPath;
   }
 
+  // Check if user is already logged
   isLoggedInAuth(value: boolean)
   {
     return this.isLoggedIn.next(value);

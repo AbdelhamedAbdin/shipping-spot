@@ -1,3 +1,8 @@
+/*
+* These functions will be executed once, whenever you would run createRFQ function
+* To create a new RFQ
+*/
+
 export function numberOfPKGs(item_list: any): number {
   let item_quantity = 0;
   item_list.map((q: any) => item_quantity += parseInt(q.Quantity));

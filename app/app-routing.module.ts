@@ -41,6 +41,8 @@ import {SPFumigation} from "./SP_Components/Fumigation/SPFumigation";
 import {SPEquipment} from "./SP_Components/Equipments/SPEquipment";
 import {SPInsurance} from "./SP_Components/Insurance/SPInsurance";
 import {FollowRequests} from "./RFQ_Jobs/Follow_Requests/FollowRequests";
+import {DraftComponent} from "./Draft/Draft.component";
+import {ArchivedComponent} from "./Archived/Archived.component";
 
 if (location.pathname === "/app/") {
   location.href = location.href + "/(login:login)";
@@ -105,6 +107,8 @@ export const routes: Routes = [
     ]
   },
   {path: 'follow-requests', component: FollowRequests},
+  {path: 'draft', component: DraftComponent},
+  {path: 'archived', component: ArchivedComponent},
 ]
 
 @NgModule({

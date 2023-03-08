@@ -27,7 +27,13 @@ export class OceanFCL {
   default_term: string = "-None-";
   terms: Array<string> = ["-None-", "Door to Door", "Port to Port", "Incoterm"];
   container_types: Array<string> = ["-None-", "Option 1", "Option 2"];
-  incoterms: any = ["-None-"];
+  incoterms: any = ['-None-', 'EXW', 'FCA', 'FAS', 'FOB', 'CFR', 'CIF', 'CPT', 'CIP', 'DAP', 'DPU', 'DDP'];
+  setStatus: string = "";
+
+  showPOL_POD = ['FAS', 'FOB', 'CFR', 'CIF'];
+  showDeliveryAddress = ['CPT', 'CIP', 'DAP', 'DPU', 'DDP'];
+  showPickupAddress = ["EXW", "FCA"];
+  target_value: string = "";
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -41,14 +47,16 @@ export class OceanFCL {
     this.formGroup = new FormGroup({
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
+      Status: new FormControl<string>(''),
 
       Shipping_Term: new FormControl<string>(this.default_term),
       Incoterm: new FormControl<string>(this.default_term),
-      Need_Insurance: new FormControl<string>(''),
-      Value_of_Goods: new FormControl<string>('', [ Validators.pattern('([0-9]*[.])?[0-9]+') ]),
+      Need_Insurance: new FormControl<boolean>(false),
+      Value_of_Goods: new FormControl<number|null>(null),
       Dangerous_Commodity: new FormControl<boolean>(false),
       Need_Temperature_Control: new FormControl<boolean>(false),
       Temperature: new FormControl<number|null>(null),
+      Safety_Data_Sheet: new FormControl<File|HTMLImageElement|null>(null),
 
       Pickup_Country: new FormControl<string>(''),
       Delivery_Country: new FormControl<string>(''),
@@ -67,4 +75,33 @@ export class OceanFCL {
   }
 
   changeStateEvent = (checked: any) => checked;
+
+  submitStatus($event: any) {
+    this.setStatus = $event.target.id;
+  }
+
+  showHideShippingTerm(shippingTerm: any) {
+    return shippingTerm.value.slice(3) !== '-None-';
+  }
+
+  getIncotermValue($event: any) {
+    let value = $event.target.value.slice(3);
+
+    if (value.trim() === "-None-") {
+      this.target_value = "-None-";
+      return;
+    }
+
+    this.showPOL_POD.filter(data => {
+      value.trim() === data ? this.target_value = "POL" : "";
+    })
+
+    this.showDeliveryAddress.filter(data => {
+      value.trim() === data ? this.target_value = "DA" : "";
+    })
+
+    this.showPickupAddress.filter(data => {
+      value.trim() === data ? this.target_value = "PA" : "";
+    })
+  }
 }

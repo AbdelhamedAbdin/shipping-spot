@@ -3,8 +3,8 @@ export interface TruckingFTLService {
   Commodity: string;
   Note?: string;
   // General Information
-  Shipping_Term: string;
-  Incoterm: string;
+  Shipping_Term?: string;
+  Incoterm?: string;
   Need_Insurance?: boolean;
   Value_of_Goods?: number|null;
   Dangerous_Commodity?: boolean;
@@ -14,8 +14,9 @@ export interface TruckingFTLService {
   // Pickup & Delivery
   Pickup_Country: string;
   Delivery_Country: string;
-  Pickup_Address: string;
-  Delivery_Address: string;
-  POL_Port_of_Loading: string;
-  POD_Port_of_Discharge: string;
+  Pickup_Address?: string;
+  Delivery_Address?: string;
+  POL_Port_of_Loading?: string;
+  POD_Port_of_Discharge?: string;
+  Status: string;
 }

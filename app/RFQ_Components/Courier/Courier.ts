@@ -1,5 +1,5 @@
 // Built-in Angular Apps
-import { Component, Injectable } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {getItemsOrNone, RFQBody, selectServiceType} from "../service_handlers";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RFQsService} from "../../../services/CRMModules/RFQs";
@@ -8,6 +8,10 @@ import {CourierService} from "../../interface-models/rfq_type_services/Courier";
 import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
 import {AddRemoveItems} from "../add_remove_items";
 import {compareWeights, DimensionalWeight, grossWeight, netWeight, numberOfPKGs} from "../../RFQ/Total_Calculations";
+import {TotalQuantity} from "../../RFQ/Total_Quantity_Event";
+import {TotalDimensionalWeight} from "../../RFQ/Total_Dimensional_Weight";
+import {TotalNetWeight} from "../../RFQ/Total_Net_Weight";
+import {TotalGrossWeight} from "../../RFQ/Total_Gross_Weight";
 
 
 @Injectable({
@@ -20,14 +24,20 @@ import {compareWeights, DimensionalWeight, grossWeight, netWeight, numberOfPKGs}
   styleUrls: []
 })
 
-export class Courier {
+export class Courier implements OnInit {
   service_type_param: any;
   rfq_group_id: any;
 
   formGroup: any;
   default_term: string = "-None-";
-  terms: Array<string> = ["Door to Door", "Port to Port", "Incoterm"];
-  incoterms: Array<string> = ['EXW', 'EX Works', 'FCA', 'Free Carrier', 'FAS', 'Free Alongside Ship', 'FOB', 'Free On Board', 'CFR', 'Cost & Freight', 'CIF', 'Cost Insurance & Freight', 'CPT', 'Carriage Paid To', 'CIP', 'Carriage Insurance Paid To', 'DAP', 'Delivered At Place', 'DPU', 'Delivered at Place Unloaded', 'DDP', 'Delivered Duty Paid'];
+  terms: Array<string> = ["-None-", "Door to Door", "Port to Port", "Incoterm"];
+  incoterms: any = ['-None-', 'EXW', 'FCA', 'FAS', 'FOB', 'CFR', 'CIF', 'CPT', 'CIP', 'DAP', 'DPU', 'DDP'];
+  setStatus: string = "";
+
+  showPOL_POD = ['FAS', 'FOB', 'CFR', 'CIF'];
+  showDeliveryAddress = ['CPT', 'CIP', 'DAP', 'DPU', 'DDP'];
+  showPickupAddress = ["EXW", "FCA"];
+  target_value: string = "";
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -41,6 +51,7 @@ export class Courier {
     this.formGroup = new FormGroup({
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
+      Status: new FormControl<string>(''),
 
       Shipping_Term: new FormControl<string>(this.default_term),
       Incoterm: new FormControl<string>(this.default_term),
@@ -60,6 +71,13 @@ export class Courier {
     new AddRemoveItems().windowButtons();
   }
 
+  ngOnInit() {
+    new TotalQuantity().listenToChangeEvent();
+    new TotalDimensionalWeight(5000).listenToChangeEvent();
+    new TotalNetWeight().listenToChangeEvent();
+    new TotalGrossWeight().listenToChangeEvent();
+  }
+
   createRFQ(RFQForm: CourierService)
   {
     let item_list = getItemsOrNone(RFQForm, this);
@@ -71,5 +89,34 @@ export class Courier {
     RFQBody(RFQForm, item_list, this);
   }
 
+  submitStatus($event: any) {
+    this.setStatus = $event.target.id;
+  }
+
   changeStateEvent = (checked: any) => checked;
+
+  showHideShippingTerm(shippingTerm: any) {
+    return shippingTerm.value.slice(3) !== '-None-';
+  }
+
+  getIncotermValue($event: any) {
+    let value = $event.target.value.slice(3);
+
+    if (value.trim() === "-None-") {
+      this.target_value = "-None-";
+      return;
+    }
+
+    this.showPOL_POD.filter(data => {
+      value.trim() === data ? this.target_value = "POL" : "";
+    })
+
+    this.showDeliveryAddress.filter(data => {
+      value.trim() === data ? this.target_value = "DA" : "";
+    })
+
+    this.showPickupAddress.filter(data => {
+      value.trim() === data ? this.target_value = "PA" : "";
+    })
+  }
 }

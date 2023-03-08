@@ -9,4 +9,5 @@ export interface InsuranceService {
   Country_Destination: string;
   Coverage: string;
   Country_Origin: string;
+  Status: string;
 }

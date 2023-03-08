@@ -25,6 +25,7 @@ export class Equipment {
   rfq_group_id: any;
   formGroup: any;
   equipments: Array<string> = ["-None-", "Fork Lift", "Loader", "Crane"]
+  setStatus: string = "";
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -38,6 +39,7 @@ export class Equipment {
     this.formGroup = new FormGroup({
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
+      Status: new FormControl<string>(''),
 
       Address: new FormControl<string>(''),
       Time_Needed_hours: new FormControl<number|null>(null),
@@ -50,5 +52,9 @@ export class Equipment {
   {
     let item_list = getItemsOrNone(RFQForm, this);
     RFQBody(RFQForm, item_list, this);
+  }
+
+  submitStatus($event: any) {
+    this.setStatus = $event.target.id;
   }
 }

@@ -22,11 +22,17 @@ import {AddRemoveItems} from "../add_remove_items";
 export class TruckingFTL {
   service_type_param: any;
   rfq_group_id: any;
+  setStatus: string = "";
+
+  showPOL_POD = ['FAS', 'FOB', 'CFR', 'CIF'];
+  showDeliveryAddress = ['CPT', 'CIP', 'DAP', 'DPU', 'DDP'];
+  showPickupAddress = ["EXW", "FCA"];
+  target_value: string = "";
 
   formGroup: any;
   default_term: string = "-None-";
   terms: Array<string> = ["-None-", "Door to Door", "Port to Port", "Incoterm"];
-  incoterms: Array<string> = ["-None-", "Option 1", "Option 2"];
+  incoterms: any = ['-None-', 'EXW', 'FCA', 'FAS', 'FOB', 'CFR', 'CIF', 'CPT', 'CIP', 'DAP', 'DPU', 'DDP'];
   choose_truck_or_shipment = ["-None-", "Choose Truck", "Enter Shipment Detail"];
   truck_item_types: Array<string> = ["-None-", 'Dry Truck', 'Refer Truck', 'opentop truck']
 
@@ -42,9 +48,10 @@ export class TruckingFTL {
     this.formGroup = new FormGroup({
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
+      Status: new FormControl<string>(''),
 
       Shipping_Term: new FormControl<string>(this.default_term),
-      Incoterm: new FormControl<number|null>(null),
+      Incoterm: new FormControl<string>(this.default_term),
       Need_Insurance: new FormControl<boolean>(false),
       Value_of_Goods: new FormControl<number|null>(null),
       Dangerous_Commodity: new FormControl<boolean>(false),
@@ -68,5 +75,34 @@ export class TruckingFTL {
     RFQBody(RFQForm, item_list, this);
   }
 
+  submitStatus($event: any) {
+    this.setStatus = $event.target.id;
+  }
+
   changeStateEvent = (checked: any) => checked;
+
+  showHideShippingTerm(shippingTerm: any) {
+    return shippingTerm.value.slice(3) !== '-None-';
+  }
+
+  getIncotermValue($event: any) {
+    let value = $event.target.value.slice(3);
+
+    if (value.trim() === "-None-") {
+      this.target_value = "-None-";
+      return;
+    }
+
+    this.showPOL_POD.filter(data => {
+      value.trim() === data ? this.target_value = "POL" : "";
+    })
+
+    this.showDeliveryAddress.filter(data => {
+      value.trim() === data ? this.target_value = "DA" : "";
+    })
+
+    this.showPickupAddress.filter(data => {
+      value.trim() === data ? this.target_value = "PA" : "";
+    })
+  }
 }

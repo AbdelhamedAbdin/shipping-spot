@@ -13,6 +13,7 @@
               <th>Number of Quotations</th>
               <th>Created Date</th>
               <th>Status</th>
+              <th>Remove RFQ</th>
             </tr>
           </thead>
           <tbody>
@@ -22,6 +23,7 @@
                 <td>{{ getValueOrNone(RFQs.Number_Of_Quotations) }}</td>
                 <td>{{ $any(RFQs).Created_Time | date:'mediumDate' }}</td>
                 <td>{{ RFQs.Status }}</td>
+                <td href="#remove-rfq" class="text-danger remover font-size-md" id="{{RFQs.id}}">Delete</td>
               </tr>
               <tr *ngFor="let RFQs of rfq_list; let i = index;">
                 <td colspan="12" class="hiddenRow">

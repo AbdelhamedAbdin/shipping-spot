@@ -22,7 +22,7 @@ import {AirFreightService} from "../../interface-models/rfq_type_services/AirFre
 export class Packing {
   service_type_param: any;
   rfq_group_id: any;
-
+  setStatus: string = "";
   formGroup: any;
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
@@ -37,6 +37,7 @@ export class Packing {
     this.formGroup = new FormGroup({
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
+      Status: new FormControl<string>(''),
 
       City: new FormControl<string>(''),
     });
@@ -48,5 +49,9 @@ export class Packing {
   {
     let item_list = getItemsOrNone(RFQForm, this);
     RFQBody(RFQForm, item_list, this);
+  }
+
+  submitStatus($event: any) {
+    this.setStatus = $event.target.id;
   }
 }

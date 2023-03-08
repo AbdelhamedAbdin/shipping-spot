@@ -8,4 +8,5 @@ export interface FumigationService {
   Total_Number_of_Packages: number;
   Total_CBM: number;
   Total_Gross_weight: number;
+  Status: string;
 }

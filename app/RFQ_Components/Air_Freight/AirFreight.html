@@ -11,13 +11,13 @@
 
     <div>
       <label>Shipping Term</label>
-      <select class="form-control mb-3" formControlName="Shipping_Term">
+      <select #shippingTermField class="form-control mb-3" formControlName="Shipping_Term">
         <option *ngFor="let term of terms" [ngValue]="term">{{ term }}</option>
       </select>
     </div>
-    <div>
+    <div *ngIf="(showHideShippingTerm(shippingTermField) && shippingTermField.value.slice(3) === 'Incoterm')">
       <label>Incoterm</label>
-      <select class="form-control mb-3" formControlName="Incoterm">
+      <select (change)="getIncotermValue($event)" class="form-control mb-3" formControlName="Incoterm">
         <option *ngFor="let term of incoterms" [ngValue]="term">{{ term }}</option>
       </select>
     </div>
@@ -53,26 +53,28 @@
     </div>
 
     <div>
-      <label for="pickup_country"></label>
+      <label for="pickup_country">Pickup Country</label>
       <input id="pickup_country" type="text" placeholder="Pickup Country" class="form-control mb-3" formControlName="Pickup_Country">
     </div>
     <div>
       <label for="delivery_country">Delivery Country</label>
       <input id="delivery_country" type="text" placeholder="Delivery Country" class="form-control mb-3" formControlName="Delivery_Country">
     </div>
-    <div>
-      <label for="pickup_address">Pickup Address</label>
-      <input id="pickup_address" type="text" placeholder="Pickup Address" class="form-control mb-3" formControlName="Pickup_Address">
+    <div *ngIf="((showHideShippingTerm(shippingTermField) && shippingTermField.value.slice(3) === 'Door to Door') || target_value === 'PA')">
+      <div *ngIf="target_value !== '-None-'">
+        <label for="pickup_address">Pickup Address</label>
+        <input id="pickup_address" type="text" placeholder="Pickup Address" class="form-control mb-3" formControlName="Pickup_Address">
+      </div>
     </div>
-    <div>
+    <div *ngIf="((showHideShippingTerm(shippingTermField) && shippingTermField.value.slice(3) === 'Door to Door') || target_value === 'DA')">
       <label for="delivery_address">Delivery Address</label>
       <input id="delivery_address" type="text" placeholder="Delivery Address" class="form-control mb-3" formControlName="Delivery_Address">
     </div>
-    <div>
+    <div *ngIf="((showHideShippingTerm(shippingTermField) && shippingTermField.value.slice(3) === 'Port to Port') || target_value === 'POL')">
       <label for="pol_loading">POL Port Of Loading</label>
       <input id="pol_loading" type="text" placeholder="POL Port of Loading" class="form-control mb-3" formControlName="POL_Port_of_Loading">
     </div>
-    <div>
+    <div *ngIf="((showHideShippingTerm(shippingTermField) && shippingTermField.value.slice(3) === 'Port to Port') || target_value === 'POL')">
       <label for="pol_discharge">POL Port Of Discharge</label>
       <input id="pol_discharge" type="text" placeholder="POL Port of Discharge" class="form-control mb-3" formControlName="POD_Port_of_Discharge">
     </div>
@@ -124,7 +126,7 @@
                 <th scope="col">Add</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="!edit_mode">
               <tr class="child-form" formGroupName="child">
                 <td>
                   <input class="form-control quantities" value="0" type="number" formControlName="Quantity" placeholder="Quantity">
@@ -133,16 +135,41 @@
                   <input class="form-control length" type="number" formControlName="Length" placeholder="Length (cm)">
                 </td>
                 <td>
-                  <input class="form-control width" type="number" formControlName="Width" placeholder="Width_cm">
+                  <input class="form-control width" type="number" formControlName="Width" placeholder="Width (cm)">
                 </td>
                 <td>
-                  <input class="form-control height" type="number" formControlName="Height" placeholder="Height_cm">
+                  <input class="form-control height" type="number" formControlName="Height" placeholder="Height (cm)">
                 </td>
                 <td>
-                  <input class="form-control net-weight" type="number" formControlName="Net_Weight" placeholder="Net_Weight_kg">
+                  <input class="form-control net-weight" type="number" formControlName="Net_Weight" placeholder="Net Weight (kg)">
                 </td>
                 <td>
-                  <input class="form-control gross-weight" type="number" formControlName="Gross_Weight" placeholder="Gross_Weight_kg">
+                  <input class="form-control gross-weight" type="number" formControlName="Gross_Weight" placeholder="Gross Weight (kg)">
+                </td>
+                <td>
+                  <button id="1" type="button" class="add-btn btn btn-primary">+</button>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="edit_mode">
+              <tr *ngFor="let item of item_list; let i = index;" class="child-form" formGroupName="child">
+                <td>
+                  <input [ngModel]="item.Quantity" class="form-control quantities" value="0" type="number" formControlName="Quantity" placeholder="Quantity">
+                </td>
+                <td>
+                  <input [ngModel]="item.Length" class="form-control length" type="number" formControlName="Length" placeholder="Length (cm)">
+                </td>
+                <td>
+                  <input [ngModel]="item.Width" class="form-control width" type="number" formControlName="Width" placeholder="Width (cm)">
+                </td>
+                <td>
+                  <input [ngModel]="item.Height" class="form-control height" type="number" formControlName="Height" placeholder="Height (cm)">
+                </td>
+                <td>
+                  <input [ngModel]="item.Net_Weight" class="form-control net-weight" type="number" formControlName="Net_Weight" placeholder="Net Weight (kg)">
+                </td>
+                <td>
+                  <input [ngModel]="item.Gross_Weight" class="form-control gross-weight" type="number" formControlName="Gross_Weight" placeholder="Gross Weight (kg)">
                 </td>
                 <td>
                   <button id="1" type="button" class="add-btn btn btn-primary">+</button>
@@ -152,7 +179,9 @@
         </table>
       </div>
     </div>
+    <input [ngModel]="setStatus" type="hidden" formControlName="Status">
 
-    <input type="submit" class="btn btn-outline-primary">
+    <button (click)="submitStatus($event)" type="submit" id="New" class="btn btn-primary d-inline-block">Create</button>
+    <button (click)="submitStatus($event)" type="submit" id="Draft" class="btn btn-outline-dark d-inline-block ml-3">Draft</button>
   </div>
 </form>

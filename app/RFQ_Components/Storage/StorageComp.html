@@ -81,6 +81,9 @@
       </div>
     </div>
 
-    <input type="submit" class="btn btn-outline-primary">
+    <input [ngModel]="setStatus" type="hidden" formControlName="Status">
+
+    <button (click)="submitStatus($event)" type="submit" id="New" class="btn btn-primary d-inline-block">Create</button>
+    <button (click)="submitStatus($event)" type="submit" id="Draft" class="btn btn-outline-dark d-inline-block ml-3">Draft</button>
   </div>
 </form>

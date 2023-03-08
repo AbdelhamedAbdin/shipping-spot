@@ -15,6 +15,7 @@ export interface ClearanceService {
   CBM?: number;
   Shipment_Gross_Weight_kg?: number;
   Number_of_Trucks?: number; // land
+  Status: string;
 }
 
 export function ServiceModeData()

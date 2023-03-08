@@ -31,7 +31,8 @@ export class Clearance {
   Landports: Array<string> = ["-None-", "option2"];
   Seaports: Array<string> = ["-None-", 'Portsaid East Port', 'Portsaid West Port', 'Damietta Port', 'Suez Port', 'Adabiya Port'];
   // children
-  container_types: Array<string> = ["-None-", "Option1", "Option2"]
+  container_types: Array<string> = ["-None-", "Option1", "Option2"];
+  setStatus: string = "";
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -45,6 +46,7 @@ export class Clearance {
     this.formGroup = new FormGroup({
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
+      Status: new FormControl<string>(''),
 
       HS_Code: new FormControl<number|null>(null),
       Service_Operation: new FormControl<string>(this.default_term),
@@ -68,5 +70,9 @@ export class Clearance {
   {
     let item_list = getItemsOrNone(RFQForm, this);
     RFQBody(RFQForm, item_list, this);
+  }
+
+  submitStatus($event: any) {
+    this.setStatus = $event.target.id;
   }
 }

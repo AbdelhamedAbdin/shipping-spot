@@ -1,0 +1,18 @@
+.total-table input:focus {
+  box-shadow: none;
+}
+.total-table input {
+  border: none;
+  border-bottom: 2px solid #747474;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

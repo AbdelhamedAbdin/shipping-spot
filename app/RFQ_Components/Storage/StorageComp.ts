@@ -24,6 +24,7 @@ import {ResetValues} from "../events";
 export class StorageComp {
   service_type_param: any;
   rfq_group_id: any;
+  setStatus: string = "";
 
   formGroup: any;
   default_term: string = "-None-";
@@ -42,6 +43,7 @@ export class StorageComp {
     this.formGroup = new FormGroup({
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
+      Status: new FormControl<string>(''),
 
       Space_Type: new FormControl<string>(this.default_term),
       Storage_Type: new FormControl<string>(this.default_term),
@@ -70,5 +72,9 @@ export class StorageComp {
   triggerEvent(value: any, input: any) {
     input.value = ResetValues(value);
     return input.value;
+  }
+
+  submitStatus($event: any) {
+    this.setStatus = $event.target.id;
   }
 }

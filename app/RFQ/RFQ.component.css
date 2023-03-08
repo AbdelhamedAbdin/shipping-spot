@@ -12,3 +12,9 @@
   height: 100%;
   background-color: transparent;
 }
+.remover {
+  font-weight: bold;
+}
+.remover:hover {
+  cursor: pointer;
+}

@@ -17,4 +17,5 @@ export interface StorageService {
   Total_Gross_weight: number;
   Total_CBM: number;
   Total_Chargeable_CBM: number;
+  Status: string;
 }

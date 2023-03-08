@@ -4,4 +4,5 @@ export interface PackingService {
   Note?: string;
   // Details
   City: string;
+  Status: string;
 }

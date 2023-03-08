@@ -5,4 +5,5 @@ export interface HandlingEquipmentService {
   // Details
   Address: string;
   Time_Needed_hours: number;
+  Status: string;
 }

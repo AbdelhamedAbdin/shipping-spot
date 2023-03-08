@@ -22,6 +22,7 @@ import {AddRemoveItems} from "../add_remove_items";
 export class Insurance {
   service_type_param: any;
   rfq_group_id: any;
+  setStatus: string = "";
 
   formGroup: any;
   default_term: string = "-None-";
@@ -43,6 +44,7 @@ export class Insurance {
     this.formGroup = new FormGroup({
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
+      Status: new FormControl<string>(''),
 
       Shipping_Mode: new FormControl<string>(this.default_term),
       Country_of_Origin: new FormControl<string>(this.default_term),
@@ -59,5 +61,9 @@ export class Insurance {
   {
     let item_list = getItemsOrNone(RFQForm, this);
     RFQBody(RFQForm, item_list, this);
+  }
+
+  submitStatus($event: any) {
+    this.setStatus = $event.target.id;
   }
 }

@@ -66,7 +66,6 @@ export class RFQComponent implements OnInit {
     // Get List of RFQs
     this.getRFQRecords().subscribe((res) => {
       this.rfq_list = res['data'];
-      console.log(res["data"]);
     })
   }
 
@@ -75,7 +74,7 @@ export class RFQComponent implements OnInit {
   }
 
   getRFQRecords() {
-    const search_records = this.SearchRecords.GetRecordByID(`search?criteria=(Client:equals:${this.account_id})`)
+    const search_records = this.SearchRecords.GetRecordByID(`search?criteria=((Client:equals:${this.account_id})and(Status:not_equal:Draft)and(Status:not_equal:Archived))`)
     return search_records;
   }
 
@@ -142,5 +141,4 @@ export class RFQComponent implements OnInit {
     }
     return "******";
   }
-
 }

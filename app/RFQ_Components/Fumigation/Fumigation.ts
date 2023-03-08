@@ -23,6 +23,7 @@ import {DimensionalWeight, grossWeight, numberOfPKGs} from "../../RFQ/Total_Calc
 export class Fumigation {
   service_type_param: any;
   rfq_group_id: any;
+  setStatus: string = "";
 
   formGroup: any;
 
@@ -38,6 +39,7 @@ export class Fumigation {
     this.formGroup = new FormGroup({
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
+      Status: new FormControl<string>(''),
 
       City: new FormControl<string>(''),
     });
@@ -52,5 +54,9 @@ export class Fumigation {
     RFQForm.Total_Gross_weight = grossWeight(item_list);
     RFQForm.Total_CBM = DimensionalWeight(item_list, 1000000);
     RFQBody(RFQForm, item_list, this);
+  }
+
+  submitStatus($event: any) {
+    this.setStatus = $event.target.id;
   }
 }

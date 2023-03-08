@@ -38,6 +38,38 @@
       <input id="delivery_address" type="text" placeholder="Delivery Address" class="form-control mb-3" formControlName="Delivery_Address">
     </div>
 
+    <!-- Display Totals in Realtime -->
+    <table *ngIf="choose_truck.value.slice(3) === 'Enter Shipment Details'" class="table text-center total-table">
+      <thead>
+        <tr>
+          <th scope="col">Total Number of Packages</th>
+          <th scope="col">Total Dimensional Weight</th>
+          <th scope="col">Total Net Weight</th>
+          <th scope="col">Total Gross Weight</th>
+          <th scope="col">Total Chargeable Weight</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <input value="0" class="form-control" type="text" readonly id="total-quantity">
+        </td>
+        <td>
+          <input value="0" class="form-control" type="text" readonly id="total-dimensional">
+        </td>
+        <td>
+          <input value="0" class="form-control" type="text" readonly id="total-net-weight">
+        </td>
+        <td>
+          <input value="0" class="form-control" type="text" readonly id="total-gross-weight">
+        </td>
+        <td>
+          <input value="0" class="form-control" type="text" readonly id="total-chargeable-weight">
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
     <!-- Nested Items -->
     <div class="childs">
       <!-- Shipment Details -->
@@ -57,22 +89,22 @@
             <tbody>
               <tr class="child-form" formGroupName="child">
                 <td>
-                  <input class="form-control" type="number" formControlName="Quantity" placeholder="Quantity">
+                  <input class="form-control quantities" value="0" type="number" formControlName="Quantity" placeholder="Quantity">
                 </td>
                 <td>
-                  <input class="form-control" type="number" formControlName="Length" placeholder="Length (cm)">
+                  <input class="form-control length" type="number" formControlName="Length" placeholder="Length (cm)">
                 </td>
                 <td>
-                  <input class="form-control" type="number" formControlName="Width" placeholder="Width_cm">
+                  <input class="form-control width" type="number" formControlName="Width" placeholder="Width (cm)">
                 </td>
                 <td>
-                  <input class="form-control" type="number" formControlName="Height" placeholder="Height_cm">
+                  <input class="form-control height" type="number" formControlName="Height" placeholder="Height (cm)">
                 </td>
                 <td>
-                  <input class="form-control" type="number" formControlName="Net_Weight" placeholder="Net_Weight_kg">
+                  <input class="form-control net-weight" type="number" formControlName="Net_Weight" placeholder="Net Weight (kg)">
                 </td>
                 <td>
-                  <input class="form-control" type="number" formControlName="Gross_Weight" placeholder="Gross_Weight_kg">
+                  <input class="form-control gross-weight" type="number" formControlName="Gross_Weight" placeholder="Gross Weight (kg)">
                 </td>
                 <td>
                   <button id="1" type="button" class="add-btn btn btn-primary">+</button>
@@ -83,6 +115,9 @@
       </div>
     </div>
 
-    <input type="submit" class="btn btn-outline-primary">
+    <input [ngModel]="setStatus" type="hidden" formControlName="Status">
+
+    <button (click)="submitStatus($event)" type="submit" id="New" class="btn btn-primary d-inline-block">Create</button>
+    <button (click)="submitStatus($event)" type="submit" id="Draft" class="btn btn-outline-dark d-inline-block ml-3">Draft</button>
   </div>
 </form>

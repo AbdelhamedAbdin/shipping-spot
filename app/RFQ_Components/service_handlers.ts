@@ -46,12 +46,15 @@ export function getItemsOrNone(RFQForm: any, $this: any, hasItem: boolean = true
 }
 
 // RFQ Structure
-export function RFQBody(RFQForm: any, item_list: any, $this: any) {
+export function RFQBody(RFQForm: any, item_list: any, $this: any,
+                        edited: boolean=false, RFQ_ID: string="") {
   let user_type = new userLogged().parseStorage(localStorage).UserType;
   let user_id = new userLogged().parseStorage(localStorage).AccountID;
 
   let _body = {
     Module: "RFQs",
+    ID: RFQ_ID,
+    Method: "PUT",
     data: {
       Service_Type: $this.service_type_param,
       RFQ_Group: {
@@ -59,7 +62,6 @@ export function RFQBody(RFQForm: any, item_list: any, $this: any) {
       },
       ...RFQForm,
       User_Type: user_type,
-      Status: "New",
       Client: user_id
     },
     Lookup_name_in_module_related: "RFQ",
@@ -67,9 +69,29 @@ export function RFQBody(RFQForm: any, item_list: any, $this: any) {
     data_related: item_list
   }
 
-  console.log(_body);
+  if (!edited) {
+    console.log("New Record");
+    // @ts-ignore
+    delete _body.ID;
+    // @ts-ignore
+    delete _body.Method;
+    $this.RFQService.NewRecord(_body).subscribe((res: any) => {
+      console.log("Status (201) OK: ", res)
+    }, (error: any) => {console.log("Status (400): ", error)}, () => {
+      $this.router.navigate(["/"]);
+    });
+  } else {
+    console.log("Update Record");
+    let status_type = _body.data.Status;
 
-  $this.RFQService.NewRecord(_body).subscribe((res: any) => {
-    console.log("Status (201) OK: ", res)
-  }, (error: any) => {console.log("Status (400): ", error)});
+    $this.UpdateRFQ.GetRecordByBody(_body).subscribe((res: any) => {
+      console.log(res);
+    });
+
+    if (status_type === "New") {
+      $this.router.navigate(["/"]);
+    } else {
+      $this.router.navigate(["/", "draft"]);
+    }
+  }
 }

@@ -16,4 +16,5 @@ export interface DomesticTruckingService {
   Total_Gross_weight: number;
   Total_Net_Weight: number;
   Total_Chargeable_CBM: number;
+  Status: string;
 }

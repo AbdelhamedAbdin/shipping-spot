@@ -8,6 +8,10 @@ import {DomesticCourierService} from "../../interface-models/rfq_type_services/D
 import {AirFreightService} from "../../interface-models/rfq_type_services/AirFreight";
 import {AddRemoveItems} from "../add_remove_items";
 import {compareWeights, DimensionalWeight, grossWeight, netWeight, numberOfPKGs} from "../../RFQ/Total_Calculations";
+import {TotalQuantity} from "../../RFQ/Total_Quantity_Event";
+import {TotalDimensionalWeight} from "../../RFQ/Total_Dimensional_Weight";
+import {TotalNetWeight} from "../../RFQ/Total_Net_Weight";
+import {TotalGrossWeight} from "../../RFQ/Total_Gross_Weight";
 
 
 @Injectable({
@@ -17,13 +21,14 @@ import {compareWeights, DimensionalWeight, grossWeight, netWeight, numberOfPKGs}
 @Component({
   selector: 'app-domestic-courier',
   templateUrl: './DomesticCourier.html',
-  styleUrls: []
+  styleUrls: ["./DomesticCourier.css"]
 })
 
 export class DomesticCourier {
   service_type_param: any;
   rfq_group_id: any;
   formGroup: any;
+  setStatus: string = "";
 
   constructor(private RFQService: RFQsService, private currentRoute: ActivatedRoute) {
     selectServiceType(this);
@@ -37,6 +42,7 @@ export class DomesticCourier {
     this.formGroup = new FormGroup({
       Commodity: new FormControl<string>('', [ Validators.required ]),
       Note: new FormControl<string>(''),
+      Status: new FormControl<string>(''),
 
       Pickup_Country: new FormControl<string>(''),
       Delivery_Country: new FormControl<string>(''),
@@ -45,6 +51,13 @@ export class DomesticCourier {
     });
 
     new AddRemoveItems().windowButtons();
+  }
+
+  ngOnInit() {
+    new TotalQuantity().listenToChangeEvent();
+    new TotalDimensionalWeight(5000).listenToChangeEvent();
+    new TotalNetWeight().listenToChangeEvent();
+    new TotalGrossWeight().listenToChangeEvent();
   }
 
   createRFQ(RFQForm: DomesticCourierService)
@@ -56,5 +69,9 @@ export class DomesticCourier {
     RFQForm.Total_Gross_weight = grossWeight(item_list);
     RFQForm.Total_Chargeable_Weight = compareWeights(RFQForm.Total_Gross_weight, RFQForm.Total_Dimensional_Weight);
     RFQBody(RFQForm, item_list, this);
+  }
+
+  submitStatus($event: any) {
+    this.setStatus = $event.target.id;
   }
 }

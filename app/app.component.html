@@ -121,6 +121,16 @@
                     <fa-icon [icon]="svg_icon.faPaperPlane"></fa-icon>&nbsp; Follow Requests
                 </a>
             </li>
+            <li>
+                <a [routerLink]="['/draft']">
+                    <fa-icon [icon]="svg_icon.faPenRuler"></fa-icon>&nbsp; Draft
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/archived']">
+                    <fa-icon [icon]="svg_icon.faFolderMinus"></fa-icon>&nbsp; Archived
+                </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -174,3 +184,5 @@
 <app-page-title class="app-page-title"></app-page-title>
 
 <app-spinner></app-spinner>
+
+<app-page-remove-rfq></app-page-remove-rfq>

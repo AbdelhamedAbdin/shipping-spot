@@ -80,7 +80,7 @@ export class CRMRecordsService extends CRMBridgeService{
     this.crmURL=this.BaseURL+"/"+recordID;
     this.crmMethod="DELETE";
     this.UpdatePostData();
-    this.DataSync();
+    return this.DataSync();
   }
   GetRecordImageURL(recordID:string)
   {

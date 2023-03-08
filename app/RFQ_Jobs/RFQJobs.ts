@@ -62,7 +62,7 @@ export class RFQJobs implements OnInit {
 
     let payloads: any = {
       "ID": this.account_id,
-      "Fields": ["Service_Type","Shipping_Term", "Commodity", "id"],
+      "Fields": ["Service_Type","Shipping_Term", "Commodity", "id", "Status"],
       "Page": this.page,
       "Per_Page": 3,
       "sort_by": "Created_Time",

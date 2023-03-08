@@ -51,6 +51,9 @@ import {FollowRequests} from "./RFQ_Jobs/Follow_Requests/FollowRequests";
 import {HeaderComponent} from "./Auth/header/Header";
 import {SpinnerComponent} from "./popup/spinner/Spinner.component";
 import {FlashComponent} from "./flash_message/Flash.component";
+import {DraftComponent} from "./Draft/Draft.component";
+import {RemoveRFQComponent} from "./popup/remove-rfq/removeRFQ.component";
+import {ArchivedComponent} from "./Archived/Archived.component";
 
 @NgModule({
   declarations: [
@@ -107,7 +110,12 @@ import {FlashComponent} from "./flash_message/Flash.component";
     // Popup
     PageTitleComponent,
     SpinnerComponent,
-    FlashComponent
+    FlashComponent,
+    RemoveRFQComponent,
+    // Draft
+    DraftComponent,
+    // Archived
+    ArchivedComponent
   ],
   imports: [
     BrowserModule,
